@@ -1,4 +1,5 @@
-const URL = "http://localhost:8000/api/today"
+const LOCAL = "http://localhost:8000/api/today"
+const URL = "https://workout-today-backend.herokuapp.com/api/today"
 
 const getTodaysWorkout = async () => {
   try {
