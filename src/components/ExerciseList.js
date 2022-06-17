@@ -6,22 +6,30 @@ import Exercise from './exercise/Exercise';
 import Timer from './Timer';
 
 const ExerciseList = () => {
+  const [currentIdx, setCurrentIdx] = useState(0)
   const { workout } = useContext(WorkoutContext)
 
+  const updateIdx = (direction) => {
+    if (direction === "left") {
+      setCurrentIdx(currentIdx - 1)
+    } else if (direction === "right") {
+      setCurrentIdx(currentIdx + 1)
+    }
+  }
 
   const displayExercises = () => {
     return workout.map((exercise, idx) => {
       return (
-          <Exercise key={idx+1} exercise={exercise} totalExercises={workout.length} />
+          <Exercise key={idx+1} idx={idx} exercise={exercise} totalExercises={workout.length} onClick={updateIdx} isVisible={currentIdx === idx} />
         )
     })
   }
 
   return (
     <div>
-      <Carousel emulateTouch showThumbs={false} showStatus={false}>
+      <div>
         { workout && displayExercises() }
-      </Carousel>
+      </div>
     </div>
   );
 };
