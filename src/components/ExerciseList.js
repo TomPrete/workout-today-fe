@@ -5,6 +5,7 @@ import { WorkoutContext } from '../contexts/WorkoutContext';
 import Exercise from './exercise/Exercise';
 import Timer from './Timer';
 
+
 const ExerciseList = () => {
   const [currentIdx, setCurrentIdx] = useState(0)
   const { workout } = useContext(WorkoutContext)
@@ -18,17 +19,24 @@ const ExerciseList = () => {
   }
 
   const displayExercises = () => {
-    return workout.map((exercise, idx) => {
+    return workout['exercises'].map((exercise, idx) => {
       return (
-          <Exercise key={idx+1} idx={idx} exercise={exercise} totalExercises={workout.length} onClick={updateIdx} isVisible={currentIdx === idx} />
+          <Exercise key={idx+1} idx={idx} exercise={exercise} totalExercises={workout['exercises'].length} onClick={updateIdx} isVisible={currentIdx === idx} />
         )
     })
   }
 
+  if (workout['error']) {
+    return (
+      <div>
+        There was an error
+      </div>
+    )
+  }
   return (
     <div>
       <div>
-        { workout && displayExercises() }
+        { workout['exercises'].length > 0 && displayExercises() }
       </div>
     </div>
   );

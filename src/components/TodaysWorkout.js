@@ -2,13 +2,16 @@ import React from 'react';
 import ExerciseList from './ExerciseList';
 import Timer from './Timer';
 import {currentDay, getDate} from '../helpers/dateHelpers';
+import WorkoutContextProvider from '../contexts/WorkoutContext';
 
 const TodaysWorkout = () => {
   return (
     <div>
-      <p>{ `${currentDay()}, ${getDate()}` }</p>
-      {/*<Timer />*/}
-      <ExerciseList />
+      <WorkoutContextProvider>
+        <p>{ `${currentDay()}, ${getDate()}` }</p>
+        {/*<Timer />*/}
+        <ExerciseList />
+      </WorkoutContextProvider>
     </div>
   );
 };

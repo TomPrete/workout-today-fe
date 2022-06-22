@@ -5,11 +5,18 @@ import { getTodaysWorkout } from '../api/WorkoutAPI'
 export const WorkoutContext = createContext()
 
 const WorkoutContextProvider = (props) => {
-  const [workout, dispatch] = useReducer(workoutReducer, [])
+  const [workout, dispatch] = useReducer(workoutReducer, {
+    'exercises': [],
+    'error': false,
+  })
 
   const fetchTodaysWorkout = async () => {
     let workout = await getTodaysWorkout()
-    dispatch({type: 'GET_EXERCISES', workout})
+    if (workout['error']) {
+      dispatch({type: 'GET_EXERCISES_FAILURE', workout})
+    } else {
+      dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
+    }
   }
 
   useEffect(() => {
