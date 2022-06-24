@@ -3,6 +3,7 @@ export const workoutReducer = (state, action) => {
     case 'GET_EXERCISES_SUCCESS':
       return {
         'exercises': action.workout['exercises'],
+        'target': action.workout['workout_target'],
         'error': false,
       }
     case 'GET_EXERCISES_FAILURE':

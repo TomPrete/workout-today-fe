@@ -1,0 +1,17 @@
+.workout-header {
+  display: grid;
+  grid-template-columns: 20% auto 20%;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  padding: 18px;
+  background-color: #4158F0;
+  color: #fff;
+}
+
+.date {
+  align-self: center;
+}

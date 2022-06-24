@@ -8,18 +8,21 @@ import {
   Route,
 } from "react-router-dom";
 import HomePage from './components/HomePage';
-import TodaysWorkout from './components/TodaysWorkout';
+import TodaysWorkout from './components/todaysWorkout/TodaysWorkout';
+import WorkoutContextProvider from './contexts/WorkoutContext';
 
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path='/today' element={<TodaysWorkout />} />
-          </Routes>
-      </BrowserRouter>
+      <WorkoutContextProvider>
+        <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path='/today' element={<TodaysWorkout />} />
+            </Routes>
+        </BrowserRouter>
+      </WorkoutContextProvider>
     </div>
   );
 }
