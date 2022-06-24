@@ -1,4 +1,4 @@
-const development = true
+const development = false
 const URL = development ? "http://localhost:8000/api" : "https://workout-today-backend.herokuapp.com/api"
 
 const getTodaysWorkout = async () => {
