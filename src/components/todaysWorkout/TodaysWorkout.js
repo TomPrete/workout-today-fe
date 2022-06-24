@@ -17,11 +17,11 @@ const TodaysWorkout = () => {
   const displayWorkoutTarget = () => {
     if (workout['target'].length === 3) {
       return (
-        `${capitalizeFirstLetter(workout['target'][0])}, ${capitalizeFirstLetter(workout['target'][1])} and ${capitalizeFirstLetter(workout['target'][2])}`
+        `${capitalizeFirstLetter(workout['target'][0])}, ${capitalizeFirstLetter(workout['target'][1])} & ${capitalizeFirstLetter(workout['target'][2])}`
         )
       }
       return (
-      `${capitalizeFirstLetter(workout['target'][0])} and ${capitalizeFirstLetter(workout['target'][1])}`
+      `${capitalizeFirstLetter(workout['target'][0])} & ${capitalizeFirstLetter(workout['target'][1])}`
     )
   }
 
