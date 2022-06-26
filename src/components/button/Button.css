@@ -1,0 +1,43 @@
+.button {
+}
+
+.button-container .Start {
+  background-color: #37B6F8;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  height: 40px;
+  width: 20%;
+}
+
+.button-container .Start:hover {
+  cursor: pointer;
+}
+
+.button-container .Start:active {
+  cursor: grabbing;
+}
+
+.button-container {
+  height: 100%;
+
+}
+
+.button-container .Finish {
+  background-color: #F05966;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  height: 100%;
+  width: 95%;
+}
+
+.button-container .Finish:hover {
+  cursor: pointer;
+}
+
+.button-container .Finish:active {
+  cursor: grabbing;
+}

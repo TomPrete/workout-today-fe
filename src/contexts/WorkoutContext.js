@@ -25,7 +25,7 @@ const WorkoutContextProvider = (props) => {
 
   return (
     <WorkoutContext.Provider value={{workout, dispatch}}>
-      {props.children}
+      { props.children }
     </WorkoutContext.Provider>
   )
 }

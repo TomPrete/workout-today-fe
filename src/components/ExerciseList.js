@@ -4,24 +4,47 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { WorkoutContext } from '../contexts/WorkoutContext';
 import Exercise from './exercise/Exercise';
 import Timer from './Timer';
+import Modal from './modal/Modal';
+import SubscribeEmail from './signup/SubscribeEmail';
+import { ModalContext } from '../contexts/ModalContext';
 
-
-const ExerciseList = () => {
+const ExerciseList = (props) => {
+  const { changeWorkoutStatus } = props
   const [currentIdx, setCurrentIdx] = useState(0)
+  const [showModal, setShowModal] = useState(false)
   const { workout } = useContext(WorkoutContext)
+  const { modal } = useContext(ModalContext)
 
   const updateIdx = (direction) => {
     if (direction === "left") {
       setCurrentIdx(currentIdx - 1)
     } else if (direction === "right") {
       setCurrentIdx(currentIdx + 1)
+      if (currentIdx === 10) {
+        console.log(currentIdx)
+        setShowModal(true)
+      }
     }
   }
+
+  const closeModal = () => {
+    setShowModal(false)
+  }
+
 
   const displayExercises = () => {
     return workout['exercises'].map((exercise, idx) => {
       return (
-          <Exercise key={idx+1} idx={idx} exercise={exercise} totalExercises={workout['exercises'].length} onClick={updateIdx} isVisible={currentIdx === idx} />
+          <Exercise
+            key={idx+1}
+            idx={idx}
+            exercise={exercise}
+            totalExercises={workout['exercises'].length}
+            onClick={updateIdx}
+            isVisible={currentIdx === idx}
+            changeWorkoutStatus={changeWorkoutStatus}
+            closeModal={closeModal}
+            />
         )
     })
   }
@@ -38,6 +61,13 @@ const ExerciseList = () => {
       <div>
         { workout['exercises'].length > 0 && displayExercises() }
       </div>
+      {/*{
+        showModal
+        &&
+        <Modal closeModal={closeModal} >
+          <SubscribeEmail />
+        </Modal>
+      }*/}
     </div>
   );
 };

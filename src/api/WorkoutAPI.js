@@ -12,13 +12,14 @@ const getTodaysWorkout = async () => {
   }
 }
 
-const startWorkout = async () => {
+const submitWorkoutStatus = async (status) => {
   try {
     let response = await fetch(`${URL}/start-workout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
+      body: JSON.stringify(status)
     })
     let data = await response.json()
     return data
@@ -30,5 +31,5 @@ const startWorkout = async () => {
 
 export {
   getTodaysWorkout,
-  startWorkout
+  submitWorkoutStatus
 }

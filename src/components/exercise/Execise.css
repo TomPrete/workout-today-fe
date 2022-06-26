@@ -48,6 +48,13 @@
   transform: rotate(180deg);
 }
 
+.exercise-finish {
+  align-self: stretch;
+  grid-column-start: 3;
+  grid-row-start: 2;
+  justify-self: stretch;
+}
+
 .arrow {
   height: 50px;
   width: auto;
