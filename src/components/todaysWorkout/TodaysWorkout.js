@@ -10,26 +10,6 @@ const TodaysWorkout = () => {
   const [workoutStatus, setWorkoutStatus] = useState(false)
   const { workout } = useContext(WorkoutContext)
 
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  const displayWorkoutTarget = () => {
-    if (workout['target'].length === 3) {
-      return (
-        `${capitalizeFirstLetter(workout['target'][0])}, ${capitalizeFirstLetter(workout['target'][1])} & ${capitalizeFirstLetter(workout['target'][2])}`
-      )
-    } else if (workout['target'].length === 2) {
-      return (
-        `${capitalizeFirstLetter(workout['target'][0])} & ${capitalizeFirstLetter(workout['target'][1])}`
-      )
-    } else {
-      return (
-        capitalizeFirstLetter(workout['target'][0])
-      )
-    }
-  }
-
   useEffect(() => {
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
       setWorkoutStatus(localStorage.getItem('workoutStatus'))
@@ -46,7 +26,7 @@ const TodaysWorkout = () => {
   return (
     <div>
       <div className='workout-header'>
-        <p className='title'>{workout['target'] && displayWorkoutTarget()}</p>
+        <p className='title'>{workout['target'] && workout['target']}</p>
         <p className='date'>{`${currentDay()}, ${getDate()}`}</p>
         <p>Calender</p>
       </div>

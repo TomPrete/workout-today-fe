@@ -4,6 +4,7 @@ export const workoutReducer = (state, action) => {
       return {
         'exercises': action.workout['exercises'],
         'target': action.workout['workout_target'],
+        'rounds': action.workout['rounds'],
         'error': false,
       }
     case 'GET_EXERCISES_FAILURE':
