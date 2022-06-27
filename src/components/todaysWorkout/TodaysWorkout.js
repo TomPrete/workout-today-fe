@@ -19,7 +19,7 @@ const TodaysWorkout = () => {
       return (
         `${capitalizeFirstLetter(workout['target'][0])}, ${capitalizeFirstLetter(workout['target'][1])} & ${capitalizeFirstLetter(workout['target'][2])}`
       )
-    } else if (workout['target'].length === 3) {
+    } else if (workout['target'].length === 2) {
       return (
         `${capitalizeFirstLetter(workout['target'][0])} & ${capitalizeFirstLetter(workout['target'][1])}`
       )
