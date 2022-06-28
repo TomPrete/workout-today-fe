@@ -35,4 +35,9 @@
   .date {
     font-size: 8px;
   }
+
+  .rounds {
+    font-size: 14px;
+    padding: 0 10px;
+  }
 }
