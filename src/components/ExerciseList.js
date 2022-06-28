@@ -45,7 +45,6 @@ const ExerciseList = (props) => {
             changeWorkoutStatus={changeWorkoutStatus}
             closeModal={closeModal}
             nextExercise={workout['exercises'].length > idx+1 ? workout['exercises'][idx+1] : null}
-            rounds={workout['rounds']}
             />
         )
     })

@@ -6,13 +6,12 @@ import Modal from '../modal/Modal';
 import SubscribeEmail from '../signup/SubscribeEmail';
 
 const Exercise = (props) => {
-  const { exercise, totalExercises, onClick, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise, rounds } = props;
+  const { exercise, totalExercises, onClick, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise } = props;
 
   // console.log(nextExercise)
   if (isVisible) {
     return (
       <div className="exercise-container">
-      <h3>{`x${rounds} Round${rounds > 1 ? 's' : ''}`}</h3>
        { idx !== 0 && <img className="exercise-left-arrow arrow" onClick={() => onClick('left')} src={leftArrow} alt='workout' />}
         <p id="exercise-active">{exercise.order} / {totalExercises}</p>
         <p id="exercise-name">{exercise.name}</p>

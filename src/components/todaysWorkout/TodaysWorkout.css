@@ -12,6 +12,27 @@
   color: #fff;
 }
 
-.date {
+.date-container {
   align-self: center;
+}
+
+.weekday {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.date {
+  font-size: 12px;
+}
+
+.rounds {
+  align-self: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 450px) {
+  .date {
+    font-size: 8px;
+  }
 }

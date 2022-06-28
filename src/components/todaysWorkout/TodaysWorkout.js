@@ -26,9 +26,12 @@ const TodaysWorkout = () => {
   return (
     <div>
       <div className='workout-header'>
+        <div className='date-container'>
+          <div className='weekday'>{ currentDay() }</div>
+          <div className='date'>{ getDate() }</div>
+        </div>
         <p className='title'>{workout['target'] && workout['target']}</p>
-        <p className='date'>{`${currentDay()}, ${getDate()}`}</p>
-        <p>Calender</p>
+        <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       {/*<Timer />*/}
       <ExerciseList changeWorkoutStatus={changeWorkoutStatus} />
