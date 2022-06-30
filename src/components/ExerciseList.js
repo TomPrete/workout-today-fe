@@ -9,7 +9,7 @@ import SubscribeEmail from './signup/SubscribeEmail';
 import { ModalContext } from '../contexts/ModalContext';
 
 const ExerciseList = (props) => {
-  const { changeWorkoutStatus } = props
+  const { changeWorkoutStatus, showAbWorkout } = props
   const [currentIdx, setCurrentIdx] = useState(0)
   const [showModal, setShowModal] = useState(false)
   const { workout } = useContext(WorkoutContext)
@@ -33,6 +33,23 @@ const ExerciseList = (props) => {
 
 
   const displayExercises = () => {
+    if (showAbWorkout) {
+      return workout['ab_exercises'].map((exercise, idx) => {
+        return (
+            <Exercise
+              key={idx+1}
+              idx={idx}
+              exercise={exercise}
+              totalExercises={workout['exercises'].length}
+              onClick={updateIdx}
+              isVisible={currentIdx === idx}
+              changeWorkoutStatus={changeWorkoutStatus}
+              closeModal={closeModal}
+              nextExercise={workout['exercises'].length > idx+1 ? workout['exercises'][idx+1] : null}
+              />
+          )
+      })
+    }
     return workout['exercises'].map((exercise, idx) => {
       return (
           <Exercise

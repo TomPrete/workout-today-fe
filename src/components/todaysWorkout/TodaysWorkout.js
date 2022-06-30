@@ -5,9 +5,11 @@ import { WorkoutContext } from '../../contexts/WorkoutContext';
 import './TodaysWorkout.css'
 import { submitWorkoutStatus } from '../../api/WorkoutAPI'
 import Button from '../button/Button'
+// import ProgressBar from '../progress-bar/ProgressBar';
 
 const TodaysWorkout = () => {
   const [workoutStatus, setWorkoutStatus] = useState(false)
+  const [showAbWorkout, setShowAbWorkout] = useState(false)
   const { workout } = useContext(WorkoutContext)
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const TodaysWorkout = () => {
         <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       {/*<Timer />*/}
-      <ExerciseList changeWorkoutStatus={changeWorkoutStatus} />
+      <ExerciseList changeWorkoutStatus={changeWorkoutStatus} showAbWorkout={showAbWorkout} />
       {
         workoutStatus !== 'finished'
           && workoutStatus == 'started'
