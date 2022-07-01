@@ -30,6 +30,7 @@ const Exercise = (props) => {
           :
           <div className="exercise-finish">
             <Button
+              className='finish'
               title="Finish"
               onClick={() => changeWorkoutStatus('finished')}
               />
