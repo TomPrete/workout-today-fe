@@ -5,8 +5,6 @@ export const ModalContext = createContext()
 
 const ModalContextProvider = (props) => {
   const [modal, dispatch] = useReducer(modalReducer)
-
-
   return (
     <ModalContext.Provider value={{modal, dispatch}}>
       { props.children }

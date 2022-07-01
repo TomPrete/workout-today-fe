@@ -7,11 +7,17 @@ export const workoutReducer = (state, action) => {
         'rounds': action.workout['rounds'],
         'ab_exercises': action.workout['ab_exercises'],
         'error': false,
+        'loading': false
       }
     case 'GET_EXERCISES_FAILURE':
       return {
         'exercises': [],
         'error': true,
+        'loading': false
+      }
+    case 'LOADING':
+      return {
+        'loading': true
       }
     default:
       return state

@@ -5,6 +5,7 @@ import { WorkoutContext } from '../../contexts/WorkoutContext';
 import './TodaysWorkout.css'
 import { submitWorkoutStatus } from '../../api/WorkoutAPI'
 import Button from '../button/Button'
+import Loading from '../loading/Loading';
 // import ProgressBar from '../progress-bar/ProgressBar';
 
 const TodaysWorkout = () => {
@@ -23,6 +24,12 @@ const TodaysWorkout = () => {
     localStorage.setItem('workoutDate', getDate())
     setWorkoutStatus(localStorage.getItem('workoutStatus'))
     let response = await submitWorkoutStatus(status)
+  }
+
+  if (workout['loading']) {
+    return (
+      <Loading />
+    )
   }
 
   return (
