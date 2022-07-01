@@ -31,7 +31,20 @@
   font-weight: 600;
 }
 
+.workout-bottom {
+  display: grid;
+  grid-template-columns: 20% auto 20%;
+}
+
+.ab-button {
+  border: none;
+}
+
 @media only screen and (max-width: 450px) {
+  .weekday {
+    font-size: 14px;
+  }
+
   .date {
     font-size: 8px;
   }

@@ -1,7 +1,8 @@
-.button {
+.ab-button {
+  border: none;
 }
 
-.button-container .Start {
+.button-container .start {
   background-color: #37B6F8;
   border: none;
   color: #fff;
@@ -11,11 +12,20 @@
   width: 20%;
 }
 
-.button-container .Start:hover {
+.button-container .ab-button {
+  background-color: #0a2c3e;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  height: 40px;
+}
+
+.button-container .start:hover {
   cursor: pointer;
 }
 
-.button-container .Start:active {
+.button-container .start:active {
   cursor: grabbing;
 }
 
@@ -24,7 +34,7 @@
 
 }
 
-.button-container .Finish {
+.button-container .finish {
   background-color: #F05966;
   border: none;
   color: #fff;
@@ -34,10 +44,24 @@
   width: 95%;
 }
 
-.button-container .Finish:hover {
+.button-container .finish:hover {
   cursor: pointer;
 }
 
-.button-container .Finish:active {
+.button-container .finish:active {
   cursor: grabbing;
+}
+
+@media only screen and (max-width: 450px) {
+  .button-container .ab-button {
+    font-size: 14px;
+  }
+
+  .button-container .finish {
+    font-size: 18px;
+  }
+
+  .button-container .start {
+    width: 50%
+  }
 }

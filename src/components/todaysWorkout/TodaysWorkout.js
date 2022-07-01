@@ -39,22 +39,30 @@ const TodaysWorkout = () => {
           <div className='weekday'>{ currentDay() }</div>
           <div className='date'>{ getDate() }</div>
         </div>
-        <p className='title'>{workout['target'] && workout['target']}</p>
+        <p className='title'>{!showAbWorkout ? workout['target'] : "Abs"}</p>
         <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       {/*<Timer />*/}
       <ExerciseList changeWorkoutStatus={changeWorkoutStatus} showAbWorkout={showAbWorkout} />
-      {
-        workoutStatus !== 'finished'
-          && workoutStatus == 'started'
-          ?
-          <h1>Keep Going!</h1>
-          :
-          <Button
-            title='Start'
-            onClick={() => changeWorkoutStatus('started')}
-          />
-      }
+      <div className='workout-bottom'>
+        <Button
+          className='ab-button'
+          title='Ab Workout'
+          onClick={() => setShowAbWorkout(!showAbWorkout)}
+        />
+        {
+          workoutStatus !== 'finished'
+            && workoutStatus == 'started'
+            ?
+            <h1>Keep Going!</h1>
+            :
+            <Button
+              className='start'
+              title='Start'
+              onClick={() => changeWorkoutStatus('started')}
+            />
+        }
+      </div>
     </div>
   );
 };
