@@ -3,7 +3,7 @@ import './Execise.css'
 import leftArrow from '../../left-arrow.png'
 import Button from '../button/Button'
 import Modal from '../modal/Modal';
-import SubscribeEmail from '../signup/SubscribeEmail';
+import SubscribeEmail from '../subscribe/SubscribeEmail';
 
 const Exercise = (props) => {
   const { exercise, totalExercises, onClick, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise } = props;

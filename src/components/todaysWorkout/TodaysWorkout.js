@@ -6,12 +6,14 @@ import './TodaysWorkout.css'
 import { submitWorkoutStatus } from '../../api/WorkoutAPI'
 import Button from '../button/Button'
 import Loading from '../loading/Loading';
+import { UserAuthContext } from '../../contexts/UserAuthContext';
 // import ProgressBar from '../progress-bar/ProgressBar';
 
 const TodaysWorkout = () => {
   const [workoutStatus, setWorkoutStatus] = useState(false)
   const [showAbWorkout, setShowAbWorkout] = useState(false)
   const { workout } = useContext(WorkoutContext)
+  const { user } = useContext(UserAuthContext)
 
   useEffect(() => {
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
@@ -26,6 +28,8 @@ const TodaysWorkout = () => {
     let response = await submitWorkoutStatus(status)
   }
 
+  console.log("USER: ", user)
+
   if (workout['loading']) {
     return (
       <Loading />
@@ -39,7 +43,7 @@ const TodaysWorkout = () => {
           <div className='weekday'>{ currentDay() }</div>
           <div className='date'>{ getDate() }</div>
         </div>
-        <p className='title'>{!showAbWorkout ? workout['target'] : "Abs"}</p>
+        <p className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"}</p>
         <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       {/*<Timer />*/}

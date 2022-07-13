@@ -11,7 +11,7 @@ const WorkoutContextProvider = (props) => {
   })
 
   const fetchTodaysWorkout = async () => {
-    dispatch({type: 'LOADING'})
+    dispatch({type: 'GET_EXERCISES_LOADING'})
     let workout = await getTodaysWorkout()
     if (workout['error']) {
       dispatch({type: 'GET_EXERCISES_FAILURE', workout})

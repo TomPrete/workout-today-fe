@@ -5,7 +5,7 @@ import { WorkoutContext } from '../contexts/WorkoutContext';
 import Exercise from './exercise/Exercise';
 import Timer from './Timer';
 import Modal from './modal/Modal';
-import SubscribeEmail from './signup/SubscribeEmail';
+import SubscribeEmail from './subscribe/SubscribeEmail';
 import { ModalContext } from '../contexts/ModalContext';
 
 const ExerciseList = (props) => {
@@ -76,6 +76,7 @@ const ExerciseList = (props) => {
   }
   return (
     <div>
+      {/*<Timer />*/}
       <div>
         { workout['exercises'].length > 0 && displayExercises() }
       </div>
