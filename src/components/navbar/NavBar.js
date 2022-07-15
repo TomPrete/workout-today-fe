@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserAuthContext } from '../../contexts/UserAuthContext';
 
 const NavBar = () => {
+  const { user } = useContext(UserAuthContext)
   return (
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -52,12 +54,22 @@ const NavBar = () => {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
+              {
+                user['user']
+                ?
                 <a className="button is-primary" href='/signup'>
-                  <strong>Sign up</strong>
+                  <strong>Log out</strong>
                 </a>
-                <a className="button is-light" >
-                  Log in
-                </a>
+                :
+                <div>
+                  <a className="button is-primary" href='/signup'>
+                    <strong>Sign up</strong>
+                  </a>
+                  <a className="button is-light" >
+                    Log in
+                  </a>
+                </div>
+              }
               </div>
             </div>
           </div>

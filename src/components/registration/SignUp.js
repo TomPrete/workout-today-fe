@@ -7,6 +7,7 @@ const SignUp = () => {
     evt.preventDefault()
     let userObj = {
       'email': evt.target.email.value,
+      'username': evt.target.email.value,
       'password1': evt.target.password.value,
       'password2': evt.target.passwordTwo.value
     }

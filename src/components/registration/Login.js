@@ -20,7 +20,7 @@ const Login = () => {
       localStorage.setItem('refresh_token', response['refresh'])
     }
   }
-  console.log('user: ', user)
+  console.log('user: ', user.user)
   return (
     <div>
       <h1>Login</h1>

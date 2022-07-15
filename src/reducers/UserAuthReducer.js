@@ -7,7 +7,7 @@ export const userAuthReducer = (state, action) => {
     case 'GET_USER_FAILURE':
       console.log("FAILURE", action.user)
       return {
-        'user': {},
+        'user': null,
         'error': true,
         'loading': false,
         'errorMessage': action.user

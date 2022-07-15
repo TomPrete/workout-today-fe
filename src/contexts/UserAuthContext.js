@@ -7,7 +7,7 @@ export const UserAuthContext = createContext()
 
 const UserAuthContextProvider = (props) => {
   const [user, dispatch] = useReducer(userAuthReducer, {
-    'user': {}
+    'user': null
   })
 
   const getUser = async () => {
