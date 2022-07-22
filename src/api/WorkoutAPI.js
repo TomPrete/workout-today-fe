@@ -1,9 +1,9 @@
-const development = true
-const URL = development ? "http://localhost:8000/api" : "https://workout-today-backend.herokuapp.com/api"
+const development = false
+const WORKOUT_URL = development ? "http://localhost:8000/api" : "https://workout-today-backend.herokuapp.com/api"
 
 const getTodaysWorkout = async () => {
   try {
-  let response = await fetch(`${URL}/today`)
+  let response = await fetch(`${WORKOUT_URL}/today`)
     let data = await response.json()
     return data
   }
@@ -14,7 +14,7 @@ const getTodaysWorkout = async () => {
 
 const submitWorkoutStatus = async (status) => {
   try {
-    let response = await fetch(`${URL}/start-workout`, {
+    let response = await fetch(`${WORKOUT_URL}/start-workout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

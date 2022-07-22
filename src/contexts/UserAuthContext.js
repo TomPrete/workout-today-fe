@@ -31,6 +31,7 @@ const UserAuthContextProvider = (props) => {
         'refresh': localStorage.getItem('refresh_token')
       }
       let refreshResponse = await getCurrentUserRefreshToken(refreshToken)
+      console.log(refreshResponse)
       if (refreshResponse['access']) {
         let decoded = jwt_decode(refreshResponse['access'])
         let user = {

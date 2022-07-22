@@ -13,12 +13,12 @@ const NavBar = () => {
       dispatch({type: 'LOGOUT_USER_SUCCESS'})
     }
   }
-  console.log("USER: ", user)
+  // console.log("USER: ", user)
   return (
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="http://localhost:3000/">
+          <a className="navbar-item" href="https://workout-today.herokuapp.com/login">
             <img src={NavLogo} />
           </a>
 

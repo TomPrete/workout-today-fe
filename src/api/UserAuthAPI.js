@@ -1,13 +1,14 @@
-const development = true
-// const URL = development ? "http://localhost:8000/api/v1/accounts/register/" : "https://workout-today-backend.herokuapp.com/api/v1/accounts/register/"
-const URL = development ? "http://localhost:8000/accounts/v1/token/" : "https://workout-today-backend.herokuapp.com/api/v1/accounts/register/"
+const development = false
+const LOGIN_URL = development ? "http://localhost:8000/accounts/v1/token/" : "https://workout-today-backend.herokuapp.com/accounts/v1/token/"
 
-const signUpURL = 'http://localhost:8000/api/v1/accounts/register/'
+const SINGUP_URL = development ? 'http://localhost:8000/api/v1/accounts/register/' : 'https://workout-today-backend.herokuapp.com/api/v1/accounts/register/'
+
+const CURRENT_USER_URL = development ? 'http://127.0.0.1:8000/accounts/v1/current_user/' : 'https://workout-today-backend.herokuapp.com/accounts/v1/current_user/'
 
 const signUp = async (userObj) => {
   console.log(userObj)
   try {
-    let response = await fetch(signUpURL, {
+    let response = await fetch(SINGUP_URL, {
       'method': 'POST',
       'headers': {
         'Content-Type': 'application/json'
@@ -24,7 +25,7 @@ const signUp = async (userObj) => {
 
 const login = async (userObj) => {
   try {
-    let response = await fetch('http://localhost:8000/accounts/v1/token/', {
+    let response = await fetch(LOGIN_URL, {
       'method': 'POST',
       'headers': {
         'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ const login = async (userObj) => {
 
 const getCurrentUser = async (token) => {
   try {
-    let response = await fetch('http://127.0.0.1:8000/accounts/v1/current_user/', {
+    let response = await fetch(CURRENT_USER_URL, {
       'method': 'GET',
       'headers': {
         'Content-Type': 'application/json',
@@ -73,7 +74,7 @@ const getCurrentUser = async (token) => {
 
 const getCurrentUserRefreshToken = async (refreshToken) => {
   try {
-    let response = await fetch('http://127.0.0.1:8000/accounts/v1/token/refresh/', {
+    let response = await fetch(`${LOGIN_URL}refresh/`, {
       'method': 'POST',
       'headers': {
         'Content-Type': 'application/json',
