@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { signUp } from '../../api/UserAuthAPI';
-import { Link } from "react-router-dom";
+import { UserAuthContext } from '../../contexts/UserAuthContext';
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const { user, dispatch } = useContext(UserAuthContext)
+  let navigate = useNavigate();
 
   const handleSignup = async (evt) => {
     evt.preventDefault()
@@ -12,20 +15,31 @@ const SignUp = () => {
       'password1': evt.target.password.value,
       'password2': evt.target.passwordTwo.value
     }
-    let response = await signUp(userObj)
-    console.log('response: ', response)
+    dispatch({type: 'SIGNUP_USER_LOADING'})
+    let user = await signUp(userObj)
+    if (user['error']) {
+      dispatch({type: 'SIGNUP_USER_FAILURE', user})
+    } else {
+      dispatch({type: 'SIGNUP_USER_SUCCESS', user})
+      navigate('/login')
+    }
   }
 
   return (
     <div>
       <h1>Sign Up</h1>
+      {
+        user.error
+        &&
+        <p className="help is-danger">{ user.message }</p>
+      }
       <form onSubmit={handleSignup}>
         <h3>Email</h3>
-        <input className="input input" name='email' type="email" placeholder="Email" />
+        <input className={`input ${user.error && 'is-danger'}`} name='email' type="email" placeholder="Email" />
         <h3>Password</h3>
-        <input className="input input" name='password' type="password" placeholder="password" />
+        <input className={`input ${user.error && 'is-danger'}`} name='password' type="password" placeholder="password" />
         <h3>Password confirmation</h3>
-        <input className="input input" name='passwordTwo' type="password" placeholder="password (again)" />
+        <input className={`input ${user.error && 'is-danger'}`} name='passwordTwo' type="password" placeholder="password (again)" />
         <button className="button is-primary" type='submit'>Sign Up</button>
       </form>
       <p>Already have an account, <Link to='/login'>Login</Link> here.</p>

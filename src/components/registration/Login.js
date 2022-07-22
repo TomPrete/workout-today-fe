@@ -37,7 +37,7 @@ const Login = () => {
       {
         user.error
         &&
-        <p className="help is-danger">{ user.errorMessage }</p>
+        <p className="help is-danger">{ user.message }</p>
       }
       <form onSubmit={handleLogin}>
         <h3>UserName</h3>

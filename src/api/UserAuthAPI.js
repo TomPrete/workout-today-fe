@@ -6,7 +6,6 @@ const SINGUP_URL = development ? 'http://localhost:8000/api/v1/accounts/register
 const CURRENT_USER_URL = development ? 'http://127.0.0.1:8000/accounts/v1/current_user/' : 'https://workout-today-backend.herokuapp.com/accounts/v1/current_user/'
 
 const signUp = async (userObj) => {
-  console.log(userObj)
   try {
     let response = await fetch(SINGUP_URL, {
       'method': 'POST',
@@ -16,7 +15,21 @@ const signUp = async (userObj) => {
       'body': JSON.stringify(userObj)
     })
     let data = await response.json()
-    return data
+    if (data['non_field_errors']) {
+      return {
+        'message': data['non_field_errors'][0],
+        'error': true
+      }
+    }
+    if (data['email'] || data['username']) {
+      return {
+        'message': 'A user with that username/email already exists.',
+        'error': true
+      }
+    } else {
+      data['message'] = 'success'
+      return data
+    }
   }
   catch(err) {
     console.error(err)

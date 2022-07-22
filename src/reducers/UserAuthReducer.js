@@ -1,5 +1,5 @@
 export const userAuthReducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'GET_USER_SUCCESS':
       return {
         'user': action.user,
@@ -9,7 +9,7 @@ export const userAuthReducer = (state, action) => {
         'user': null,
         'error': false,
         'loading': false,
-        'errorMessage': action.user.message
+        'message': action.user.message
       }
     case 'GET_USER_FAILURE':
       console.log("FAILURE: ", action)
@@ -17,15 +17,33 @@ export const userAuthReducer = (state, action) => {
         'user': null,
         'error': true,
         'loading': false,
-        'errorMessage': action.user.message
+        'message': action.user.message
       }
     case 'GET_USER_LOADING':
       return {
-        'user_loading': true
+        'loading': true
+      }
+    case 'SIGNUP_USER_LOADING':
+      return {
+        'loading': true
       }
     case 'LOGOUT_USER_SUCCESS':
       return {
         'user': null
+      }
+    case 'SIGNUP_USER_SUCCESS':
+      return {
+        'user': null,
+        'error': false,
+        'loading': false,
+        'message': action.user.message,
+      }
+    case 'SIGNUP_USER_FAILURE':
+      return {
+        'user': null,
+        'error': true,
+        'loading': false,
+        'message': action.user.message,
       }
     default:
       return state

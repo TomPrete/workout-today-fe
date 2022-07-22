@@ -45,7 +45,7 @@ const ExerciseList = (props) => {
               exercise={exercise}
               totalExercises={workout['ab_exercises'].length}
               onClick={updateIdx}
-              isVisible={currentIdx === idx}
+              isVisible={currentIdx === idx + 1}
               changeWorkoutStatus={changeWorkoutStatus}
               closeModal={closeModal}
               nextExercise={workout['ab_exercises'].length > idx+1 ? workout['ab_exercises'][idx+1] : null}
@@ -60,8 +60,8 @@ const ExerciseList = (props) => {
             idx={idx}
             exercise={exercise}
             totalExercises={workout['exercises'].length}
-            onClick={updateIdx}
-            isVisible={currentIdx === idx}
+            forwardBack={updateIdx}
+            isVisible={currentIdx === idx + 1}
             changeWorkoutStatus={changeWorkoutStatus}
             closeModal={closeModal}
             nextExercise={workout['exercises'].length > idx+1 ? workout['exercises'][idx+1] : null}
