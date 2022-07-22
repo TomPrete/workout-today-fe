@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { login } from '../../api/UserAuthAPI';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
-  const { user } = useContext(UserAuthContext)
+  const { user, dispatch } = useContext(UserAuthContext)
+  let navigate = useNavigate();
 
   const handleLogin = async (evt) => {
     evt.preventDefault()
@@ -12,15 +13,20 @@ const Login = () => {
       'username': evt.target.username.value,
       'password': evt.target.password.value
     }
-    let response = await login(userObj)
-    if (response['access']) {
-      localStorage.setItem('access_token', response['access'])
-    }
-    if (response['refresh']) {
-      localStorage.setItem('refresh_token', response['refresh'])
+    let user = await login(userObj)
+    console.log("RESPONSE: ", user)
+    if (user['message'] === 'success') {
+      if (user['access']) {
+        localStorage.setItem('access_token', user['access'])
+      }
+      if (user['refresh']) {
+        localStorage.setItem('refresh_token', user['refresh'])
+      }
+      navigate('/today')
+    } else {
+      dispatch({type: 'GET_USER_FAILURE', user})
     }
   }
-  console.log('user: ', user.user)
   return (
     <div>
       <h1>Login</h1>
@@ -28,13 +34,19 @@ const Login = () => {
         user.user &&
         <Navigate to="/today" replace={true} />
       }
+      {
+        user.error
+        &&
+        <p className="help is-danger">{ user.errorMessage }</p>
+      }
       <form onSubmit={handleLogin}>
         <h3>UserName</h3>
-        <input className="input input" name='username' type="text" placeholder="Username" />
+        <input className={`input ${user.error && 'is-danger'}`} name='username' type="text" placeholder="Username" />
         <h3>Password</h3>
-        <input className="input input" name='password' type="password" placeholder="password" />
+        <input className={`input ${user.error && 'is-danger'}`}  name='password' type="password" placeholder="password" />
         <button className="button is-primary" type='submit'>Login</button>
       </form>
+      <p>Don't have an account, <Link to='/signup'>Sign Up</Link> here.</p>
     </div>
   );
 };

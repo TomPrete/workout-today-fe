@@ -1,14 +1,25 @@
 import React, { useContext } from 'react';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
+import NavLogo from '../../assets/workout_today_logo.png'
+import { logoutUser } from '../../api/UserAuthAPI'
 
 const NavBar = () => {
-  const { user } = useContext(UserAuthContext)
+  const { user, dispatch } = useContext(UserAuthContext)
+
+
+  const logout = async () => {
+    let response = await logoutUser()
+    if (response['status'] === 200) {
+      dispatch({type: 'LOGOUT_USER_SUCCESS'})
+    }
+  }
+  console.log("USER: ", user)
   return (
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28" />
+          <a className="navbar-item" href="http://localhost:3000/">
+            <img src={NavLogo} />
           </a>
 
           <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -25,10 +36,13 @@ const NavBar = () => {
             </a>
 
             <a className="navbar-item">
-              Documentation
+              About
+            </a>
+            <a className="navbar-item">
+              Pricing
             </a>
 
-            <div className="navbar-item has-dropdown is-hoverable">
+            {/*<div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">
                 More
               </a>
@@ -48,7 +62,7 @@ const NavBar = () => {
                   Report an issue
                 </a>
               </div>
-            </div>
+  </div>*/}
           </div>
 
           <div className="navbar-end">
@@ -57,7 +71,7 @@ const NavBar = () => {
               {
                 user['user']
                 ?
-                <a className="button is-primary" href='/signup'>
+                <a className="button is-primary" href='/' onClick={logout}>
                   <strong>Log out</strong>
                 </a>
                 :
@@ -65,7 +79,7 @@ const NavBar = () => {
                   <a className="button is-primary" href='/signup'>
                     <strong>Sign up</strong>
                   </a>
-                  <a className="button is-light" >
+                  <a className="button is-light"  href='/login'>
                     Log in
                   </a>
                 </div>

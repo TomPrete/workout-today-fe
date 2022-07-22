@@ -1,5 +1,6 @@
 import React from 'react';
 import { signUp } from '../../api/UserAuthAPI';
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
 
@@ -13,8 +14,8 @@ const SignUp = () => {
     }
     let response = await signUp(userObj)
     console.log('response: ', response)
-
   }
+
   return (
     <div>
       <h1>Sign Up</h1>
@@ -27,6 +28,7 @@ const SignUp = () => {
         <input className="input input" name='passwordTwo' type="password" placeholder="password (again)" />
         <button className="button is-primary" type='submit'>Sign Up</button>
       </form>
+      <p>Already have an account, <Link to='/login'>Login</Link> here.</p>
     </div>
   );
 };

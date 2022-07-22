@@ -23,7 +23,6 @@ const signUp = async (userObj) => {
 }
 
 const login = async (userObj) => {
-  console.log(userObj)
   try {
     let response = await fetch('http://localhost:8000/accounts/v1/token/', {
       'method': 'POST',
@@ -33,7 +32,16 @@ const login = async (userObj) => {
       'body': JSON.stringify(userObj)
     })
     let data = await response.json()
-    return data
+
+    if (data['detail']) {
+      return {
+        'message': 'Username or password is incorrect.'
+      }
+    }
+    else {
+      data['message'] = 'success'
+      return data
+    }
   }
   catch(err) {
     console.error(err)
@@ -50,6 +58,12 @@ const getCurrentUser = async (token) => {
       },
     })
     let data = await response.json()
+    if (data['code'] === 'token_not_valid') {
+      return {
+        'message': 'token not valid',
+        'status': 200
+      }
+    }
     return data
   }
   catch(err) {
@@ -67,7 +81,27 @@ const getCurrentUserRefreshToken = async (refreshToken) => {
       'body': JSON.stringify(refreshToken)
     })
     let data = await response.json()
+    if (data['code'] === 'token_not_valid') {
+      return {
+        'message': 'token not valid',
+        'status': 200
+      }
+    }
     return data
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
+const logoutUser = () => {
+  try {
+    localStorage.setItem('access_token', 'null')
+    localStorage.setItem('refresh_token', 'null')
+    return {
+      'message': 'Logged out success',
+      'status': 200
+    }
   }
   catch(err) {
     console.error(err)
@@ -77,6 +111,7 @@ const getCurrentUserRefreshToken = async (refreshToken) => {
 export {
   signUp,
   login,
+  logoutUser,
   getCurrentUser,
   getCurrentUserRefreshToken
 }

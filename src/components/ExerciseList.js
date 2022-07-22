@@ -10,7 +10,7 @@ import { ModalContext } from '../contexts/ModalContext';
 
 const ExerciseList = (props) => {
   const { changeWorkoutStatus, showAbWorkout } = props
-  const [currentIdx, setCurrentIdx] = useState(0)
+  const [currentIdx, setCurrentIdx] = useState(1)
   const [showModal, setShowModal] = useState(false)
   const { workout } = useContext(WorkoutContext)
   const { modal } = useContext(ModalContext)
@@ -34,6 +34,9 @@ const ExerciseList = (props) => {
 
   const displayExercises = () => {
     if (showAbWorkout) {
+      if (currentIdx >= 10) {
+        setCurrentIdx(0)
+      }
       return workout['ab_exercises'].map((exercise, idx) => {
         return (
             <Exercise

@@ -28,8 +28,6 @@ const TodaysWorkout = () => {
     let response = await submitWorkoutStatus(status)
   }
 
-  console.log("USER: ", user)
-
   if (workout['loading']) {
     return (
       <Loading />
@@ -56,7 +54,7 @@ const TodaysWorkout = () => {
         />
         {
           workoutStatus !== 'finished'
-            && workoutStatus == 'started'
+            && workoutStatus === 'started'
             ?
             <h1>Keep Going!</h1>
             :

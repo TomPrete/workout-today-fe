@@ -15,8 +15,8 @@ const UserAuthContextProvider = (props) => {
     if (localStorage.getItem('access_token')) {
       let token = localStorage.getItem('access_token')
       let user = await getCurrentUser(token)
-      if (user['detail']) {
-        dispatch({type: 'GET_USER_FAILURE', user})
+      if (user['message'] === 'token not valid') {
+        dispatch({type: 'GET_CURRENT_OR_REFRESH_USER_FAILURE', user})
         user = await useRefreshToken()
       } else {
         dispatch({type: 'GET_USER_SUCCESS', user})
@@ -38,10 +38,9 @@ const UserAuthContextProvider = (props) => {
           username: decoded['username'],
           is_premium: decoded['is_premium']
         }
-        console.log('response: ', user)
         dispatch({type: 'GET_USER_SUCCESS', user})
       } else {
-        dispatch({type: 'GET_USER_FAILURE', user})
+        dispatch({type: 'GET_CURRENT_OR_REFRESH_USER_FAILURE', user})
       }
     }
   }

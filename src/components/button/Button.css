@@ -21,17 +21,18 @@
   height: 40px;
 }
 
-.button-container .start:hover {
+.button-container .start:hover, .button-container .ab-button:hover {
   cursor: pointer;
+  color: #fff;
 }
 
-.button-container .start:active {
+.button-container .start:active, .button-container .ab-button:active  {
+  color: #fff;
   cursor: grabbing;
 }
 
 .button-container {
   height: 100%;
-
 }
 
 .button-container .finish {
