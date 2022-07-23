@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { TimerContext } from '../contexts/TimerContext';
 let totalSeconds = 2700;
 
 const Timer = (props) => {
-  const { startTime } = props
+  const { startTime, showPauseButton } = props
+  const { time, dispatch } = useContext(TimerContext)
   const [seconds, setSeconds] = useState(startTime);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -10,7 +12,11 @@ const Timer = (props) => {
   useEffect(() => {
     if (!isPaused) {
       if (seconds > 0) {
-        setTimeout(() => setSeconds(seconds - 1), 1000)
+        setTimeout(() => {
+          setSeconds(seconds - 1)
+          let workoutSeconds = time['workoutSeconds'] - 1
+          dispatch({type: 'UPDATE_TIME', workoutSeconds})
+        }, 1000)
       } else {
         setSeconds("Next Exercise")
       }

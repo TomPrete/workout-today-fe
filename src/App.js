@@ -14,25 +14,28 @@ import UserAuthContextProvider from './contexts/UserAuthContext';
 import ModalContextProvider from './contexts/ModalContext';
 import SignUp from './components/registration/SignUp';
 import Login from './components/registration/Login';
+import TimerContextProvider from './contexts/TimerContext';
 
 
 function App() {
   return (
     <div className="App">
       <UserAuthContextProvider>
-        <WorkoutContextProvider>
-          <ModalContextProvider>
-            <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path='/today' element={<TodaysWorkout />} />
-                  <Route path='/signup' element={<SignUp />} />
-                  <Route path='/login' element={<Login />} />
-                </Routes>
-            </BrowserRouter>
-          </ModalContextProvider>
-        </WorkoutContextProvider>
-      </UserAuthContextProvider>
+        <TimerContextProvider>
+          <WorkoutContextProvider>
+            <ModalContextProvider>
+              <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path='/today' element={<TodaysWorkout />} />
+                    <Route path='/signup' element={<SignUp />} />
+                    <Route path='/login' element={<Login />} />
+                  </Routes>
+              </BrowserRouter>
+            </ModalContextProvider>
+          </WorkoutContextProvider>
+          </TimerContextProvider>
+        </UserAuthContextProvider>
     </div>
   );
 }

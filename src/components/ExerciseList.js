@@ -2,17 +2,21 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { WorkoutContext } from '../contexts/WorkoutContext';
+import { TimerContext } from '../contexts/TimerContext';
 import Exercise from './exercise/Exercise';
 import Timer from './Timer';
 import Modal from './modal/Modal';
 import SubscribeEmail from './subscribe/SubscribeEmail';
 import { ModalContext } from '../contexts/ModalContext';
+import ProgressBar from './progress-bar/ProgressBar';
+
 
 const ExerciseList = (props) => {
   const { changeWorkoutStatus, showAbWorkout } = props
   const [currentIdx, setCurrentIdx] = useState(1)
   const [showModal, setShowModal] = useState(false)
   const { workout } = useContext(WorkoutContext)
+  const { time, calculateTimeRemainingPercentage } = useContext(TimerContext)
   const { modal } = useContext(ModalContext)
 
   const updateIdx = (direction) => {
@@ -31,7 +35,7 @@ const ExerciseList = (props) => {
     setShowModal(false)
   }
 
-
+  console.log("TIME: ", calculateTimeRemainingPercentage(time))
   const displayExercises = () => {
     if (showAbWorkout) {
       if (currentIdx > 10) {
@@ -79,7 +83,8 @@ const ExerciseList = (props) => {
   }
   return (
     <div>
-      <Timer startTime={2700}/>
+      <ProgressBar bgcolor={'#37B6F8'} completed={calculateTimeRemainingPercentage(time)} />
+      <Timer startTime={2700} showPauseButton={true} />
       <div>
         { workout['exercises'].length > 0 && displayExercises() }
       </div>
