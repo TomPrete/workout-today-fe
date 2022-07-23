@@ -1,28 +1,39 @@
 import React, { useState, useEffect } from 'react';
-let minutes = 59;
+let totalSeconds = 2700;
 
 const Timer = () => {
-  const [seconds, setSeconds] = useState(3600);
+  const [seconds, setSeconds] = useState(2700);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const calculateTimeLeft = () => {
-    // let timeLeft = startingMinutes * 60;
-
-    minutes = Math.floor(seconds / 60)
-    let secondsTotal = seconds % 60
-    console.log(`${minutes}: ${secondsTotal}`)
-    setSeconds(seconds - 1)
-  }
 
   useEffect(() => {
-    setInterval(calculateTimeLeft, 1000)
-  }, []);
+    if (!isPaused) {
+      if (seconds > 0) {
+        setTimeout(() => setSeconds(seconds - 1), 1000)
+      } else {
+        setSeconds("Next Exercise")
+      }
+    }
+  });
 
+  const pauseTimer = () => {
+    setIsPaused(!isPaused)
+  }
 
-  console.log(seconds)
+  const calculateTime = (seconds) => {
+    let remainingMinutes = Math.floor(seconds / 60)
+    let remainingSeconds = seconds - remainingMinutes * 60
+    if (remainingSeconds < 10) {
+      remainingSeconds = `0${remainingSeconds}`
+    }
+    return [remainingMinutes, remainingSeconds]
+  }
 
   return (
     <div>
-      <p>{`${minutes}:${seconds % 60}`}</p>
+      {/*<p>{`${minutes}:${seconds % 60}`}</p>*/}
+      <p>{ `${calculateTime(seconds)[0]}:${calculateTime(seconds)[1]}` }</p>
+      <button onClick={pauseTimer}>{isPaused ? "Resume" : "Pause"}</button>
     </div>
   );
 };
