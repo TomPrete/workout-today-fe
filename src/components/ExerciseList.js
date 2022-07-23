@@ -34,7 +34,7 @@ const ExerciseList = (props) => {
 
   const displayExercises = () => {
     if (showAbWorkout) {
-      if (currentIdx >= 10) {
+      if (currentIdx > 10) {
         setCurrentIdx(1)
       }
       return workout['ab_exercises'].map((exercise, idx) => {
