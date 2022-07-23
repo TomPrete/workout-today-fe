@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   display: grid;
-  grid-template-columns: 5% auto 5%;
+  grid-template-columns: 5% auto 20%;
   /* align-items: center;
   justify-content: center; */
 }

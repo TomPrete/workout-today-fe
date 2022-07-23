@@ -2,6 +2,7 @@ import React from 'react';
 import './Modal.css'
 
 const Modal = (props) => {
+  console.log("MODAL")
   const { closeModal } = props
   return (
     <div className="modal" id="modal-one">
