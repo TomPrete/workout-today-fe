@@ -79,7 +79,7 @@ const ExerciseList = (props) => {
   }
   return (
     <div>
-      {/*<Timer />*/}
+      <Timer startTime={2700}/>
       <div>
         { workout['exercises'].length > 0 && displayExercises() }
       </div>

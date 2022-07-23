@@ -24,6 +24,13 @@
   grid-row-end: 1;
 }
 
+#exercise-time {
+  align-self: center;
+  font-size: 26px;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
 #exercise-img {
   grid-column-start: 2;
   grid-column-end: 2;

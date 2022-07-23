@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 let totalSeconds = 2700;
 
-const Timer = () => {
-  const [seconds, setSeconds] = useState(2700);
+const Timer = (props) => {
+  const { startTime } = props
+  const [seconds, setSeconds] = useState(startTime);
   const [isPaused, setIsPaused] = useState(false);
 
 

@@ -4,6 +4,7 @@ import leftArrow from '../../left-arrow.png'
 import Button from '../button/Button'
 import Modal from '../modal/Modal';
 import SubscribeEmail from '../subscribe/SubscribeEmail';
+import Timer from '../Timer';
 
 const Exercise = (props) => {
   const { exercise, totalExercises, forwardBack, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise } = props;
@@ -14,6 +15,9 @@ const Exercise = (props) => {
        { idx !== 0 && <img className="exercise-left-arrow arrow" onClick={() => forwardBack('left')} src={leftArrow} alt='workout' />}
         <p id="exercise-active">{exercise.order} / {totalExercises}</p>
         <p id="exercise-name">{exercise.name}</p>
+        {/*<div id="exercise-time">
+          <Timer startTime={60} />
+    </div>*/}
         <img id="exercise-img" src={"https://gymvisual.com/img/p/6/9/7/5/6975.gif"} alt='workout' />
         {
           idx !== totalExercises - 1
