@@ -1,4 +1,4 @@
-const development = true
+const development = false
 const LOGIN_URL = development ? "http://localhost:8000/accounts/v1/token/" : "https://workout-today-backend.herokuapp.com/accounts/v1/token/"
 
 const SINGUP_URL = development ? 'http://localhost:8000/api/v1/accounts/register/' : 'https://workout-today-backend.herokuapp.com/api/v1/accounts/register/'
