@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
+import Button from './button/Button';
 import { TimerContext } from '../contexts/TimerContext';
+
 let totalSeconds = 2700;
 
 const Timer = (props) => {
@@ -40,7 +42,7 @@ const Timer = (props) => {
     <div>
       {/*<p>{`${minutes}:${seconds % 60}`}</p>*/}
       <p>{ `${calculateTime(seconds)[0]}:${calculateTime(seconds)[1]}` }</p>
-      <button onClick={pauseTimer}>{isPaused ? "Resume" : "Pause"}</button>
+      <Button className='start' onClick={pauseTimer} title={isPaused ? "Resume" : "Pause"} />
     </div>
   );
 };
