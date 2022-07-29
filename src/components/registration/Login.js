@@ -14,7 +14,6 @@ const Login = () => {
       'password': evt.target.password.value
     }
     let user = await login(userObj)
-    console.log("RESPONSE: ", user)
     if (user['message'] === 'success') {
       if (user['access']) {
         localStorage.setItem('access_token', user['access'])

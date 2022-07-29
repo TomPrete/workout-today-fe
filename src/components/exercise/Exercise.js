@@ -8,20 +8,17 @@ import Timer from '../Timer';
 
 const Exercise = (props) => {
   const { exercise, totalExercises, forwardBack, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise } = props;
-  // console.log(nextExercise)
+
   if (isVisible) {
     return (
       <div className="exercise-container">
        { idx !== 0 && <img className="exercise-left-arrow arrow" onClick={() => forwardBack('left')} src={leftArrow} alt='workout' />}
-        <p id="exercise-active">{exercise.order} / {totalExercises}</p>
-        <p id="exercise-name">{exercise.name}</p>
-        {/*<div id="exercise-time">
-          <Timer startTime={60} />
-    </div>*/}
+        <p id="exercise-active">{ exercise.order } / { totalExercises }</p>
+        <p id="exercise-name">{ exercise.name }</p>
         <img id="exercise-img" src={"https://gymvisual.com/img/p/6/9/7/5/6975.gif"} alt='workout' />
         {
           idx !== totalExercises - 1
-          ?
+          &&
           <div className="exercise-right-container" onClick={() => forwardBack('right')} >
             <img className="exercise-right-arrow arrow" src={leftArrow} alt='workout' />
             {
@@ -30,7 +27,12 @@ const Exercise = (props) => {
               <p>Next: { nextExercise.name }</p>
             }
           </div>
-          :
+        }
+        {
+          idx === totalExercises - 1
+          &&
+          localStorage.getItem('workoutStatus') !== 'finished'
+          &&
           <div className="exercise-finish">
             <Button
               className='finish'
@@ -39,13 +41,15 @@ const Exercise = (props) => {
               />
           </div>
         }
-        {/*{
-          localStorage.getItem('workoutStatus') === "finished"
+        {
+          localStorage.getItem('workoutStatus') === 'finished'
           &&
-          <Modal onClick={closeModal}>
-            <SubscribeEmail />
-          </Modal>
-        }*/}
+          idx === totalExercises - 1
+          &&
+          <div className="exercise-right-container">
+            <p>Great Job!</p>
+          </div>
+        }
         </div>
     );
   }

@@ -4,20 +4,28 @@ export const timerReducer = (state, action) => {
       return {
         'startSeconds': state.startSeconds,
         'workoutSeconds': action.workoutSeconds,
-        'exerciseSeconds': action.exerciseSeconds,
-        'isPaused': false
+        'exerciseSeconds': state.exerciseSeconds,
+        'isPaused': state.isPaused
       }
     case 'PAUSE_TIME':
       return {
-        'workoutSeconds': action.workoutSeconds,
-        'exerciseSeconds': action.exerciseSeconds,
+        'startSeconds': state.startSeconds,
+        'workoutSeconds': state.workoutSeconds,
+        'exerciseSeconds': state.exerciseSeconds,
         'isPaused': true
+      }
+    case 'UNPAUSE_TIME':
+      return {
+        'startSeconds': state.startSeconds,
+        'workoutSeconds': state.workoutSeconds,
+        'exerciseSeconds': state.exerciseSeconds,
+        'isPaused': false
       }
     case 'RESET_TIME':
       return {
         'workoutSeconds': action.workoutSeconds,
         'exerciseSeconds': action.exerciseSeconds,
-        'isPaused': false
+        'isPaused': true
       }
     default:
       return state

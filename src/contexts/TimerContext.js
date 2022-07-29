@@ -10,19 +10,37 @@ const TimerContextProvider = (props) => {
     startSeconds: START_TIME,
     workoutSeconds: START_TIME,
     exerciseSeconds: 60,
-    isPaused: false
+    isPaused: true
   })
 
-  const pauseTimer = () => {
-    dispatch({type: 'PAUSE_TIME'})
+  const startPauseTimer = () => {
+    if (time.isPaused) {
+      dispatch({type: 'UNPAUSE_TIME'})
+    } else {
+      dispatch({type: 'PAUSE_TIME'})
+    }
+  }
+
+  const resetTimer = () => {
+    dispatch({type: 'RESET_TIMER', START_TIME})
   }
 
   const calculateTimeRemainingPercentage = (time) => {
     return Math.round(((time.startSeconds - time.workoutSeconds) / time.startSeconds) * 100)
   }
 
+  const calculateTime = (seconds) => {
+    let remainingMinutes = Math.floor(seconds / 60)
+    let remainingSeconds = seconds - remainingMinutes * 60
+    if (remainingSeconds < 10) {
+      remainingSeconds = `0${remainingSeconds}`
+    }
+
+    return [remainingMinutes, remainingSeconds]
+  }
+
   return (
-    <TimerContext.Provider value={{time, dispatch, pauseTimer, calculateTimeRemainingPercentage}}>
+    <TimerContext.Provider value={{time, dispatch, startPauseTimer, calculateTimeRemainingPercentage, calculateTime, resetTimer}}>
       { props.children }
     </TimerContext.Provider>
   )

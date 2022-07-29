@@ -1,33 +1,35 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useReducer } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { WorkoutContext } from '../contexts/WorkoutContext';
-import { TimerContext } from '../contexts/TimerContext';
 import Exercise from './exercise/Exercise';
-import Timer from './Timer';
 import Modal from './modal/Modal';
 import SubscribeEmail from './subscribe/SubscribeEmail';
 import { ModalContext } from '../contexts/ModalContext';
-import ProgressBar from './progress-bar/ProgressBar';
-
+import { ExerciseContext } from '../contexts/ExerciseContext';
 
 const ExerciseList = (props) => {
   const { changeWorkoutStatus, showAbWorkout } = props
   const [currentIdx, setCurrentIdx] = useState(1)
   const [showModal, setShowModal] = useState(false)
   const { workout } = useContext(WorkoutContext)
-  const { time, calculateTimeRemainingPercentage } = useContext(TimerContext)
+  const { exercise, dispatch } = useContext(ExerciseContext)
   const { modal } = useContext(ModalContext)
 
   const updateIdx = (direction) => {
+    let newIdx
     if (direction === "left") {
-      setCurrentIdx(currentIdx - 1)
+      newIdx = showAbWorkout ? exercise.abIdx - 1 : exercise.exerciseIdx - 1
     } else if (direction === "right") {
-      setCurrentIdx(currentIdx + 1)
+      newIdx = showAbWorkout ? exercise.abIdx + 1 : exercise.exerciseIdx + 1
       if (currentIdx === 10) {
-        console.log(currentIdx)
         setShowModal(true)
       }
+    }
+    if (showAbWorkout) {
+      dispatch({type: 'CHANGE_AB_EXERCISE', newIdx})
+    } else {
+      dispatch({type: 'CHANGE_PRIMARY_EXERCISE', newIdx})
     }
   }
 
@@ -35,21 +37,17 @@ const ExerciseList = (props) => {
     setShowModal(false)
   }
 
-  console.log("TIME: ", calculateTimeRemainingPercentage(time))
   const displayExercises = () => {
     if (showAbWorkout) {
-      if (currentIdx > 10) {
-        setCurrentIdx(1)
-      }
-      return workout['ab_exercises'].map((exercise, idx) => {
+      return workout['ab_exercises'].map((indExcercise, idx) => {
         return (
             <Exercise
               key={idx+1}
               idx={idx}
-              exercise={exercise}
+              exercise={indExcercise}
               totalExercises={workout['ab_exercises'].length}
               forwardBack={updateIdx}
-              isVisible={currentIdx === idx + 1}
+              isVisible={exercise.abIdx === idx + 1}
               changeWorkoutStatus={changeWorkoutStatus}
               closeModal={closeModal}
               nextExercise={workout['ab_exercises'].length > idx+1 ? workout['ab_exercises'][idx+1] : null}
@@ -57,15 +55,15 @@ const ExerciseList = (props) => {
           )
       })
     }
-    return workout['exercises'].map((exercise, idx) => {
+    return workout['exercises'].map((indExcercise, idx) => {
       return (
           <Exercise
             key={idx+1}
             idx={idx}
-            exercise={exercise}
+            exercise={indExcercise}
             totalExercises={workout['exercises'].length}
             forwardBack={updateIdx}
-            isVisible={currentIdx === idx + 1}
+            isVisible={exercise.exerciseIdx === idx + 1}
             changeWorkoutStatus={changeWorkoutStatus}
             closeModal={closeModal}
             nextExercise={workout['exercises'].length > idx+1 ? workout['exercises'][idx+1] : null}
@@ -83,8 +81,6 @@ const ExerciseList = (props) => {
   }
   return (
     <div>
-      <ProgressBar bgcolor={'#37B6F8'} completed={calculateTimeRemainingPercentage(time)} />
-      <Timer startTime={2700} showPauseButton={true} />
       <div>
         { workout['exercises'].length > 0 && displayExercises() }
       </div>

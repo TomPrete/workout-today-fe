@@ -1,5 +1,5 @@
 import React from 'react'
- // requires a loader
+// requires a loader
 import './App.css';
 
 import {
@@ -15,6 +15,7 @@ import ModalContextProvider from './contexts/ModalContext';
 import SignUp from './components/registration/SignUp';
 import Login from './components/registration/Login';
 import TimerContextProvider from './contexts/TimerContext';
+import ExerciseContextProvider from './contexts/ExerciseContext';
 
 
 function App() {
@@ -22,20 +23,22 @@ function App() {
     <div className="App">
       <UserAuthContextProvider>
         <TimerContextProvider>
+          <ExerciseContextProvider>
           <WorkoutContextProvider>
             <ModalContextProvider>
-              <BrowserRouter>
+                <BrowserRouter>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path='/today' element={<TodaysWorkout />} />
                     <Route path='/signup' element={<SignUp />} />
                     <Route path='/login' element={<Login />} />
                   </Routes>
-              </BrowserRouter>
-            </ModalContextProvider>
-          </WorkoutContextProvider>
-          </TimerContextProvider>
-        </UserAuthContextProvider>
+                </BrowserRouter>
+                </ModalContextProvider>
+                </WorkoutContextProvider>
+                </ExerciseContextProvider>
+        </TimerContextProvider>
+      </UserAuthContextProvider>
     </div>
   );
 }

@@ -13,7 +13,7 @@ const NavBar = () => {
       dispatch({type: 'LOGOUT_USER_SUCCESS'})
     }
   }
-  // console.log("USER: ", user)
+
   return (
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
