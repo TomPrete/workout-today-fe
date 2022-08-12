@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const PRICE_LOOKUP_KEY = "price_1LTWBQCxk3VOyNJUhOm3q6eW"
 
+
 const ProductDisplay = () => (
   <section>
     <div className="product">
@@ -11,7 +12,7 @@ const ProductDisplay = () => (
         <h5>$5.99 / month</h5>
       </div>
     </div>
-    <form action="http://localhost:8000/accounts/create-checkout-session/" method="POST">
+    <form action="https://workout-today-backend.herokuapp.com/accounts/create-checkout-session/" method="POST">
       {/* Add a hidden field with the lookup_key of your Price */}
       <input type="hidden" name="lookup_key" value={`${PRICE_LOOKUP_KEY}`} />
       <button id="checkout-and-portal-button" type="submit">
@@ -30,7 +31,7 @@ const SuccessDisplay = ({ sessionId }) => {
           <h3>Subscription to starter plan successful!</h3>
         </div>
       </div>
-      <form action="http://localhost:8000/accounts/api/v1/create-portal-session/" method="POST">
+      <form action="https://workout-today-backend.herokuapp.com/accounts/api/v1/create-portal-session/" method="POST">
         <input
           type="hidden"
           id="session-id"
