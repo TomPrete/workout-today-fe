@@ -16,6 +16,8 @@ const ExerciseList = (props) => {
   const { exercise, dispatch } = useContext(ExerciseContext)
   const { modal } = useContext(ModalContext)
 
+  console.log(process.env.NODE_ENV)
+
   const updateIdx = (direction) => {
     let newIdx
     if (direction === "left") {

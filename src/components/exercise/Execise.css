@@ -1,7 +1,7 @@
 .exercise-container {
   display: grid;
   grid-template-columns: 20% auto 20%;
-  grid-template-rows: 20% auto;
+  grid-template-rows: 10% auto;
 }
 
 #exercise-active {
@@ -76,7 +76,7 @@
 
 @media only screen and (max-width: 450px) {
   .exercise-container {
-    grid-template-rows: 20vh 55vh;
+    grid-template-rows: 15vh 60vh;
   }
 
   #exercise-img {

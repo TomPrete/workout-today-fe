@@ -2,7 +2,6 @@ import React from 'react';
 import './Execise.css'
 import leftArrow from '../../left-arrow.png'
 import Button from '../button/Button'
-import ExerciseGif from '../../assets/standing_bicep_curls.gif'
 import Modal from '../modal/Modal';
 import SubscribeEmail from '../subscribe/SubscribeEmail';
 import Timer from '../Timer';
