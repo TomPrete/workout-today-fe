@@ -16,6 +16,7 @@ import SignUp from './components/registration/SignUp';
 import Login from './components/registration/Login';
 import TimerContextProvider from './contexts/TimerContext';
 import ExerciseContextProvider from './contexts/ExerciseContext';
+import Checkout from './components/checkout/Checkout';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                     <Route path='/today' element={<TodaysWorkout />} />
                     <Route path='/signup' element={<SignUp />} />
                     <Route path='/login' element={<Login />} />
+                    <Route path='/checkout' element={<Checkout />} />
                   </Routes>
                 </BrowserRouter>
                 </ModalContextProvider>

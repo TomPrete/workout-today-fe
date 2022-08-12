@@ -2,6 +2,7 @@ import React from 'react';
 import './Execise.css'
 import leftArrow from '../../left-arrow.png'
 import Button from '../button/Button'
+import ExerciseGif from '../../assets/standing_bicep_curls.gif'
 import Modal from '../modal/Modal';
 import SubscribeEmail from '../subscribe/SubscribeEmail';
 import Timer from '../Timer';
@@ -15,7 +16,7 @@ const Exercise = (props) => {
        { idx !== 0 && <img className="exercise-left-arrow arrow" onClick={() => forwardBack('left')} src={leftArrow} alt='workout' />}
         <p id="exercise-active">{ exercise.order } / { totalExercises }</p>
         <p id="exercise-name">{ exercise.name }</p>
-        <img id="exercise-img" src={"https://gymvisual.com/img/p/6/9/7/5/6975.gif"} alt='workout' />
+        <img id="exercise-img" src={exercise.image_url} alt='workout' />
         {
           idx !== totalExercises - 1
           &&
