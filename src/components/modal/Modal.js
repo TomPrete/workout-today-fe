@@ -5,7 +5,7 @@ const Modal = (props) => {
   console.log("MODAL")
   const { closeModal } = props
   return (
-    <div className="modal" id="modal-one">
+    <div className="modal is-active" id="modal-one">
       <div className="modal-bg modal-exit"></div>
       <div className="modal-container">
         { props.children }

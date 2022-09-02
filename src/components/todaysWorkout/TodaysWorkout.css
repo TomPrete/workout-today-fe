@@ -40,6 +40,17 @@
   border: none;
 }
 
+.exercise-table-container {
+  left: 50%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 50px;
+  transform: translateX(-50%);
+  z-index: 10;
+
+}
+
 @media only screen and (max-width: 450px) {
   .weekday {
     font-size: 14px;
@@ -53,4 +64,15 @@
     font-size: 14px;
     padding: 0 10px;
   }
+
+  .exercise-table-container {
+    left: 20%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: fixed;
+    top: 50px;
+    transform: translateX(-23%);
+  }
 }
+
+

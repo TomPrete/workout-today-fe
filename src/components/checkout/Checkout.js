@@ -1,27 +1,50 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useContext } from 'react';
+import { UserAuthContext } from '../../contexts/UserAuthContext';
+import { stripeCheckout } from '../../api/CheckoutAPI'
 const PRICE_LOOKUP_KEY = "price_1LTWBQCxk3VOyNJUhOm3q6eW"
 
 const backendUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://workout-today-backend.herokuapp.com/'
 
-const ProductDisplay = () => (
-  <section>
-    <div className="product">
-      <Logo />
-      <div className="description">
-        <h3>Monthly plan</h3>
-        <h5>$5.99 / month</h5>
+const ProductDisplay = () => {
+  const { user, dispatch } = useContext(UserAuthContext)
+
+  const onSubmit = (evt) => {
+    let checkoutObj = {
+      lookupKey: evt.target.lookup_key.value,
+      email: user['user']['email'],
+    }
+    let checkoutResponse = stripeCheckout(checkoutObj)
+  }
+
+  console.log("USER: ", user)
+  return (
+    <section>
+      <div className="product">
+        <Logo />
+        <div className="description">
+          <h3>Monthly plan</h3>
+          <h5>$5.99 / month</h5>
+        </div>
       </div>
-    </div>
-    <form action={`${backendUrl}accounts/create-checkout-session/`} method="POST">
-      {/* Add a hidden field with the lookup_key of your Price */}
-      <input type="hidden" name="lookup_key" value={`${PRICE_LOOKUP_KEY}`} />
-      <button id="checkout-and-portal-button" type="submit">
-        Checkout
-      </button>
-    </form>
-  </section>
-);
+      <form action={`${backendUrl}accounts/create-checkout-session/`} method="POST">
+        {/* Add a hidden field with the lookup_key of your Price */}
+        <input type="hidden" name="lookup_key" value={`${PRICE_LOOKUP_KEY}`} />
+        {/*{
+          user
+          &&
+          user['user']
+          &&
+          user['user']['email']
+          &&
+          <input type="hidden" name="email" value={`${user['user']['email']}`} />
+        }*/}
+        <button id="checkout-and-portal-button" type="submit">
+          Checkout
+        </button>
+      </form>
+    </section>
+  )
+};
 
 const SuccessDisplay = ({ sessionId }) => {
   return (

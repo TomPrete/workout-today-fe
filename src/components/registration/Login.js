@@ -39,7 +39,7 @@ const Login = () => {
         <p className="help is-danger">{ user.message }</p>
       }
       <form onSubmit={handleLogin}>
-        <h3>UserName</h3>
+        <h3>Email</h3>
         <input className={`input ${user.error && 'is-danger'}`} name='username' type="text" placeholder="Username" />
         <h3>Password</h3>
         <input className={`input ${user.error && 'is-danger'}`}  name='password' type="password" placeholder="password" />

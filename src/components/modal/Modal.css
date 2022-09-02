@@ -7,6 +7,7 @@
   left: 0;
   display: grid;
   grid-template-columns: 5% auto 20%;
+  z-index: 10;
   /* align-items: center;
   justify-content: center; */
 }

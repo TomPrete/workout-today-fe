@@ -48,7 +48,7 @@ const UserAuthContextProvider = (props) => {
   useEffect(() => {
     getUser()
   }, [])
-
+  // console.log("USER: ", user)
   return (
     <UserAuthContext.Provider value={{user, dispatch}}>
       { props.children }

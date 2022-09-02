@@ -12,10 +12,12 @@ import { TimerContext } from '../../contexts/TimerContext';
 import ProgressBar from '../progress-bar/ProgressBar';
 import Timer from '../Timer';
 import { ExerciseContext } from '../../contexts/ExerciseContext';
+import Table from '../table/Table';
 
 const TodaysWorkout = () => {
   const [workoutStatus, setWorkoutStatus] = useState(false)
   const [showAbWorkout, setShowAbWorkout] = useState(false)
+  const [showExerciseList, setShowExerciseList] = useState(false)
   const { workout } = useContext(WorkoutContext)
   const { user } = useContext(UserAuthContext)
   const { exercise } = useContext(ExerciseContext)
@@ -28,15 +30,20 @@ const TodaysWorkout = () => {
   }, [])
 
   const changeWorkoutStatus = async (status) => {
-    localStorage.setItem('workoutStatus', status)
-    localStorage.setItem('workoutDate', getDate())
-    setWorkoutStatus(localStorage.getItem('workoutStatus'))
     if (status == 'finished') {
       resetTimer()
     } else {
       startPauseTimer()
     }
-    let response = await submitWorkoutStatus(status)
+    if (localStorage.getItem('workoutDate') === getDate() && localStorage.getItem('workoutStatus') === "started" && status !== "finished") {
+      return
+    } else {
+      let response = await submitWorkoutStatus(status)
+    }
+    submitWorkoutStatus(status)
+    localStorage.setItem('workoutStatus', status)
+    localStorage.setItem('workoutDate', getDate())
+    setWorkoutStatus(localStorage.getItem('workoutStatus'))
   }
 
   if (workout['loading']) {
@@ -56,9 +63,16 @@ const TodaysWorkout = () => {
           <div className='weekday'>{ currentDay() }</div>
           <div className='date'>{ getDate() }</div>
         </div>
-        <p className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"}</p>
+        <p onClick={() => setShowExerciseList(!showExerciseList)} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"}</p>
         <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
+      {
+        showExerciseList
+        &&
+        <div className="exercise-table-container">
+          <Table data={ { workout, showAbWorkout } } />
+        </div>
+      }
       <ProgressBar bgcolor={'#37B6F8'} completed={ percentageCompleted() } />
       <Timer showPauseButton={false} />
       <ExerciseList changeWorkoutStatus={changeWorkoutStatus} showAbWorkout={showAbWorkout} />
