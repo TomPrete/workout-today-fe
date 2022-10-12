@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const WORKOUT_URL = development ? 'http://localhost:8000/' : 'https://workout-today-backend.herokuapp.com/'
 
 const stripeCheckout = async (checkoutObj) => {

@@ -21,6 +21,8 @@ const UserAuthContextProvider = (props) => {
       } else {
         dispatch({type: 'GET_USER_SUCCESS', user})
       }
+    } else {
+      dispatch({type: 'GET_USER_LOADING'})
     }
   }
 

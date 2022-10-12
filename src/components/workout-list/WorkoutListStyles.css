@@ -1,0 +1,9 @@
+.workout-list {
+  background-color: #fff;
+  width: 100%;
+}
+
+.card-container {
+  cursor: pointer;
+  margin: 10px 0;
+}

@@ -9,7 +9,7 @@
   font-size: 22px;
   font-weight: 600;
   height: 40px;
-  width: 20%;
+  /* width: 20%; */
 }
 
 .button-container .ab-button {
@@ -62,7 +62,7 @@
     font-size: 18px;
   }
 
-  .button-container .start {
-    width: 50%
+  .button-container > * {
+    width: 100%
   }
 }

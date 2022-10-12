@@ -20,7 +20,8 @@ export const userAuthReducer = (state, action) => {
       }
     case 'GET_USER_LOADING':
       return {
-        'loading': true
+        'loading': !state.loading,
+        'user': null
       }
     case 'SIGNUP_USER_LOADING':
       return {

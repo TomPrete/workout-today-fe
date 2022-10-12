@@ -10,6 +10,7 @@
   padding: 10px;
   background-color: #4c579e;
   color: #fff;
+  cursor: pointer;
 }
 
 .date-container {
@@ -33,7 +34,7 @@
 
 .workout-bottom {
   display: grid;
-  grid-template-columns: 20% auto 20%;
+  grid-template-columns: 33% auto 33%;
 }
 
 .ab-button {
@@ -41,6 +42,7 @@
 }
 
 .exercise-table-container {
+  box-shadow: 5px 5px 10px #4c579e;
   left: 50%;
   max-height: 90vh;
   overflow-y: auto;
@@ -66,12 +68,13 @@
   }
 
   .exercise-table-container {
-    left: 20%;
     max-height: 90vh;
     overflow-y: auto;
     position: fixed;
     top: 50px;
-    transform: translateX(-23%);
+    width: 90%;
+    /* border: 1px solid #4c579e; */
+
   }
 }
 

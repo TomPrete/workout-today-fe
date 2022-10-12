@@ -1,15 +1,16 @@
 import React from 'react';
 import './Modal.css'
 
+import Close from '../../assets/icon-x.svg';
+
 const Modal = (props) => {
   console.log("MODAL")
   const { closeModal } = props
   return (
-    <div className="modal is-active" id="modal-one">
-      <div className="modal-bg modal-exit"></div>
+    <div className="modal-test" id="modal-one">
       <div className="modal-container">
+        <img src={Close} alt="close" className="close" onClick={closeModal} />
         { props.children }
-        <button onClick={closeModal} className="modal-close modal-exit">X</button>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import {
   Route,
 } from "react-router-dom";
 import HomePage from './components/HomePage';
-import TodaysWorkout from './components/todaysWorkout/TodaysWorkout';
+import Workout from './components/workout/Workout';
 import WorkoutContextProvider from './contexts/WorkoutContext';
 import UserAuthContextProvider from './contexts/UserAuthContext';
 import ModalContextProvider from './contexts/ModalContext';
@@ -30,10 +30,11 @@ function App() {
                 <BrowserRouter>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path='/today' element={<TodaysWorkout />} />
+                    <Route path='/today' element={<Workout />} />
                     <Route path='/signup' element={<SignUp />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/checkout' element={<Checkout />} />
+                    <Route path='/workout' element={<Workout />} />
                   </Routes>
                 </BrowserRouter>
                 </ModalContextProvider>

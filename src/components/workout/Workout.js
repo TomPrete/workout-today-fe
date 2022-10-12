@@ -1,27 +1,40 @@
 import React, { useContext, useEffect, useState } from 'react';
-import ExerciseList from '../ExerciseList';
+import { useNavigate} from "react-router-dom";
+
+import './Workout.css'
+import RightArrow from '../../assets/ui-icons-chevron-right.svg'
+import DownArrow from '../../assets/ui-icons-chevron-down.svg'
+
 import { currentDay, getDate } from '../../helpers/dateHelpers';
 import { getPercentage } from '../../helpers/numHelpers';
+
+import { submitWorkoutStatus, getMoreWorkouts } from '../../api/WorkoutAPI'
+
 import { WorkoutContext } from '../../contexts/WorkoutContext';
-import './TodaysWorkout.css'
-import { submitWorkoutStatus } from '../../api/WorkoutAPI'
-import Button from '../button/Button'
-import Loading from '../loading/Loading';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { TimerContext } from '../../contexts/TimerContext';
+import { ExerciseContext } from '../../contexts/ExerciseContext';
+
+import ExerciseList from '../ExerciseList';
+import Button from '../button/Button'
+import Loading from '../loading/Loading';
 import ProgressBar from '../progress-bar/ProgressBar';
 import Timer from '../Timer';
-import { ExerciseContext } from '../../contexts/ExerciseContext';
 import Table from '../table/Table';
+import BottomNavBar from '../navbar/BottomNavBar';
+import Modal from '../modal/Modal';
+import WorkoutList from '../workout-list/WorkoutList';
 
-const TodaysWorkout = () => {
+const Workout = () => {
   const [workoutStatus, setWorkoutStatus] = useState(false)
   const [showAbWorkout, setShowAbWorkout] = useState(false)
   const [showExerciseList, setShowExerciseList] = useState(false)
-  const { workout } = useContext(WorkoutContext)
+  const [showMoreWorkouts, setShowMoreWorkouts] = useState(false)
+  const { workout, dispatch } = useContext(WorkoutContext)
   const { user } = useContext(UserAuthContext)
   const { exercise } = useContext(ExerciseContext)
   const { time, startPauseTimer, resetTimer } = useContext(TimerContext)
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
@@ -35,7 +48,8 @@ const TodaysWorkout = () => {
     } else {
       startPauseTimer()
     }
-    if (localStorage.getItem('workoutDate') === getDate() && localStorage.getItem('workoutStatus') === "started" && status !== "finished") {
+    let shouldSubmitStatus = localStorage.getItem('workoutDate') === getDate() && localStorage.getItem('workoutStatus') === "started" && status !== "finished"
+    if (shouldSubmitStatus) {
       return
     } else {
       let response = await submitWorkoutStatus(status)
@@ -46,14 +60,37 @@ const TodaysWorkout = () => {
     setWorkoutStatus(localStorage.getItem('workoutStatus'))
   }
 
-  if (workout['loading']) {
-    return (
-      <Loading />
-    )
+  const getPreviousWorkouts = async () => {
+    if (!showMoreWorkouts) {
+      if (!workout.pastWorkouts) {
+        let pastWorkouts = await getMoreWorkouts()
+        dispatch({type: 'GET_PAST_WORKOUTS_SUCCESS', pastWorkouts})
+      }
+      toggleModals('workouts')
+    } else {
+      toggleModals('workouts')
+    }
+  }
+
+  const toggleModals = (type) => {
+    if (type === 'workouts') {
+      setShowMoreWorkouts(!showMoreWorkouts)
+      setShowExerciseList(false)
+    }
+    if (type === 'exercises') {
+      setShowMoreWorkouts(false)
+      setShowExerciseList(!showExerciseList)
+    }
   }
 
   const percentageCompleted = () => {
     return showAbWorkout ? getPercentage(exercise.abIdx, workout.ab_exercises.length) : getPercentage(exercise.exerciseIdx, workout.exercises.length)
+  }
+
+  if (workout['loading']) {
+    return (
+      <Loading />
+    )
   }
 
   return (
@@ -63,15 +100,22 @@ const TodaysWorkout = () => {
           <div className='weekday'>{ currentDay() }</div>
           <div className='date'>{ getDate() }</div>
         </div>
-        <p onClick={() => setShowExerciseList(!showExerciseList)} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"}</p>
+        <p onClick={() => toggleModals('exercises')} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"} <img src={showExerciseList ? DownArrow :RightArrow} /></p>
         <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       {
         showExerciseList
         &&
-        <div className="exercise-table-container">
+        <Modal closeModal={() => toggleModals('exercises')} >
           <Table data={ { workout, showAbWorkout } } />
-        </div>
+        </Modal>
+      }
+      {
+        showMoreWorkouts
+        &&
+        <Modal closeModal={() => toggleModals('workouts')} >
+          <WorkoutList pastWorkouts={workout.pastWorkouts} />
+        </Modal>
       }
       <ProgressBar bgcolor={'#37B6F8'} completed={ percentageCompleted() } />
       <Timer showPauseButton={false} />
@@ -87,9 +131,15 @@ const TodaysWorkout = () => {
           title={time.isPaused ? 'Start' : 'Pause'}
           onClick={() => changeWorkoutStatus('started')}
         />
+        <Button
+          className='ab-button'
+          title="More Workouts"
+          onClick={user.user ? getPreviousWorkouts : () => navigate('/login')}
+        />
       </div>
+      <BottomNavBar />
     </div>
   );
 };
 
-export default TodaysWorkout;
+export default Workout;

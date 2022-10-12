@@ -15,6 +15,11 @@ export const workoutReducer = (state, action) => {
         'error': true,
         'loading': false
       }
+    case 'GET_PAST_WORKOUTS_SUCCESS':
+      return {
+        ...state,
+        'pastWorkouts': action.pastWorkouts
+      }
     case 'GET_EXERCISES_LOADING':
       return {
         'loading': true
