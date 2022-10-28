@@ -2,6 +2,7 @@ export const workoutReducer = (state, action) => {
   switch(action.type) {
     case 'GET_EXERCISES_SUCCESS':
       return {
+        ...state,
         'exercises': action.workout['exercises'],
         'target': action.workout['workout_target'],
         'rounds': action.workout['rounds'],

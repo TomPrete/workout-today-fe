@@ -62,7 +62,13 @@ const getDate = () => {
   return `${getMonth(newDate)} ${getDateOfMonth(newDate)}, ${getYear()}`
 }
 
+const formatCurrentDate = () => {
+  const newDate = new Date()
+  return `${newDate.getFullYear()}-${newDate.getMonth()+1}-${newDate.getDate()}`
+}
+
 export {
   getDate,
-  currentDay
+  currentDay,
+  formatCurrentDate
 }

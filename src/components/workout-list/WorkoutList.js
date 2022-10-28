@@ -9,16 +9,24 @@ import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { getMoreWorkouts } from '../../api/WorkoutAPI';
 
 import { capitalizeWorkoutTarget } from '../../helpers/stringHelpers';
+import { formatCurrentDate } from '../../helpers/dateHelpers';
 
 const WorkoutList = (props) => {
   const { pastWorkouts } = props
-  const { workout, dispatch } = useContext(WorkoutContext)
+  const { dispatch } = useContext(WorkoutContext)
   const { user } = useContext(UserAuthContext)
   let navigate = useNavigate();
 
   const getWorkout = async (date) => {
-    let pastWorkouts = await getMoreWorkouts(date)
-    navigate(`/workout?date=${date}`)
+    let workout = await getMoreWorkouts(date)
+    if (workout) {
+      dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
+    }
+    if (date === formatCurrentDate()) {
+      navigate(`/today`)
+    } else {
+      navigate(`/workout?date=${date}`)
+    }
   }
 
   const displayPastWorkouts = () => {
