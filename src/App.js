@@ -25,8 +25,8 @@ function App() {
       <UserAuthContextProvider>
         <TimerContextProvider>
           <ExerciseContextProvider>
-          <WorkoutContextProvider>
-            <ModalContextProvider>
+            <WorkoutContextProvider>
+              <ModalContextProvider>
                 <BrowserRouter>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -37,9 +37,9 @@ function App() {
                     <Route path='/workout' element={<Workout />} />
                   </Routes>
                 </BrowserRouter>
-                </ModalContextProvider>
-                </WorkoutContextProvider>
-                </ExerciseContextProvider>
+              </ModalContextProvider>
+            </WorkoutContextProvider>
+          </ExerciseContextProvider>
         </TimerContextProvider>
       </UserAuthContextProvider>
     </div>

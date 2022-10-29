@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import './Workout.css'
 import RightArrow from '../../assets/ui-icons-chevron-right.svg'
@@ -26,6 +26,7 @@ import Modal from '../modal/Modal';
 import WorkoutList from '../workout-list/WorkoutList';
 
 const Workout = () => {
+  const [pathName, setPathName] = useState(null)
   const [workoutStatus, setWorkoutStatus] = useState(false)
   const [showAbWorkout, setShowAbWorkout] = useState(false)
   const [showExerciseList, setShowExerciseList] = useState(false)
@@ -35,12 +36,20 @@ const Workout = () => {
   const { exercise } = useContext(ExerciseContext)
   const { time, startPauseTimer, resetTimer } = useContext(TimerContext)
   let navigate = useNavigate();
+  let location = useLocation();
 
   useEffect(() => {
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
       setWorkoutStatus(localStorage.getItem('workoutStatus'))
     }
   }, [])
+
+  useEffect(() => {
+    if (pathName !== location.pathname) {
+      toggleModals()
+    }
+    setPathName(location.pathname)
+  }, [workout])
 
   const changeWorkoutStatus = async (status) => {
     if (status == 'finished') {
@@ -72,19 +81,25 @@ const Workout = () => {
     }
   }
 
-  const toggleModals = (type) => {
-    if (type === 'workouts') {
-      setShowMoreWorkouts(!showMoreWorkouts)
-      setShowExerciseList(false)
-    }
-    if (type === 'exercises') {
+  const toggleModals = (type = null) => {
+    if (type === null) {
       setShowMoreWorkouts(false)
-      setShowExerciseList(!showExerciseList)
+      return setShowExerciseList(false)
+    } else if (type === 'workouts') {
+      setShowMoreWorkouts(!showMoreWorkouts)
+      return setShowExerciseList(false)
+    } else if (type === 'exercises') {
+      setShowMoreWorkouts(false)
+      return setShowExerciseList(!showExerciseList)
     }
   }
 
   const percentageCompleted = () => {
     return showAbWorkout ? getPercentage(exercise.abIdx, workout.ab_exercises.length) : getPercentage(exercise.exerciseIdx, workout.exercises.length)
+  }
+
+  const navigateToLogin = () => {
+    navigate('/login')
   }
 
   if (workout['loading']) {
@@ -134,10 +149,8 @@ const Workout = () => {
         <Button
           className='ab-button'
           title="More Workouts"
-          onClick={user.user ? getPreviousWorkouts : () => navigate('/login')}
-        />
+          onClick={user.user ? getPreviousWorkouts : navigateToLogin} />
       </div>
-      <BottomNavBar />
     </div>
   );
 };
