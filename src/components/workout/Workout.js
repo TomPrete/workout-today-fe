@@ -26,7 +26,7 @@ import Modal from '../modal/Modal';
 import WorkoutList from '../workout-list/WorkoutList';
 
 const Workout = () => {
-  const [pathName, setPathName] = useState(null)
+  const [pathNameKey, setPathNameKey] = useState(null)
   const [workoutStatus, setWorkoutStatus] = useState(false)
   const [showAbWorkout, setShowAbWorkout] = useState(false)
   const [showExerciseList, setShowExerciseList] = useState(false)
@@ -45,10 +45,10 @@ const Workout = () => {
   }, [])
 
   useEffect(() => {
-    if (pathName !== location.pathname) {
+    if (pathNameKey !== location.key) {
       toggleModals()
     }
-    setPathName(location.pathname)
+    setPathNameKey(location.key)
   }, [workout])
 
   const changeWorkoutStatus = async (status) => {
