@@ -7,7 +7,7 @@ const ExerciseInputGroup = (props) => {
   const [reps, setReps] = useState(undefined)
   const [resistance, setResistance] = useState(undefined)
   const { user } = useContext(UserAuthContext)
-  console.log(exercise)
+
   useEffect(() => {
     const getExerciseInfo = async () => {
       let response = await getUserExerciseInfo({

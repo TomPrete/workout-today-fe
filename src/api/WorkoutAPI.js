@@ -14,7 +14,6 @@ const getTodaysWorkout = async () => {
 
 const getMoreWorkouts = async (date = null) => {
   try {
-    console.log("TOKEN: ", localStorage.getItem('access_token'))
     let response = await fetch(`${WORKOUT_URL}/more-workouts${date ? `?date=${date}` : ''}`, {
       method: 'GET',
       headers: {

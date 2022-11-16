@@ -5,7 +5,6 @@ import leftArrow from '../../left-arrow.png'
 import Button from '../button/Button'
 import ExerciseInputGroup from '../input/ExerciseInputGroup'
 import { submitUserExerciseInfo, getUserExerciseInfo } from '../../api/WorkoutAPI';
-import { ConstructionOutlined } from '@mui/icons-material';
 
 const Exercise = (props) => {
   const { exercise, totalExercises, forwardBack, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise, workoutId } = props;
