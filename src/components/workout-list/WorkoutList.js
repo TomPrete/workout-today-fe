@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 
 import './WorkoutListStyles.css'
 
 import { WorkoutContext } from '../../contexts/WorkoutContext';
-import { UserAuthContext } from '../../contexts/UserAuthContext';
 
 import { getMoreWorkouts } from '../../api/WorkoutAPI';
 
@@ -14,7 +13,6 @@ import { formatCurrentDate } from '../../helpers/dateHelpers';
 const WorkoutList = (props) => {
   const { pastWorkouts } = props
   const { dispatch } = useContext(WorkoutContext)
-  const { user } = useContext(UserAuthContext)
   let navigate = useNavigate();
 
   const getWorkout = async (date) => {

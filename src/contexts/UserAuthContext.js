@@ -38,7 +38,8 @@ const UserAuthContextProvider = (props) => {
         let user = {
           email: decoded['email'],
           username: decoded['username'],
-          is_premium: decoded['is_premium']
+          is_premium: decoded['is_premium'],
+          id: decoded['id']
         }
         dispatch({type: 'GET_USER_SUCCESS', user})
       } else {

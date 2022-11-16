@@ -11,7 +11,7 @@ const Table = (props) => {
           <tr key={exercise.order}>
             <td>{ exercise.order }</td>
             <td>{ exercise.name }</td>
-            <td><img src={ exercise.image_url }/></td>
+            <td><img src={ exercise.image_url } alt={ exercise.name }/></td>
           </tr>
         )
       })
@@ -22,7 +22,7 @@ const Table = (props) => {
           <tr key={exercise.order}>
             <td>{ exercise.order }</td>
             <td>{ exercise.name }</td>
-            <td><img src={ exercise.image_url }/></td>
+            <td><img src={ exercise.image_url } alt={ exercise.name } /></td>
           </tr>
         )
       })

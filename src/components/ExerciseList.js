@@ -1,11 +1,7 @@
-import React, { useState, useEffect, useContext, useReducer } from 'react';
-import { Carousel } from 'react-responsive-carousel';
+import React, { useState, useContext } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { WorkoutContext } from '../contexts/WorkoutContext';
 import Exercise from './exercise/Exercise';
-import Modal from './modal/Modal';
-import SubscribeEmail from './subscribe/SubscribeEmail';
-import { ModalContext } from '../contexts/ModalContext';
 import { ExerciseContext } from '../contexts/ExerciseContext';
 
 const ExerciseList = (props) => {
@@ -14,7 +10,6 @@ const ExerciseList = (props) => {
   const [showModal, setShowModal] = useState(false)
   const { workout } = useContext(WorkoutContext)
   const { exercise, dispatch } = useContext(ExerciseContext)
-  const { modal } = useContext(ModalContext)
 
   const updateIdx = (direction) => {
     let newIdx
@@ -51,6 +46,7 @@ const ExerciseList = (props) => {
               changeWorkoutStatus={changeWorkoutStatus}
               closeModal={closeModal}
               nextExercise={workout['ab_exercises'].length > idx+1 ? workout['ab_exercises'][idx+1] : null}
+              workoutId={workout.workoutId}
               />
           )
       })
@@ -67,6 +63,7 @@ const ExerciseList = (props) => {
             changeWorkoutStatus={changeWorkoutStatus}
             closeModal={closeModal}
             nextExercise={workout['exercises'].length > idx+1 ? workout['exercises'][idx+1] : null}
+            workoutId={workout.workoutId}
             />
         )
     })
@@ -84,13 +81,6 @@ const ExerciseList = (props) => {
       <div>
         { workout['exercises'].length > 0 && displayExercises() }
       </div>
-      {/*{
-        showModal
-        &&
-        <Modal closeModal={closeModal} >
-          <SubscribeEmail />
-        </Modal>
-      }*/}
     </div>
   );
 };

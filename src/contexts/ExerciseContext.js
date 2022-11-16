@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react'
 import { exerciseReducer } from "../reducers/ExerciseReducer"
-import { WorkoutContext } from './WorkoutContext'
 
 export const ExerciseContext = createContext()
 

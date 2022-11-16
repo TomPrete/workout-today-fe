@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const WORKOUT_URL = development ? "http://localhost:8000/api" : "https://workout-today-backend.herokuapp.com/api"
 
 const getTodaysWorkout = async () => {
@@ -30,6 +30,25 @@ const getMoreWorkouts = async (date = null) => {
   }
 }
 
+const getWorkouts = async () => {
+  try {
+    console.log("TOKEN: ", localStorage.getItem('access_token'))
+    let response = await fetch(`${WORKOUT_URL}/workouts`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    let data = await response.json()
+    return data
+  }
+  catch(err) {
+    console.error(err)
+  }
+
+}
+
 const submitWorkoutStatus = async (status) => {
   try {
     let response = await fetch(`${WORKOUT_URL}/start-workout`, {
@@ -47,8 +66,47 @@ const submitWorkoutStatus = async (status) => {
   }
 }
 
+const submitUserExerciseInfo = async (exerciseInfo) => {
+  console.log(exerciseInfo.reps)
+  try {
+    let response = await fetch(`${WORKOUT_URL}/workout/${exerciseInfo.workoutId}/exercise/${exerciseInfo.exerciseId}/user/${exerciseInfo.userId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      },
+      body: JSON.stringify(exerciseInfo)
+    })
+    let data = await response.json()
+    return data
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
+const getUserExerciseInfo = async (exerciseInfo) => {
+  try {
+    let response = await fetch(`${WORKOUT_URL}/workout/${exerciseInfo.workoutId}/exercise/${exerciseInfo.exerciseId}/user/${exerciseInfo.userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    let data = await response.json()
+    return data
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
 export {
   getTodaysWorkout,
   submitWorkoutStatus,
-  getMoreWorkouts
+  getMoreWorkouts,
+  submitUserExerciseInfo,
+  getUserExerciseInfo,
+  getWorkouts
 }

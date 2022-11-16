@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useEffect } from 'react'
+import React, { createContext, useReducer } from 'react'
 import { timerReducer } from '../reducers/TimerReducer'
 
 const START_TIME = 2700

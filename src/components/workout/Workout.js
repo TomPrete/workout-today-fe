@@ -21,9 +21,14 @@ import Loading from '../loading/Loading';
 import ProgressBar from '../progress-bar/ProgressBar';
 import Timer from '../Timer';
 import Table from '../table/Table';
-import BottomNavBar from '../navbar/BottomNavBar';
+// import BottomNavBar from '../navbar/BottomNavBar';
 import Modal from '../modal/Modal';
 import WorkoutList from '../workout-list/WorkoutList';
+import Favorite from '../favorite/Favorite';
+
+import mixpanel from 'mixpanel-browser';
+
+mixpanel.init('c9b89c7bf5d74371eaa2dbf629c20821', {debug: true});
 
 const Workout = () => {
   const [pathNameKey, setPathNameKey] = useState(null)
@@ -39,6 +44,7 @@ const Workout = () => {
   let location = useLocation();
 
   useEffect(() => {
+    mixpanel.track('working_out');
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
       setWorkoutStatus(localStorage.getItem('workoutStatus'))
     }
@@ -52,7 +58,7 @@ const Workout = () => {
   }, [workout])
 
   const changeWorkoutStatus = async (status) => {
-    if (status == 'finished') {
+    if (status === 'finished') {
       resetTimer()
     } else {
       startPauseTimer()
@@ -70,7 +76,9 @@ const Workout = () => {
   }
 
   const getPreviousWorkouts = async () => {
-    if (!showMoreWorkouts) {
+    if (user.user.is_premium) {
+      navigate('/workouts')
+    } else if (!showMoreWorkouts) {
       if (!workout.pastWorkouts) {
         let pastWorkouts = await getMoreWorkouts()
         dispatch({type: 'GET_PAST_WORKOUTS_SUCCESS', pastWorkouts})
@@ -107,7 +115,6 @@ const Workout = () => {
       <Loading />
     )
   }
-
   return (
     <div>
       <div className='workout-header'>
@@ -115,7 +122,7 @@ const Workout = () => {
           <div className='weekday'>{ currentDay() }</div>
           <div className='date'>{ getDate() }</div>
         </div>
-        <p onClick={() => toggleModals('exercises')} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"} <img src={showExerciseList ? DownArrow :RightArrow} /></p>
+        <p onClick={() => toggleModals('exercises')} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"} <img src={showExerciseList ? DownArrow :RightArrow} alt='open-close-arrow' /></p>
         <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       {
@@ -133,7 +140,18 @@ const Workout = () => {
         </Modal>
       }
       <ProgressBar bgcolor={'#37B6F8'} completed={ percentageCompleted() } />
-      <Timer showPauseButton={false} />
+      <div className='timer-container'>
+        <div className='timer'>
+          <Timer showPauseButton={false} />
+        </div>
+        {
+          user.user && user.user.is_premium
+          &&
+          <div className='favorite'>
+            <Favorite />
+          </div>
+        }
+      </div>
       <ExerciseList changeWorkoutStatus={changeWorkoutStatus} showAbWorkout={showAbWorkout} />
       <div className='workout-bottom'>
         <Button

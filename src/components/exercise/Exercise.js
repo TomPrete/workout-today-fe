@@ -1,25 +1,74 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { UserAuthContext } from '../../contexts/UserAuthContext';
 import './Execise.css'
 import leftArrow from '../../left-arrow.png'
 import Button from '../button/Button'
-import Modal from '../modal/Modal';
-import SubscribeEmail from '../subscribe/SubscribeEmail';
-import Timer from '../Timer';
+import ExerciseInputGroup from '../input/ExerciseInputGroup'
+import { submitUserExerciseInfo, getUserExerciseInfo } from '../../api/WorkoutAPI';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const Exercise = (props) => {
-  const { exercise, totalExercises, forwardBack, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise } = props;
+  const { exercise, totalExercises, forwardBack, idx, isVisible, changeWorkoutStatus, closeModal, nextExercise, workoutId } = props;
+  const [reps, setReps] = useState(0)
+  const [resistance, setResistance] = useState('')
+  const { user } = useContext(UserAuthContext)
 
+  const handleSubmit = async (evt) => {
+    evt.preventDefault()
+    if (user.user && user.user.is_premium) {
+      if (reps) {
+        let response = await submitUserExerciseInfo({
+          reps: reps,
+          resistance: resistance,
+          workoutId: workoutId,
+          exerciseId: exercise.id,
+          userId: user.user.id
+        })
+        let data = await response
+        console.log(data)
+      }
+    }
+    return forwardBack('right')
+  }
+
+  const updateReps = (evt) => {
+    setReps(evt.target.value)
+  }
+
+  const updateResistance = (evt) => {
+    setResistance(evt.target.value)
+  }
   if (isVisible) {
     return (
       <div className="exercise-container">
-       { idx !== 0 && <img className="exercise-left-arrow arrow" onClick={() => forwardBack('left')} src={leftArrow} alt='workout' />}
+       {
+        idx !== 0 &&
+        <img
+          className="exercise-left-arrow arrow"
+          onClick={() => forwardBack('left')}
+          src={leftArrow} alt='workout'
+          />
+        }
+        <p id="exercise-quantity">{ exercise.quantity }</p>
         <p id="exercise-active">{ exercise.order } / { totalExercises }</p>
         <p id="exercise-name">{ exercise.name }</p>
         <img id="exercise-img" src={exercise.image_url} alt='workout' />
         {
+          user.user
+          &&
+          user.user.is_premium
+          &&
+          <ExerciseInputGroup
+            updateReps={updateReps}
+            updateResistance={updateResistance}
+            exercise={exercise}
+            workoutId={workoutId}
+            />
+        }
+        {
           idx !== totalExercises - 1
           &&
-          <div className="exercise-right-container" onClick={() => forwardBack('right')} >
+          <div className="exercise-right-container" onClick={handleSubmit} >
             <img className="exercise-right-arrow arrow" src={leftArrow} alt='workout' />
             {
               nextExercise

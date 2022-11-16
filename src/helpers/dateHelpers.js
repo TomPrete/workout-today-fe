@@ -67,8 +67,13 @@ const formatCurrentDate = () => {
   return `${newDate.getFullYear()}-${newDate.getMonth()+1}-${newDate.getDate()}`
 }
 
+const formateDateInput = (date) => {
+
+}
+
 export {
   getDate,
   currentDay,
-  formatCurrentDate
+  formatCurrentDate,
+  getDateOfMonth
 }

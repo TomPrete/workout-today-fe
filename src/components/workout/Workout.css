@@ -41,6 +41,19 @@
   border: none;
 }
 
+.timer-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.timer {
+  grid-column-start: 2;
+}
+
+.favorite {
+
+}
+
 .exercise-table-container {
   box-shadow: 5px 5px 10px #4c579e;
   left: 50%;
