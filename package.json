@@ -2,7 +2,7 @@
   "name": "workout_today",
   "version": "0.1.0",
   "engines": {
-    "node": "16.x"
+    "node": "12.x"
   },
   "private": true,
   "dependencies": {
