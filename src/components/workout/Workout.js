@@ -8,7 +8,7 @@ import DownArrow from '../../assets/ui-icons-chevron-down.svg'
 import { currentDay, getDate } from '../../helpers/dateHelpers';
 import { getPercentage } from '../../helpers/numHelpers';
 
-import { submitWorkoutStatus, getMoreWorkouts } from '../../api/WorkoutAPI'
+import { submitWorkoutStatus, getMoreWorkouts, favoriteWorkout } from '../../api/WorkoutAPI'
 
 import { WorkoutContext } from '../../contexts/WorkoutContext';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
@@ -36,6 +36,7 @@ const Workout = () => {
   const [showAbWorkout, setShowAbWorkout] = useState(false)
   const [showExerciseList, setShowExerciseList] = useState(false)
   const [showMoreWorkouts, setShowMoreWorkouts] = useState(false)
+  const [isFavorite, setIsFavorite] = useState(false)
   const { workout, dispatch } = useContext(WorkoutContext)
   const { user } = useContext(UserAuthContext)
   const { exercise } = useContext(ExerciseContext)
@@ -87,6 +88,17 @@ const Workout = () => {
     } else {
       toggleModals('workouts')
     }
+  }
+
+  const toggleFavorite = async () => {
+    let workoutInfo = {
+      user: user.user.id,
+      workout: workout.workoutId,
+      action: (isFavorite ? 'unfavorite' : 'favorite')
+    }
+    let response = await favoriteWorkout(workoutInfo)
+    console.log(response)
+
   }
 
   const toggleModals = (type = null) => {
@@ -148,7 +160,7 @@ const Workout = () => {
           user.user && user.user.is_premium
           &&
           <div className='favorite'>
-            <Favorite />
+            <Favorite toggleFavorite={toggleFavorite} />
           </div>
         }
       </div>

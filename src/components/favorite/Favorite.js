@@ -3,8 +3,9 @@ import React from 'react';
 // import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 const Favorite = (props) => {
+  const { toggleFavorite } = props;
   return (
-    <div>
+    <div onClick={toggleFavorite} >
       Like
     </div>
   );

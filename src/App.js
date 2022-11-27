@@ -18,6 +18,7 @@ import TimerContextProvider from './contexts/TimerContext';
 import ExerciseContextProvider from './contexts/ExerciseContext';
 import Checkout from './components/checkout/Checkout';
 import WorkoutsPage from './components/workouts/WorkoutsPage';
+import PricingTable from './components/pricing/PricingTable';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
                     <Route path='/checkout' element={<Checkout />} />
                     <Route path='/workout' element={<Workout />} />
                     <Route path='/workouts' element={<WorkoutsPage />} />
+                    <Route path='/pricing' element={<PricingTable />} />
                   </Routes>
                 </BrowserRouter>
               </ModalContextProvider>

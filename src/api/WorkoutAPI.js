@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const WORKOUT_URL = development ? "http://localhost:8000/api" : "https://workout-today-backend.herokuapp.com/api"
 
 const getTodaysWorkout = async () => {
@@ -101,11 +101,31 @@ const getUserExerciseInfo = async (exerciseInfo) => {
   }
 }
 
+const favoriteWorkout = async (workoutInfo) => {
+  let query = `?query=${workoutInfo['action']}`
+  try {
+    let response = await fetch(`${WORKOUT_URL}/user/${workoutInfo.user}/workout/${workoutInfo.workout}${query ? `${query}` : ''}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    let data = await response.json()
+    return data
+  }
+  catch(err) {
+    console.error(err)
+  }
+
+}
+
 export {
   getTodaysWorkout,
   submitWorkoutStatus,
   getMoreWorkouts,
   submitUserExerciseInfo,
   getUserExerciseInfo,
-  getWorkouts
+  getWorkouts,
+  favoriteWorkout
 }

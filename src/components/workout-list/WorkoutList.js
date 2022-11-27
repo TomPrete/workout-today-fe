@@ -51,6 +51,7 @@ const WorkoutList = (props) => {
       {
         displayPastWorkouts()
       }
+      <a href='/pricing' alt='upgrade'>Upgrade for More Workouts</a>
     </div>
   );
 };

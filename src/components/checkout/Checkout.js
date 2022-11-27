@@ -3,7 +3,7 @@ import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { stripeCheckout } from '../../api/CheckoutAPI'
 const PRICE_LOOKUP_KEY = "price_1LTWBQCxk3VOyNJUhOm3q6eW"
 
-const backendUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : 'https://workout-today-backend.herokuapp.com/'
+const backendUrl = 'http://localhost:8000/'
 
 const ProductDisplay = () => {
   const { user, dispatch } = useContext(UserAuthContext)

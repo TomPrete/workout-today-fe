@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { login } from '../../api/UserAuthAPI';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { Navigate, useNavigate, Link } from "react-router-dom";
+import NavLogo from '../../assets/workout_today_logo.png'
 import jwt_decode from "jwt-decode";
 
 const Login = () => {
@@ -36,8 +37,9 @@ const Login = () => {
     }
   }
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="box m-6">
+      <img src={NavLogo} />
+      <h1 className="title">Login</h1>
       {
         user.user &&
         <Navigate to="/today" replace={true} />
@@ -48,10 +50,24 @@ const Login = () => {
         <p className="help is-danger">{ user.message }</p>
       }
       <form onSubmit={handleLogin}>
-        <h3>Email</h3>
-        <input className={`input ${user.error && 'is-danger'}`} name='username' type="text" placeholder="Username" />
-        <h3>Password</h3>
-        <input className={`input ${user.error && 'is-danger'}`}  name='password' type="password" placeholder="password" />
+        <div className="field">
+          <label className="label">Email</label>
+          <p className="control has-icons-left has-icons-right">
+            <input className={`input ${user.error && 'is-danger'}`} name="username" type="email" placeholder="Username" />
+            <span className="icon is-small is-left">
+              <i className="fas fa-envelope"></i>
+            </span>
+          </p>
+        </div>
+        <div className="field">
+          <label className="label">Password</label>
+          <p className="control has-icons-left">
+            <input className={`input ${user.error && 'is-danger'}`} name='password' type="password" placeholder="Password" />
+            <span className="icon is-small is-left">
+              <i className="fas fa-lock"></i>
+            </span>
+          </p>
+        </div>
         <button className="button is-primary" type='submit'>Login</button>
       </form>
       <p>Don't have an account, <Link to='/signup'>Sign Up</Link> here.</p>
