@@ -1,9 +1,9 @@
 const development = false
-const LOGIN_URL = development ? "http://localhost:8000/accounts/v1/token/" : "https://workout-today-backend.herokuapp.com/accounts/v1/token/"
+const LOGIN_URL = development ? "http://localhost:8000/accounts/v1/token/" : "https://api.workouttoday.co/accounts/v1/token/"
 
-const SINGUP_URL = development ? 'http://localhost:8000/api/v1/accounts/register/' : 'https://workout-today-backend.herokuapp.com/api/v1/accounts/register/'
+const SINGUP_URL = development ? 'http://localhost:8000/api/v1/accounts/register/' : 'https://api.workouttoday.co/api/v1/accounts/register/'
 
-const CURRENT_USER_URL = development ? 'http://127.0.0.1:8000/accounts/v1/current_user/' : 'https://workout-today-backend.herokuapp.com/accounts/v1/current_user/'
+const CURRENT_USER_URL = development ? 'http://127.0.0.1:8000/accounts/v1/current_user/' : 'https://api.workouttoday.co/accounts/v1/current_user/'
 
 const signUp = async (userObj) => {
   try {
