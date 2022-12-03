@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { WorkoutContext } from '../contexts/WorkoutContext';
-import Exercise from './exercise/Exercise';
-import { ExerciseContext } from '../contexts/ExerciseContext';
+import { WorkoutContext } from '../../contexts/WorkoutContext';
+import Exercise from '../exercise/Exercise';
+import { ExerciseContext } from '../../contexts/ExerciseContext';
 
 const ExerciseList = (props) => {
   const { changeWorkoutStatus, showAbWorkout } = props

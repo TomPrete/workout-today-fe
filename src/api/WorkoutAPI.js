@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const WORKOUT_URL = development ? "http://localhost:8000/api" : "https://api.workouttoday.co/api"
 
 const getTodaysWorkout = async () => {
@@ -29,10 +29,10 @@ const getMoreWorkouts = async (date = null) => {
   }
 }
 
-const getWorkouts = async () => {
+const getWorkouts = async (workout_type) => {
   try {
     console.log("TOKEN: ", localStorage.getItem('access_token'))
-    let response = await fetch(`${WORKOUT_URL}/workouts`, {
+    let response = await fetch(`${WORKOUT_URL}/workouts/${workout_type}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

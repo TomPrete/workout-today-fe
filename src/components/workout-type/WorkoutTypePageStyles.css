@@ -1,0 +1,22 @@
+.workout-type-card {
+  border: 2px solid #4c579e;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px #4c579e;
+}
+
+.workout-type-card:last-child {
+  margin-bottom: 70px !important;
+}
+
+.workout-type-container .workout-type-card:first-child {
+  margin-top: 60px !important;
+}
+
+.workout-target-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  padding: 10px;
+  color: #4c579e;
+  cursor: pointer;
+}

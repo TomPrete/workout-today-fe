@@ -15,13 +15,13 @@ import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { TimerContext } from '../../contexts/TimerContext';
 import { ExerciseContext } from '../../contexts/ExerciseContext';
 
-import ExerciseList from '../ExerciseList';
+import ExerciseList from '../exercise-list/ExerciseList';
 import Button from '../button/Button'
 import Loading from '../loading/Loading';
 import ProgressBar from '../progress-bar/ProgressBar';
-import Timer from '../Timer';
+import Timer from '../timer/Timer';
 import Table from '../table/Table';
-// import BottomNavBar from '../navbar/BottomNavBar';
+import BottomNavBar from '../navbar/BottomNavBar';
 import Modal from '../modal/Modal';
 import WorkoutList from '../workout-list/WorkoutList';
 import Favorite from '../favorite/Favorite';
@@ -100,7 +100,7 @@ const Workout = () => {
     console.log(response)
 
   }
-
+  console.log("location: ", location)
   const toggleModals = (type = null) => {
     if (type === null) {
       setShowMoreWorkouts(false)

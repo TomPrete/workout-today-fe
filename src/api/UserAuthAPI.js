@@ -1,9 +1,11 @@
-const development = false
+const development = true
 const LOGIN_URL = development ? "http://localhost:8000/accounts/v1/token/" : "https://api.workouttoday.co/accounts/v1/token/"
 
 const SINGUP_URL = development ? 'http://localhost:8000/api/v1/accounts/register/' : 'https://api.workouttoday.co/api/v1/accounts/register/'
 
 const CURRENT_USER_URL = development ? 'http://127.0.0.1:8000/accounts/v1/current_user/' : 'https://api.workouttoday.co/accounts/v1/current_user/'
+
+const LOGOUT_URL = development ? 'http://localhost:8000/api/v1/accounts/logout/' : 'https://api.workouttoday.co/api/v1/accounts/logout/'
 
 const signUp = async (userObj) => {
   try {
@@ -108,12 +110,20 @@ const getCurrentUserRefreshToken = async (refreshToken) => {
   }
 }
 
-const logoutUser = () => {
+const logoutUser = async () => {
   try {
+    let response = await fetch(LOGOUT_URL, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+      }
+    })
+    let data = await response.json()
+    console.log('RESPONSE: ', data)
     localStorage.setItem('access_token', 'null')
     localStorage.setItem('refresh_token', 'null')
     return {
-      'message': 'Logged out success',
+      'message': 'success',
       'status': 200
     }
   }

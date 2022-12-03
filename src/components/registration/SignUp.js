@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { signUp } from '../../api/UserAuthAPI';
 import { stripeCheckout } from '../../api/CheckoutAPI';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams, Navigate } from "react-router-dom";
 import NavLogo from '../../assets/workout_today_logo.png';
 import './registration.css';
 
@@ -52,6 +52,10 @@ const SignUp = () => {
     <div className="box m-6">
       <img src={NavLogo} />
       <h1 className="title">Sign Up</h1>
+      {
+        user.user &&
+        <Navigate to="/today" replace={true} />
+      }
       {
         user.error
         &&

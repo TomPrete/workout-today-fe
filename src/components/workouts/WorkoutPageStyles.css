@@ -1,0 +1,12 @@
+.card-image {
+  height: auto;
+  width: 150px;
+}
+
+.workout-card:first-child {
+  margin-top: 50px;
+}
+
+.workout-card:last-child {
+  margin-bottom: 60px;
+}

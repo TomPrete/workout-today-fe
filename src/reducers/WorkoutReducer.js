@@ -20,7 +20,8 @@ export const workoutReducer = (state, action) => {
     case 'GET_PAST_WORKOUTS_SUCCESS':
       return {
         ...state,
-        'pastWorkouts': action.pastWorkouts
+        'pastWorkouts': action.pastWorkouts,
+        'loading': false
       }
     case 'GET_EXERCISES_LOADING':
       return {

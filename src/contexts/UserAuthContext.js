@@ -27,8 +27,8 @@ const UserAuthContextProvider = (props) => {
   }
 
   const useRefreshToken = async () => {
-    dispatch({type: 'GET_USER_LOADING'})
-    if (localStorage.getItem('refresh_token')) {
+    if (localStorage.getItem('refresh_token') !== 'null') {
+      dispatch({type: 'GET_USER_LOADING'})
       let refreshToken = {
         'refresh': localStorage.getItem('refresh_token')
       }
@@ -45,6 +45,8 @@ const UserAuthContextProvider = (props) => {
       } else {
         dispatch({type: 'GET_CURRENT_OR_REFRESH_USER_FAILURE', user})
       }
+    } else {
+      dispatch({type: 'GET_CURRENT_OR_REFRESH_USER_FAILURE', user})
     }
   }
 

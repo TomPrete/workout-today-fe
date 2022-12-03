@@ -1,22 +1,27 @@
-import React, { useEffect, useContext, useReducer } from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext, useReducer } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import MobileHeader from '../mobile-header/MobileHeader';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { WorkoutContext } from '../../contexts/WorkoutContext';
 import { getWorkouts, getMoreWorkouts } from '../../api/WorkoutAPI';
+import BottomNavBar from '../navbar/BottomNavBar'
+import WorkoutOne from '../../assets/workout-1.jpg'
+import WorkoutTwo from '../../assets/workout-2.jpg'
 import { capitalizeWorkoutTarget } from '../../helpers/stringHelpers';
 import { formatCurrentDate } from '../../helpers/dateHelpers';
 import * as dayjs from 'dayjs'
+import './WorkoutPageStyles.css'
 
 const WorkoutsPage = (props) => {
   const { user } = useContext(UserAuthContext)
   const { workout, dispatch } = useContext(WorkoutContext)
   let navigate = useNavigate();
+  let { targetMuscle } = useParams();
 
   useEffect(() => {
-
     const getWorkoutsPremium = async () => {
       dispatch({ type: 'GET_EXERCISES_LOADING' })
-      const pastWorkouts = await getWorkouts()
+      const pastWorkouts = await getWorkouts(targetMuscle)
       if (pastWorkouts['error']) {
         dispatch({ type: 'GET_EXERCISES_FAILURE', pastWorkouts })
       } else {
@@ -38,17 +43,17 @@ const WorkoutsPage = (props) => {
     }
   }
 
+  console.log("TARGET: ", targetMuscle)
   const displayWorkouts = () => {
     return workout.pastWorkouts.map((pastWorkout, id) => {
-      console.log(typeof pastWorkout.workout_date)
       return (
-        <div key={id} className="column is-one-quarter">
+        <div key={id} className="column is-one-quarter workout-card">
           <div className="card" onClick={() => getOneWorkout(pastWorkout.workout_date)}>
             <div className="card-content">
               <div className="media">
                 <div className="media-left">
-                  <figure className="image is-48x48">
-                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
+                  <figure className="image card-image">
+                    <img src={id % 2 == 0 ? WorkoutOne : WorkoutTwo} alt="Placeholder image" />
                   </figure>
                 </div>
                 <div className="media-content">
@@ -65,10 +70,13 @@ const WorkoutsPage = (props) => {
   }
 
   if (user.user && user.user.is_premium && workout.pastWorkouts) {
-    console.log('workouts: ', workout.pastWorkouts)
     return (
-      <div className="columns is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd is-multiline">
+      <div>
+        <MobileHeader title={capitalizeWorkoutTarget(targetMuscle)} />
+        <div className="columns is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd is-multiline">
         { displayWorkouts() }
+        </div>
+        {/*<BottomNavBar />*/}
       </div>
     );
 

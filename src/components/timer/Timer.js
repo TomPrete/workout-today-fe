@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
-import Button from './button/Button';
-import { TimerContext } from '../contexts/TimerContext';
+import Button from '../button/Button';
+import { TimerContext } from '../../contexts/TimerContext';
 
 // let totalSeconds = 2700;
 

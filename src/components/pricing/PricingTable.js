@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { createCustomerPortal } from '../../api/CheckoutAPI';
+import BottomNavBar from '../navbar/BottomNavBar';
 
 
 const PricingTable = () => {
@@ -32,6 +33,7 @@ const PricingTable = () => {
             </form>
           </div>
         }
+        {/*<BottomNavBar />*/}
       </div>
     );
   }
