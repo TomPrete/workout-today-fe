@@ -5,7 +5,7 @@ import { UserAuthContext } from '../../contexts/UserAuthContext';
 import BottomNavBar from '../navbar/BottomNavBar';
 import { logoutUser } from '../../api/UserAuthAPI';
 import { createCustomerPortal } from '../../api/CheckoutAPI';
-const development = true
+const development = false
 
 const backendUrl = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
