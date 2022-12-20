@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import * as dayjs from 'dayjs'
 
 import './WorkoutListStyles.css'
 
@@ -9,6 +10,8 @@ import { getMoreWorkouts } from '../../api/WorkoutAPI';
 
 import { capitalizeWorkoutTarget } from '../../helpers/stringHelpers';
 import { formatCurrentDate } from '../../helpers/dateHelpers';
+
+
 
 const WorkoutList = (props) => {
   const { pastWorkouts } = props
@@ -36,7 +39,8 @@ const WorkoutList = (props) => {
               <div className="media">
                 <div className="media-content">
                   <p className="title is-4">{ capitalizeWorkoutTarget(pastWorkout.workout_target) }</p>
-                  <p className="subtitle is-6">{ pastWorkout.workout_date }</p>
+                  <p className="subtitle is-6">{pastWorkout.total_rounds} Round{pastWorkout.total_rounds > 1 ? 's' : ''}</p>
+                  <p className="subtitle is-6">{ dayjs(pastWorkout.workout_date).format('MMM DD, YYYY') }</p>
                 </div>
               </div>
             </div>
@@ -51,7 +55,9 @@ const WorkoutList = (props) => {
       {
         displayPastWorkouts()
       }
-      <a href='/pricing' alt='upgrade'>Upgrade for More Workouts</a>
+      <a href='/pricing' alt='upgrade'>
+        <button className="button is-warning is-medium is-fullwidth">Upgrade for More Workouts</button>
+      </a>
     </div>
   );
 };

@@ -1,0 +1,13 @@
+.logo-img {
+  width: 400px;
+}
+
+@media only screen and (max-width: 450px) {
+  .navbar {
+    display: none;
+  }
+
+  .logo-img {
+    width: 200px;
+  }
+}

@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import NavLogo from '../../assets/workout_today_logo.png'
 import { logoutUser } from '../../api/UserAuthAPI'
+import './NavBarStyles.css';
 
 const NavBar = () => {
+  const [isActive, setIsActive] = useState(false)
   const { user, dispatch } = useContext(UserAuthContext)
 
 
@@ -14,82 +16,55 @@ const NavBar = () => {
     }
   }
 
+  const toggleNavbar = () => {
+    setIsActive(!isActive)
+  }
+
   return (
-    <div>
-      <nav className="navbar" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand">
-          <a className="navbar-item" href="https://workout-today.herokuapp.com/login">
-            <img src={NavLogo} />
-          </a>
-
-          <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-        <div id="navbarBasicExample" className="navbar-menu">
-          <div className="navbar-start">
-            <a className="navbar-item">
-              Home
-            </a>
-
-            <a className="navbar-item">
-              About
-            </a>
-            <a className="navbar-item">
-              Pricing
-            </a>
-
-            {/*<div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">
-                More
-              </a>
-
-              <div className="navbar-dropdown">
-                <a className="navbar-item">
-                  About
-                </a>
-                <a className="navbar-item">
-                  Jobs
-                </a>
-                <a className="navbar-item">
-                  Contact
-                </a>
-                <hr className="navbar-divider" />
-                <a className="navbar-item">
-                  Report an issue
-                </a>
-              </div>
-  </div>*/}
-          </div>
-
-          <div className="navbar-end">
-            <div className="navbar-item">
-              <div className="buttons">
-              {
-                user['user']
-                ?
-                <a className="button is-primary" href='/' onClick={logout}>
-                  <strong>Log out</strong>
-                </a>
-                :
-                <div>
-                  <a className="button is-primary" href='/signup'>
-                    <strong>Sign up</strong>
-                  </a>
-                  <a className="button is-light"  href='/login'>
-                    Log in
-                  </a>
-                </div>
-              }
-              </div>
+    <nav className='navbar is-fixed-top'>
+      <div className='navbar-brand'>
+        <a className='navbar-item' href="/today">
+          <img src={NavLogo} className='logo-img' />
+        </a>
+        <a role="button" className={`navbar-burger ${isActive ? 'is-active' : ''}`} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={toggleNavbar}>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div className={`navbar-menu ${isActive ? 'is-active' : ''}`}>
+      {
+        user.user
+        ?
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <a href="/today">Home</a>
             </div>
+          <div className="navbar-item">
+            <a href="/workouts">Workouts</a>
+            </div>
+          <div className="navbar-item">
+            <a href="/account">Account</a>
           </div>
         </div>
-      </nav>
-    </div>
+        :
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <a href="https://www.workouttoday.co/ ">Home</a>
+          </div>
+          <div className="navbar-item">
+            <a href="https://www.workouttoday.co/#pricing">Pricing</a>
+          </div>
+          <div className="navbar-item">
+            <a href="/login">Login</a>
+          </div>
+          <div className="navbar-item">
+            <a href="/signup">Sign Up</a>
+          </div>
+        </div>
+      }
+      </div>
+    </nav>
   );
 };
 

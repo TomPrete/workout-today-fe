@@ -1,23 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useReducer } from 'react';
+import { userAuthReducer } from '../../reducers/UserAuthReducer';
 import { Navigate, useNavigate } from "react-router-dom";
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import BottomNavBar from '../navbar/BottomNavBar';
 import { logoutUser } from '../../api/UserAuthAPI';
 import { createCustomerPortal } from '../../api/CheckoutAPI';
-const development = false
+const development = true
 
 const backendUrl = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
 const AccountHome = () => {
   const { user } = useContext(UserAuthContext)
+  const [userState, dispatch] = useReducer(userAuthReducer)
   let navigate = useNavigate();
 
   const handleLogout = async () => {
     let response = await logoutUser()
-    if (response.message === 'success') {
-      navigate('/login')
+    console.log("account RESPONSE: ", response)
+    dispatch({type: 'LOGOUT_USER_SUCCESS'})
+    if (response['message'] == 'success') {
+      window.location.href = '/login'
     } else {
-      navigate('/today')
+      window.location.href = '/today'
     }
   }
 

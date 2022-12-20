@@ -1,6 +1,7 @@
 .workout-header {
   display: grid;
   grid-template-columns: 20% auto 20%;
+  margin-top: 3.25rem;
 }
 
 .title-workout {
@@ -27,9 +28,10 @@
 }
 
 .rounds {
-  align-self: center;
   font-size: 18px;
   font-weight: 600;
+  justify-self: end;
+  padding: 0 20px;
 }
 
 .workout-bottom {
@@ -43,7 +45,7 @@
 
 .timer-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 40% auto 40%;
 }
 
 .timer {
@@ -67,6 +69,10 @@
 }
 
 @media only screen and (max-width: 450px) {
+  .workout-header {
+    margin-top: 0px;
+  }
+
   .weekday {
     font-size: 14px;
   }
@@ -90,5 +96,3 @@
 
   }
 }
-
-

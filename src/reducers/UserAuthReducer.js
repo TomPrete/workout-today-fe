@@ -28,6 +28,9 @@ export const userAuthReducer = (state, action) => {
         'loading': true
       }
     case 'LOGOUT_USER_SUCCESS':
+      console.log("LOGOUT USER SUCCESS")
+      localStorage.setItem('access_token', 'null')
+      localStorage.setItem('refresh_token', 'null')
       return {
         'user': null
       }

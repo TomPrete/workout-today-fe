@@ -27,6 +27,7 @@ import WorkoutList from '../workout-list/WorkoutList';
 import Favorite from '../favorite/Favorite';
 
 import mixpanel from 'mixpanel-browser';
+import NavBar from '../navbar/NavBar';
 
 mixpanel.init('c9b89c7bf5d74371eaa2dbf629c20821', {debug: true});
 
@@ -129,13 +130,13 @@ const Workout = () => {
   }
   return (
     <div>
+      <NavBar />
       <div className='workout-header'>
         <div className='date-container'>
           <div className='weekday'>{ currentDay() }</div>
           <div className='date'>{ getDate() }</div>
         </div>
         <p onClick={() => toggleModals('exercises')} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"} <img src={showExerciseList ? DownArrow :RightArrow} alt='open-close-arrow' /></p>
-        <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       {
         showExerciseList
@@ -157,12 +158,13 @@ const Workout = () => {
           <Timer showPauseButton={false} />
         </div>
         {
-          user.user && user.user.is_premium
-          &&
-          <div className='favorite'>
-            <Favorite toggleFavorite={toggleFavorite} />
-          </div>
+          // user.user && user.user.is_premium
+          // &&
+          // <div className='favorite'>
+          //   <Favorite toggleFavorite={toggleFavorite} />
+          // </div>
         }
+        <div className='rounds'>{`x${workout['rounds']} Round${workout['rounds'] > 1 ? 's' : ''}`}</div>
       </div>
       <ExerciseList changeWorkoutStatus={changeWorkoutStatus} showAbWorkout={showAbWorkout} />
       <div className='workout-bottom'>

@@ -26,14 +26,14 @@ const Login = () => {
           is_premium: decoded['is_premium'],
           id: decoded['id']
         }
-        dispatch({type: 'GET_USER_SUCCESS', user})
+        dispatch({ type: 'GET_USER_SUCCESS', user })
       }
       if (response['refresh']) {
         localStorage.setItem('refresh_token', response['refresh'])
       }
       navigate('/today')
     } else {
-      dispatch({type: 'GET_USER_FAILURE', user})
+      dispatch({ type: 'GET_USER_FAILURE', user })
     }
   }
   return (
@@ -47,7 +47,7 @@ const Login = () => {
       {
         user.error
         &&
-        <p className="help is-danger">{ user.message }</p>
+        <p className="help is-danger">{user.message}</p>
       }
       <form onSubmit={handleLogin}>
         <div className="field">
