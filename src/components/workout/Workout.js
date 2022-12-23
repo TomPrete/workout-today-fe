@@ -4,11 +4,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import './Workout.css'
 import RightArrow from '../../assets/ui-icons-chevron-right.svg'
 import DownArrow from '../../assets/ui-icons-chevron-down.svg'
+import EmptyStar from '../../assets/star.svg'
+import Star from '../../assets/star-filled.svg'
 
 import { currentDay, getDate } from '../../helpers/dateHelpers';
 import { getPercentage } from '../../helpers/numHelpers';
 
-import { submitWorkoutStatus, getMoreWorkouts, favoriteWorkout } from '../../api/WorkoutAPI'
+import { submitWorkoutStatus, getMoreWorkouts, favoriteWorkout, getFavoriteWorkout } from '../../api/WorkoutAPI'
 
 import { WorkoutContext } from '../../contexts/WorkoutContext';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
@@ -56,8 +58,20 @@ const Workout = () => {
     if (pathNameKey !== location.key) {
       toggleModals()
     }
+    if (user.user && user.user.is_premium) {
+      userFavoriteWorkout()
+    }
     setPathNameKey(location.key)
   }, [workout])
+
+  const userFavoriteWorkout = async () => {
+    let workoutInfo = {
+      user: user.user.id,
+      workout: workout.workoutId,
+    }
+    let response = await getFavoriteWorkout(workoutInfo)
+    setIsFavorite(response.is_favorite)
+  }
 
   const changeWorkoutStatus = async (status) => {
     if (status === 'finished') {
@@ -98,8 +112,9 @@ const Workout = () => {
       action: (isFavorite ? 'unfavorite' : 'favorite')
     }
     let response = await favoriteWorkout(workoutInfo)
-    console.log(response)
-
+    if (response.message === 'success') {
+      setIsFavorite(!isFavorite)
+    }
   }
   console.log("location: ", location)
   const toggleModals = (type = null) => {
@@ -118,7 +133,7 @@ const Workout = () => {
   const percentageCompleted = () => {
     return showAbWorkout ? getPercentage(exercise.abIdx, workout.ab_exercises.length) : getPercentage(exercise.exerciseIdx, workout.exercises.length)
   }
-
+  console.log("USER: ", user)
   const navigateToLogin = () => {
     navigate('/login')
   }
@@ -136,7 +151,14 @@ const Workout = () => {
           <div className='weekday'>{ currentDay() }</div>
           <div className='date'>{ getDate() }</div>
         </div>
-        <p onClick={() => toggleModals('exercises')} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"} <img src={showExerciseList ? DownArrow :RightArrow} alt='open-close-arrow' /></p>
+        <p onClick={() => toggleModals('exercises')} className='title-workout'>{!showAbWorkout ? workout['target'] : "Abs"} <img src={showExerciseList ? DownArrow : RightArrow} alt='open-close-arrow' /></p>
+        {
+          user.user
+          &&
+          user.user.is_premium
+          &&
+          <img onClick={toggleFavorite} src={isFavorite ? Star : EmptyStar } alt='favorite' className='favorite-icon' />
+        }
       </div>
       {
         showExerciseList
@@ -183,6 +205,11 @@ const Workout = () => {
           title="More Workouts"
           onClick={user.user ? getPreviousWorkouts : navigateToLogin} />
       </div>
+      {
+        user.user
+        &&
+        <BottomNavBar />
+      }
     </div>
   );
 };

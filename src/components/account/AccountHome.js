@@ -67,7 +67,7 @@ const AccountHome = () => {
         </div>
       }
       <button onClick={handleLogout}>Log Out</button>
-      {/*<BottomNavBar />*/}
+      <BottomNavBar />
       </div>
     );
   }

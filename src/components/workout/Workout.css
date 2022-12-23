@@ -52,8 +52,10 @@
   grid-column-start: 2;
 }
 
-.favorite {
-
+.favorite-icon {
+  align-self: center;
+  height: 30px;
+  justify-self: center;
 }
 
 .exercise-table-container {

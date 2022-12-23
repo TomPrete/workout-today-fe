@@ -46,7 +46,6 @@ function App() {
                     <Route path='/pricing' element={<PricingTable />} />
                     <Route path='/account' element={<AccountHome />} />
                   </Routes>
-                  <BottomNavBar />
                 </BrowserRouter>
               </ModalContextProvider>
             </WorkoutContextProvider>

@@ -76,7 +76,7 @@ const WorkoutsPage = (props) => {
         <div className="columns is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd is-multiline">
         { displayWorkouts() }
         </div>
-        {/*<BottomNavBar />*/}
+        <BottomNavBar />
       </div>
     );
 

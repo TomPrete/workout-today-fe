@@ -5,7 +5,7 @@ const MobileHeader = (props) => {
   const { title } = props;
   return (
     <div className='mobile-header-container'>
-    <p className='title-workout'>{ title }</p>
+      <p className='title-workout'>{ title }</p>
     </div>
   );
 };

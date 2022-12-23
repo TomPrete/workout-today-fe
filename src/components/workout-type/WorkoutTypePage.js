@@ -1,31 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { UserAuthContext } from '../../contexts/UserAuthContext';
 import MobileHeader from '../mobile-header/MobileHeader';
 import './WorkoutTypePageStyles.css'
 import { capitalizeWorkoutTarget } from '../../helpers/stringHelpers';
+import BottomNavBar from '../navbar/BottomNavBar';
 
 const WorkoutTypePage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { user } = useContext(UserAuthContext);
 
 
   const displayWorkoutTarget = () => {
     const muscleTarget = ['chest-back',"shoulders-biceps-triceps","back-biceps","shoulders-chest-triceps","legs-cardio","cardio-core","legs-back","cardio","core","abs"]
     return muscleTarget.map((target, idx) => {
       return (
-        <div key={idx} className="m-3 workout-type-card" onClick={() => navigate(`/workouts/${target}`)}>
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image" />
+        <div key={idx} className={`workout-type ${user.user.is_premium ? '' : 'show-pricing-link'}`} onClick={() => user.user.is_premium && navigate(`/workouts/${target}`)}>
           <div className='workout-target-title'>{ capitalizeWorkoutTarget(target) }</div>
         </div>
       )
     })
   }
-
+  console.log(user)
   return (
     <div className='workout-type-container'>
       <MobileHeader title='Workouts Types' />
       {
+        user.user
+        &&
         displayWorkoutTarget()
       }
+      {
+        user.user && !user.user.is_premium
+        &&
+        <div className="pricing-link">
+          <a href='/pricing' alt='upgrade'>
+            <button className="button is-warning is-large is-fullwidth">Upgrade for All Workouts</button>
+          </a>
+        </div>
+      }
+      <BottomNavBar />
     </div>
   );
 };

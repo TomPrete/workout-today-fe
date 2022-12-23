@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { createCustomerPortal } from '../../api/CheckoutAPI';
 import BottomNavBar from '../navbar/BottomNavBar';
-
+import MobileHeader from '../mobile-header/MobileHeader';
+import './PricingTableStyles.css';
 
 const PricingTable = () => {
   const { user } = useContext(UserAuthContext)
@@ -16,12 +17,15 @@ const PricingTable = () => {
   if (user.user) {
     return (
       <div>
-        <stripe-pricing-table
-          pricing-table-id="prctbl_1M6jIJCxk3VOyNJU9MvLgoUm"
-          publishable-key="pk_test_51LTVzmCxk3VOyNJU9sL4qhXFp3Lt0r8UuqkVidXWrNzsMbMf32kpVQEHtkCU0aMzsCYOubVBq36aruZUBMXLm5an00WUPaQd4a"
-          customer-email={user.user.email}
-          >
-        </stripe-pricing-table>
+        <MobileHeader title='Pricing' />
+        <div className='stripe-pricing-table'>
+          <stripe-pricing-table
+            pricing-table-id="prctbl_1M6jIJCxk3VOyNJU9MvLgoUm"
+            publishable-key="pk_test_51LTVzmCxk3VOyNJU9sL4qhXFp3Lt0r8UuqkVidXWrNzsMbMf32kpVQEHtkCU0aMzsCYOubVBq36aruZUBMXLm5an00WUPaQd4a"
+            customer-email={user.user.email}
+            >
+          </stripe-pricing-table>
+        </div>
 
         {
           user.user.is_premium
@@ -33,7 +37,7 @@ const PricingTable = () => {
             </form>
           </div>
         }
-        {/*<BottomNavBar />*/}
+        <BottomNavBar />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const WORKOUT_URL = development ? "http://localhost:8000/api" : "https://api.workouttoday.co/api"
 
 const getTodaysWorkout = async () => {
@@ -101,7 +101,7 @@ const getUserExerciseInfo = async (exerciseInfo) => {
   }
 }
 
-const favoriteWorkout = async (workoutInfo) => {
+const favoriteWorkout = async (workoutInfo = null) => {
   let query = `?query=${workoutInfo['action']}`
   try {
     let response = await fetch(`${WORKOUT_URL}/user/${workoutInfo.user}/workout/${workoutInfo.workout}${query ? `${query}` : ''}`, {
@@ -117,7 +117,23 @@ const favoriteWorkout = async (workoutInfo) => {
   catch(err) {
     console.error(err)
   }
+}
 
+const getFavoriteWorkout = async (workoutInfo) => {
+  try {
+    let response = await fetch(`${WORKOUT_URL}/user/${workoutInfo.user}/workout/${workoutInfo.workout}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    let data = await response.json()
+    return data
+  }
+  catch(err) {
+    console.error(err)
+  }
 }
 
 export {
@@ -127,5 +143,6 @@ export {
   submitUserExerciseInfo,
   getUserExerciseInfo,
   getWorkouts,
-  favoriteWorkout
+  favoriteWorkout,
+  getFavoriteWorkout
 }

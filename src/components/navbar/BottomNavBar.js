@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
 import './BottomNavBar.css'
 import Home from '../../assets/home.svg'
 import User from '../../assets/user.svg'
 import Dumbbell from '../../assets/dumbbell.svg'
-import Calendar from '../../assets/calendar.svg'
 
 const BottomNavBar = (props) => {
   let navigate = useNavigate();
+
   return (
     <div className='navbar-bottom'>
       <a href='/today' className='navbar-button-link'>

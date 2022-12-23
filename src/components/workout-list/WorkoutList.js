@@ -56,7 +56,7 @@ const WorkoutList = (props) => {
         displayPastWorkouts()
       }
       <a href='/pricing' alt='upgrade'>
-        <button className="button is-warning is-medium is-fullwidth">Upgrade for More Workouts</button>
+        <button className="button is-warning is-medium is-fullwidth">Upgrade for All Workouts</button>
       </a>
     </div>
   );

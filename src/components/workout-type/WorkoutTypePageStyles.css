@@ -1,22 +1,34 @@
-.workout-type-card {
+.workout-type {
   border: 2px solid #4c579e;
   border-radius: 10px;
   box-shadow: 4px 4px 8px #4c579e;
+  margin: 55px 15px;
 }
 
-.workout-type-card:last-child {
-  margin-bottom: 70px !important;
+.workout-type:first-child {
+  margin-top: 70px !important;
 }
 
-.workout-type-container .workout-type-card:first-child {
-  margin-top: 60px !important;
+.workout-type:first-of-type {
+  margin: 55px;
 }
 
 .workout-target-title {
   font-size: 22px;
   font-weight: 600;
-  margin: 0;
   padding: 10px;
   color: #4c579e;
   cursor: pointer;
+}
+
+.show-pricing-link {
+  filter: blur(5px);
+  margin-top: 50px;
+}
+
+.pricing-link {
+  position: fixed !important;
+  top: 20%;
+  width: 100%;
+  z-index: 1;
 }
