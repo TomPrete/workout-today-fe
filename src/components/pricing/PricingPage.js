@@ -22,12 +22,6 @@ const PricingPage = () => {
         <MobileHeader title='Pricing' />
         <div className='stripe-pricing-table'>
           <PricingTable />
-          <stripe-pricing-table
-            pricing-table-id="prctbl_1M6jIJCxk3VOyNJU9MvLgoUm"
-            publishable-key="pk_test_51LTVzmCxk3VOyNJU9sL4qhXFp3Lt0r8UuqkVidXWrNzsMbMf32kpVQEHtkCU0aMzsCYOubVBq36aruZUBMXLm5an00WUPaQd4a"
-            customer-email={user.user.email}
-            >
-          </stripe-pricing-table>
         </div>
 
         {

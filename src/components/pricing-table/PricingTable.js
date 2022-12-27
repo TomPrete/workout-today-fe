@@ -109,9 +109,6 @@ const PricingTable = (props) => {
           </div>
         </div>
       </div>
-
-
-
     </div>
   );
 };
