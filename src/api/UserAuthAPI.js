@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const LOGIN_URL = development ? "http://localhost:8000/accounts/v1/token/" : "https://api.workouttoday.co/accounts/v1/token/"
 
 const SINGUP_URL = development ? 'http://localhost:8000/api/v1/accounts/register/' : 'https://api.workouttoday.co/api/v1/accounts/register/'
@@ -22,10 +22,14 @@ const signUp = async (userObj) => {
         'message': data['non_field_errors'][0],
         'error': true
       }
-    }
-    if (data['email'] || data['username']) {
+    } else if (data['email'] || data['username']) {
       return {
         'message': 'A user with that username/email already exists.',
+        'error': true
+      }
+    } else if (data['password1']) {
+      return {
+        'message': "Password must contain letters (not be entirely numeric) and be at least 8 character long.",
         'error': true
       }
     } else {
@@ -74,12 +78,14 @@ const getCurrentUser = async (token) => {
       },
     })
     let data = await response.json()
-    if (data['code'] === 'token_not_valid') {
+    if (data['code'] === 'token_not_valid' || data['code'] === 'user_not_found' ) {
       return {
-        'message': 'token not valid',
-        'status': 200
+        'message': data.detail,
+        'code': data.code,
+        'status': 404
       }
     }
+    console.log("getCurrentUser: ", data)
     return data
   }
   catch(err) {
@@ -97,10 +103,11 @@ const getCurrentUserRefreshToken = async (refreshToken) => {
       'body': JSON.stringify(refreshToken)
     })
     let data = await response.json()
-    if (data['code'] === 'token_not_valid') {
+    if (data['code'] === 'token_not_valid' || data['code'] === 'user_not_found' ) {
       return {
-        'message': 'token not valid',
-        'status': 200
+        'message': data.detail,
+        'code': data.code,
+        'status': 404
       }
     }
     return data

@@ -9,7 +9,7 @@
   font-size: 22px;
   font-weight: 600;
   height: 40px;
-  /* width: 20%; */
+  width: 100%;
 }
 
 .button-container .ab-button {
@@ -53,9 +53,19 @@
   cursor: grabbing;
 }
 
+.button-container .subscribe-button {
+  background-color: #4c579e;
+  color: #fff;
+  width: 100% !important;
+}
+
 @media only screen and (max-width: 450px) {
   .button-container .ab-button {
     font-size: 14px;
+  }
+
+  .button-container .checkout-and-portal {
+    background-color: rgb(166, 232, 166);
   }
 
   .button-container .finish {
@@ -63,6 +73,6 @@
   }
 
   .button-container > * {
-    width: 100%
+    max-width: 90%
   }
 }

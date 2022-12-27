@@ -19,8 +19,9 @@ import ExerciseContextProvider from './contexts/ExerciseContext';
 import Checkout from './components/checkout/Checkout';
 import WorkoutsPage from './components/workouts/WorkoutsPage';
 import WorkoutTypePage from './components/workout-type/WorkoutTypePage';
-import PricingTable from './components/pricing/PricingTable';
+import PricingPage from './components/pricing/PricingPage';
 import AccountHome from './components/account/AccountHome';
+import PasswordUpdate from './components/password-update/PasswordUpdate';
 import { userAuthReducer } from './reducers/UserAuthReducer';
 import BottomNavBar from './components/navbar/BottomNavBar';
 
@@ -43,8 +44,9 @@ function App() {
                     <Route path='/workout' element={<Workout />} />
                     <Route path='/workouts' element={<WorkoutTypePage />} />
                     <Route path='/workouts/:targetMuscle' element={<WorkoutsPage />} />
-                    <Route path='/pricing' element={<PricingTable />} />
+                    <Route path='/pricing' element={<PricingPage />} />
                     <Route path='/account' element={<AccountHome />} />
+                    <Route path='/account/update-password' element={<PasswordUpdate />} />
                   </Routes>
                 </BrowserRouter>
               </ModalContextProvider>

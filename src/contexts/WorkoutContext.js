@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useEffect } from 'react'
+import { useLocation } from "react-router-dom";
 import { workoutReducer } from '../reducers/WorkoutReducer'
 import { getTodaysWorkout } from '../api/WorkoutAPI'
 
@@ -13,6 +14,7 @@ const WorkoutContextProvider = (props) => {
   const fetchTodaysWorkout = async () => {
     dispatch({type: 'GET_EXERCISES_LOADING'})
     let workout = await getTodaysWorkout()
+    console.log("HERE")
     if (workout['error']) {
       dispatch({type: 'GET_EXERCISES_FAILURE', workout})
     } else {

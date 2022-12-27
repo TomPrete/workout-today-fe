@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
 import './Workout.css'
 import RightArrow from '../../assets/ui-icons-chevron-right.svg'
@@ -27,30 +27,40 @@ import BottomNavBar from '../navbar/BottomNavBar';
 import Modal from '../modal/Modal';
 import WorkoutList from '../workout-list/WorkoutList';
 import Favorite from '../favorite/Favorite';
+import NavBar from '../navbar/NavBar';
+
+import { formatCurrentDate } from '../../helpers/dateHelpers';
 
 import mixpanel from 'mixpanel-browser';
-import NavBar from '../navbar/NavBar';
 
 mixpanel.init('c9b89c7bf5d74371eaa2dbf629c20821', {debug: true});
 
 const Workout = () => {
-  const [pathNameKey, setPathNameKey] = useState(null)
-  const [workoutStatus, setWorkoutStatus] = useState(false)
-  const [showAbWorkout, setShowAbWorkout] = useState(false)
-  const [showExerciseList, setShowExerciseList] = useState(false)
-  const [showMoreWorkouts, setShowMoreWorkouts] = useState(false)
-  const [isFavorite, setIsFavorite] = useState(false)
-  const { workout, dispatch } = useContext(WorkoutContext)
-  const { user } = useContext(UserAuthContext)
-  const { exercise } = useContext(ExerciseContext)
-  const { time, startPauseTimer, resetTimer } = useContext(TimerContext)
+  const [pathNameKey, setPathNameKey] = useState(null);
+  const [workoutStatus, setWorkoutStatus] = useState(false);
+  const [showAbWorkout, setShowAbWorkout] = useState(false);
+  const [showExerciseList, setShowExerciseList] = useState(false);
+  const [showMoreWorkouts, setShowMoreWorkouts] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { workout, dispatch } = useContext(WorkoutContext);
+  const { user } = useContext(UserAuthContext);
+  const { exercise } = useContext(ExerciseContext);
+  const { time, startPauseTimer, resetTimer } = useContext(TimerContext);
+  let [searchParams, setSearchParams] = useSearchParams();
   let navigate = useNavigate();
   let location = useLocation();
 
+  console.log("TIME: ", time)
   useEffect(() => {
     mixpanel.track('working_out');
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
       setWorkoutStatus(localStorage.getItem('workoutStatus'))
+    }
+    if (searchParams.get('date') >= formatCurrentDate()) {
+      navigate(`/today`)
+    }
+    if (searchParams.get('date') && searchParams.get('date') < formatCurrentDate()) {
+      getWorkout(searchParams.get('date'))
     }
   }, [])
 
@@ -58,11 +68,24 @@ const Workout = () => {
     if (pathNameKey !== location.key) {
       toggleModals()
     }
-    if (user.user && user.user.is_premium) {
+    if (user.user && user.user.is_premium && !workout.loading) {
       userFavoriteWorkout()
+    }
+    if (searchParams.get('date') >= formatCurrentDate()) {
+      navigate(`/today`)
     }
     setPathNameKey(location.key)
   }, [workout])
+
+  const getWorkout = async (date) => {
+    let workout = await getMoreWorkouts(date)
+    if (workout.message) {
+      dispatch({type: 'GET_EXERCISES_FAILURE'})
+      navigate(`/today`)
+    } else {
+      dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
+    }
+  }
 
   const userFavoriteWorkout = async () => {
     let workoutInfo = {
@@ -116,7 +139,7 @@ const Workout = () => {
       setIsFavorite(!isFavorite)
     }
   }
-  console.log("location: ", location)
+
   const toggleModals = (type = null) => {
     if (type === null) {
       setShowMoreWorkouts(false)
@@ -133,11 +156,12 @@ const Workout = () => {
   const percentageCompleted = () => {
     return showAbWorkout ? getPercentage(exercise.abIdx, workout.ab_exercises.length) : getPercentage(exercise.exerciseIdx, workout.exercises.length)
   }
-  console.log("USER: ", user)
+
   const navigateToLogin = () => {
     navigate('/login')
   }
 
+  console.log("USER: ", user)
   if (workout['loading']) {
     return (
       <Loading />
@@ -171,7 +195,7 @@ const Workout = () => {
         showMoreWorkouts
         &&
         <Modal closeModal={() => toggleModals('workouts')} >
-          <WorkoutList pastWorkouts={workout.pastWorkouts} />
+          <WorkoutList pastWorkouts={workout.pastWorkouts} toggleModals={toggleModals} />
         </Modal>
       }
       <ProgressBar bgcolor={'#37B6F8'} completed={ percentageCompleted() } />
@@ -190,21 +214,35 @@ const Workout = () => {
       </div>
       <ExerciseList changeWorkoutStatus={changeWorkoutStatus} showAbWorkout={showAbWorkout} />
       <div className='workout-bottom'>
-        <Button
-          className='ab-button'
-          title={!showAbWorkout ? 'Ab Workout' : workout['target']}
-          onClick={() => setShowAbWorkout(!showAbWorkout)}
-        />
-        <Button
-          className='start'
-          title={time.isPaused ? 'Start' : 'Pause'}
-          onClick={() => changeWorkoutStatus('started')}
-        />
-        <Button
-          className='ab-button'
-          title="More Workouts"
-          onClick={user.user ? getPreviousWorkouts : navigateToLogin} />
-      </div>
+      {
+        (!user.user || (user.user && !user.user.is_premium))
+        &&
+        <div>
+          <Button
+            className='ab-button is-rounded'
+            title={!showAbWorkout ? 'Ab Workout' : workout['target']}
+            onClick={() => setShowAbWorkout(!showAbWorkout)}
+          />
+        </div>
+      }
+        <div className={`start-button-container ${user.user && user.user.is_premium ? 'large-button' : ''}`}>
+          <Button
+            className='start is-rounded'
+            title={time.isPaused ? 'Start' : 'Stop'}
+            onClick={() => changeWorkoutStatus('started')}
+          />
+        </div>
+        {
+          (!user.user || (user.user && !user.user.is_premium))
+          &&
+          <div>
+            <Button
+              className='ab-button is-rounded'
+              title="More Workouts"
+              onClick={user.user ? getPreviousWorkouts : navigateToLogin} />
+            </div>
+        }
+        </div>
       {
         user.user
         &&

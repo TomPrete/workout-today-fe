@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const WORKOUT_URL = development ? "http://localhost:8000/api" : "https://api.workouttoday.co/api"
 
 const getTodaysWorkout = async () => {
@@ -22,6 +22,9 @@ const getMoreWorkouts = async (date = null) => {
       }
     })
     let data = await response.json()
+    if (data.message) {
+      return { message: 'Unable to retrieve workout' }
+    }
     return data
   }
   catch(err) {
@@ -31,7 +34,6 @@ const getMoreWorkouts = async (date = null) => {
 
 const getWorkouts = async (workout_type) => {
   try {
-    console.log("TOKEN: ", localStorage.getItem('access_token'))
     let response = await fetch(`${WORKOUT_URL}/workouts/${workout_type}/`, {
       method: 'GET',
       headers: {
@@ -40,6 +42,9 @@ const getWorkouts = async (workout_type) => {
       }
     })
     let data = await response.json()
+    if (data.message) {
+      return { message: 'Unable to retrieve workout' }
+    }
     return data
   }
   catch(err) {
@@ -58,6 +63,9 @@ const submitWorkoutStatus = async (status) => {
       body: JSON.stringify(status)
     })
     let data = await response.json()
+    if (data.message) {
+      return { message: 'unable to submit status' }
+    }
     return data
   }
   catch(err) {
@@ -66,7 +74,6 @@ const submitWorkoutStatus = async (status) => {
 }
 
 const submitUserExerciseInfo = async (exerciseInfo) => {
-  console.log(exerciseInfo.reps)
   try {
     let response = await fetch(`${WORKOUT_URL}/workout/${exerciseInfo.workoutId}/exercise/${exerciseInfo.exerciseId}/user/${exerciseInfo.userId}`, {
       method: 'POST',

@@ -14,19 +14,23 @@ import { formatCurrentDate } from '../../helpers/dateHelpers';
 
 
 const WorkoutList = (props) => {
-  const { pastWorkouts } = props
+  const { pastWorkouts, toggleModals } = props
   const { dispatch } = useContext(WorkoutContext)
   let navigate = useNavigate();
 
   const getWorkout = async (date) => {
-    let workout = await getMoreWorkouts(date)
-    if (workout) {
-      dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
-    }
     if (date === formatCurrentDate()) {
+      toggleModals()
       navigate(`/today`)
     } else {
-      navigate(`/workout?date=${date}`)
+      let workout = await getMoreWorkouts(date)
+      if (workout.message) {
+        dispatch({type: 'GET_EXERCISES_FAILURE'})
+        navigate(`/today`)
+      } else {
+        dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
+        navigate(`/workout?date=${date}`)
+      }
     }
   }
 
@@ -52,6 +56,9 @@ const WorkoutList = (props) => {
 
   return (
     <div className="workout-list">
+      <a href='/pricing' alt='upgrade'>
+        <button className="button is-warning is-medium is-fullwidth">Upgrade for All Workouts</button>
+      </a>
       {
         displayPastWorkouts()
       }

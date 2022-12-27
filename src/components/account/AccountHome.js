@@ -1,11 +1,17 @@
 import React, { useContext, useReducer } from 'react';
 import { userAuthReducer } from '../../reducers/UserAuthReducer';
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import BottomNavBar from '../navbar/BottomNavBar';
+import MobileHeader from '../mobile-header/MobileHeader';
 import { logoutUser } from '../../api/UserAuthAPI';
 import { createCustomerPortal } from '../../api/CheckoutAPI';
-const development = false
+import UserAvatarWhite from '../../assets/user-white.svg';
+import './AccountHome.css';
+import Button from '../button/Button';
+import NavBar from '../navbar/NavBar';
+
+const development = true
 
 const backendUrl = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
@@ -29,45 +35,71 @@ const AccountHome = () => {
     let userObj = {
       'email': user.user.email
     }
-    let response = await createCustomerPortal(userObj)
-    console.log("RESP: ", response)
+    let portalResponse = await createCustomerPortal(userObj)
+    if (portalResponse.stripe_url) {
+      window.location.href = portalResponse.stripe_url
+    }
   }
 
   if (user.user) {
     return (
       <div>
-      <div>Account Home</div>
-      <div>Hi { user.user.username }!</div>
-      {
-        !user.user.is_premium
-        &&
-        <div className="card-container m-5">
-            <div onClick={() => navigate('/pricing')} className="card">
-              <div className="card-content">
-                <div className="media">
-                  <div className="media-content">
-                    <p className="title is-4">Upgrade Your Account</p>
-                    <p className="subtitle is-6">test</p>
+        <NavBar />
+        <MobileHeader title="Account" />
+        <div className='account-container'>
+          <img src={UserAvatarWhite} alt='user-avatar' className='user-avatar-icon' />
+            <div>
+              <span className={`tag ${ user.user.is_premium ? 'is-success' : '' }`}>
+                { user.user.is_premium ? 'Premium' : 'Free' }
+              </span>
+            </div>
+        </div>
+        {
+          !user.user.is_premium
+          &&
+          <div className="card-container m-5">
+              <div onClick={() => navigate('/pricing')} className="card upgrade-card">
+                <div className="card-content">
+                  <div className="media">
+                    <div className="media-content">
+                      <p className="title is-4">Go Premium</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-      }
-      {
-        user.user.is_premium
-        &&
-        <div>
-        <div>
-          Manage Subscription
-        </div>
-        <button id="checkout-and-portal-button" onClick={handleBillingInfo}>
-          Manage your billing information
-        </button>
-        </div>
-      }
-      <button onClick={handleLogout}>Log Out</button>
-      <BottomNavBar />
+        }
+        <table className="table is-striped is-hoverable is-fullwidth">
+          <tbody>
+            <tr>
+              <th>Username</th>
+              <td>{ user.user.username }</td>
+            </tr>
+            <tr>
+              <th>Subscription</th>
+              <td>{ user.user.is_premium ? 'Premium' : 'Free' }</td>
+            </tr>
+            <tr>
+              <th>Password</th>
+              <td><Link to='/account/update-password'>Update Password</Link></td>
+            </tr>
+          </tbody>
+        </table>
+        {
+          user.user.is_premium
+          &&
+          <Button
+            className="checkout-and-portal is-rounded"
+            onClick={handleBillingInfo}
+            title="Manage your subscription information"
+            />
+        }
+        <Button
+          className="is-danger is-outlined mx-5 my-2 is-rounded"
+          onClick={handleLogout}
+          title="Log out"
+          />
+        <BottomNavBar />
       </div>
     );
   }

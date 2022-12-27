@@ -1,13 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Navigate, useNavigate, Link, useSearchParams } from "react-router-dom";
+
 import { login } from '../../api/UserAuthAPI';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
-import { Navigate, useNavigate, Link } from "react-router-dom";
+
+
 import NavLogo from '../../assets/workout_today_logo.png'
+
 import jwt_decode from "jwt-decode";
+import Alert from '../alert/Alert';
 
 const Login = () => {
-  const { user, dispatch } = useContext(UserAuthContext)
+  const { user, dispatch } = useContext(UserAuthContext);
+  const [ successMessage, setSuccessMessage ] = useState(null)
   let navigate = useNavigate();
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get('success')) {
+      setSuccessMessage("You've successfully subscribed to Workout Today!")
+    }
+  }, [])
 
   const handleLogin = async (evt) => {
     evt.preventDefault()
@@ -36,41 +49,49 @@ const Login = () => {
       dispatch({ type: 'GET_USER_FAILURE', user })
     }
   }
+
   return (
-    <div className="box m-6">
-      <img src={NavLogo} />
-      <h1 className="title">Login</h1>
+    <div>
       {
-        user.user &&
-        <Navigate to="/today" replace={true} />
-      }
-      {
-        user.error
+        successMessage
         &&
-        <p className="help is-danger">{user.message}</p>
+        <Alert message={successMessage} />
       }
-      <form onSubmit={handleLogin}>
-        <div className="field">
-          <label className="label">Email</label>
-          <p className="control has-icons-left has-icons-right">
-            <input className={`input ${user.error && 'is-danger'}`} name="username" type="email" placeholder="Username" />
-            <span className="icon is-small is-left">
-              <i className="fas fa-envelope"></i>
-            </span>
-          </p>
-        </div>
-        <div className="field">
-          <label className="label">Password</label>
-          <p className="control has-icons-left">
-            <input className={`input ${user.error && 'is-danger'}`} name='password' type="password" placeholder="Password" />
-            <span className="icon is-small is-left">
-              <i className="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-        <button className="button is-primary" type='submit'>Login</button>
-      </form>
-      <p>Don't have an account, <Link to='/signup'>Sign Up</Link> here.</p>
+      <div className="box m-6">
+        <img src={NavLogo} />
+        <h1 className="title">Login</h1>
+        {
+          user.user &&
+          <Navigate to="/today" replace={true} />
+        }
+        {
+          user.error
+          &&
+          <p className="help is-danger">{user.message}</p>
+        }
+        <form onSubmit={handleLogin}>
+          <div className="field">
+            <label className="label">Email</label>
+            <p className="control has-icons-left has-icons-right">
+              <input className={`input ${user.error && 'is-danger'}`} name="username" type="email" placeholder="Username" />
+              <span className="icon is-small is-left">
+                <i className="fas fa-envelope"></i>
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <label className="label">Password</label>
+            <p className="control has-icons-left">
+              <input className={`input ${user.error && 'is-danger'}`} name='password' type="password" placeholder="Password" />
+              <span className="icon is-small is-left">
+                <i className="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <button className="button is-primary" type='submit'>Login</button>
+        </form>
+        <p>Don't have an account, <Link to='/signup'>Sign Up</Link> here.</p>
+      </div>
     </div>
   );
 };

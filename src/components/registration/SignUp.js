@@ -22,6 +22,7 @@ const SignUp = () => {
     }
     dispatch({ type: 'SIGNUP_USER_LOADING' })
     let user = await signUp(userObj)
+    console.log("USER: ", user)
     if (user['error']) {
       dispatch({ type: 'SIGNUP_USER_FAILURE', user })
     } else {
@@ -79,6 +80,7 @@ const SignUp = () => {
               <i className="fas fa-lock"></i>
             </span>
           </p>
+          <p className="help">8 characters minimum</p>
         </div>
         <div className="field">
           <label className="label">Password confirmation</label>

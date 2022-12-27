@@ -1,0 +1,77 @@
+.subscription-tab-container {
+  display: flex;
+  height: 50px;
+  justify-content: center;
+}
+
+.subscription-tab-toggle {
+  align-items: stetch;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 70%;
+}
+
+.subscription-tab-duration {
+  margin: 3px;
+  padding-top: 10px;
+  width: 100%;
+}
+
+.active-toggle {
+  background-color: #4c579e;
+  border-radius: 10px;
+  color: #fff;
+  -webkit-transition: background-color .8s ease;
+  -moz-transition: background-color .8s ease;
+  -o-transition: background-color .8s ease;
+  transition: background-color .8s ease;
+}
+
+.pricing-table-container {
+  text-align: left !important;
+}
+
+.subscription-amount-container {
+  align-items: center;
+  display: flex;
+}
+
+
+.subscription-amount {
+  font-size: 36px;
+  font-weight: 800;
+  margin-right: 5px;
+}
+
+.subscription-amount-duration {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.subscribe-button-container {
+  margin: 10px 0;
+}
+
+.feature-list-container {
+  font-weight: 600;
+}
+
+.feature-list {
+  font-weight: 600;
+  padding-left: 15px;
+}
+
+.feature-list > li {
+  margin: 5px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+.feature-checkmark-icon {
+  height: 12px;
+  margin: 6px 8px 0 0;
+}

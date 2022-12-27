@@ -27,8 +27,17 @@
 }
 
 .pricing-link {
+  border-radius: 20px !important;
   position: fixed !important;
   top: 20%;
-  width: 100%;
+  width: 95%;
   z-index: 1;
+}
+
+.card-container {
+  text-align: center;
+}
+
+.upgrade-button {
+  background-color: #ffdd57 !important;
 }

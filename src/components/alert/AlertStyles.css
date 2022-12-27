@@ -1,0 +1,17 @@
+.alert-container {
+  align-items: center;
+  background-color: rgb(166, 232, 166);
+  border-radius: 5px;
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  height: 40px;
+  margin: 8px;
+  padding: 5px 5px;
+}
+
+.alert-icon {
+  height: 1.5em;
+  width: 1.5em;
+  margin: 0 8px;
+}

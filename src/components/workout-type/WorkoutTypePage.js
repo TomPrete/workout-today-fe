@@ -33,9 +33,9 @@ const WorkoutTypePage = () => {
       {
         user.user && !user.user.is_premium
         &&
-        <div className="pricing-link">
+        <div className="pricing-link m-2">
           <a href='/pricing' alt='upgrade'>
-            <button className="button is-warning is-large is-fullwidth">Upgrade for All Workouts</button>
+            <button className="button is-large is-fullwidth upgrade-button">Upgrade for All Workouts</button>
           </a>
         </div>
       }

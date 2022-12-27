@@ -1,4 +1,4 @@
-const development = false
+const development = true
 const WORKOUT_URL = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
 const stripeCheckout = async (checkoutObj) => {
@@ -8,7 +8,7 @@ const stripeCheckout = async (checkoutObj) => {
     'method': 'POST',
     'headers': {
       'Content-Type': 'application/json',
-      'Authorization': `Token ${checkoutObj.userKey}`
+      'Authorization': `${checkoutObj.isToken ? 'Bearer' : 'Token'} ${checkoutObj.userKey}`
     },
     'body': JSON.stringify(checkoutObj.subscriptionType)
   })
