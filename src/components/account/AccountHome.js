@@ -11,7 +11,7 @@ import './AccountHome.css';
 import Button from '../button/Button';
 import NavBar from '../navbar/NavBar';
 
-const development = true
+const development = false
 
 const backendUrl = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
