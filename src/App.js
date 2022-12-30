@@ -50,7 +50,7 @@ function App() {
                     <Route path='/account' element={<AccountHome />} />
                     <Route path='/account/update-password' element={<PasswordUpdate />} />
                     <Route path='/account/reset-password' element={<PasswordReset />} />
-                    <Route path='/reset-password/:id/:uuid' element={<PasswordResetSuccess />} />
+                    <Route path='/reset-password/:uuid' element={<PasswordResetSuccess />} />
                   </Routes>
                 </BrowserRouter>
               </ModalContextProvider>

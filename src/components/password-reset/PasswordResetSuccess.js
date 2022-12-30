@@ -7,7 +7,7 @@ import './PasswordResetStyles.css';
 import Loading from '../loading/Loading';
 
 const PasswordResetSuccess = () => {
-  const { id, uuid } = useParams();
+  const { uuid } = useParams();
   const [message, setMessage] = useState(undefined);
   const [ success, setSuccess ] = useState(false);
   const [error, setError] = useState(false);
@@ -17,7 +17,6 @@ const PasswordResetSuccess = () => {
   useEffect(() => {
     const checkResetPassword = async () => {
       let payload = {
-        id: id,
         uuid: uuid
       }
       setLoading(true)
@@ -35,7 +34,6 @@ const PasswordResetSuccess = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     let payload = {
-      id: id,
       uuid: uuid,
       password: evt.target.password.value,
       passwordTwo: evt.target.passwordTwo.value,

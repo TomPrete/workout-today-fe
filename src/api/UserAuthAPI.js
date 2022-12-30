@@ -176,7 +176,7 @@ const updatePassword = async (payloadObj) => {
 
 const checkResetPasswordAbility = async (payload = null) => {
   try {
-    let response = await fetch(`${RESET_PASSWORD_CONFIRM}${payload['id']}/${payload['uuid']}/`, {
+    let response = await fetch(`${RESET_PASSWORD_CONFIRM}${payload['uuid']}/`, {
       'method': 'GET',
       'headers': {
         'Content-Type': 'application/json'
@@ -201,7 +201,7 @@ const checkResetPasswordAbility = async (payload = null) => {
 
 const resetPasswordConfirm = async (payload = null) => {
   try {
-    let response = await fetch(`${RESET_PASSWORD_CONFIRM}${payload['id']}/${payload['uuid']}/`, {
+    let response = await fetch(`${RESET_PASSWORD_CONFIRM}${payload['uuid']}/`, {
       'method': 'POST',
       'headers': {
         'Content-Type': 'application/json'
