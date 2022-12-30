@@ -153,13 +153,13 @@ const getAllUseresFavoriteWorkouts = async (userObj) => {
       }
     })
     let data = await response.json()
+    console.log("DATA: ", data)
     if (data.favorite_workouts) {
       return {
         favoriteWorkouts: data.favorite_workouts,
-        totalFavoriteWorkotus: data.total_favorite_workouts
+        totalFavoriteWorkouts: data.total_favorite_workouts
       }
     }
-    return data
   }
   catch(err) {
     console.error(err)

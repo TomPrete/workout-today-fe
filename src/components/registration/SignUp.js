@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { signUp } from '../../api/UserAuthAPI';
 import { stripeCheckout } from '../../api/CheckoutAPI';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
@@ -7,16 +7,17 @@ import NavLogo from '../../assets/workout_today_logo.png';
 import './registration.css';
 
 const SignUp = () => {
-  const { user, dispatch } = useContext(UserAuthContext)
+  const { user, dispatch } = useContext(UserAuthContext);
   let [searchParams, setSearchParams] = useSearchParams();
+  const [isLoading, setIsLoading] = useState(false);
 
   let navigate = useNavigate();
 
   const handleSignup = async (evt) => {
     evt.preventDefault()
     let userObj = {
-      'email': evt.target.email.value,
-      'username': evt.target.email.value,
+      'email': evt.target.email.value.toLowerCase(),
+      'username': evt.target.email.value.toLowerCase(),
       'password1': evt.target.password.value,
       'password2': evt.target.passwordTwo.value
     }
@@ -93,7 +94,7 @@ const SignUp = () => {
         </div>
         <div className="field">
           <p className="control">
-            <button className="button is-success" type='submit'>
+            <button className={`button is-success ${user.isLoading && 'is-loading'}`} type='submit'>
               Sign Up
             </button>
           </p>

@@ -25,7 +25,7 @@ const Login = () => {
   const handleLogin = async (evt) => {
     evt.preventDefault()
     let userObj = {
-      'username': evt.target.username.value,
+      'username': evt.target.username.value.toLowerCase(),
       'password': evt.target.password.value
     }
     let response = await login(userObj)

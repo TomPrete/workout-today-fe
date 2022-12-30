@@ -44,16 +44,18 @@ const WorkoutTypePage = () => {
       <Loading />
     )
   }
+
+  console.log(workout)
   return (
     <div className='workout-type-container'>
       <MobileHeader title='Workouts Types' />
       {
         workout
         &&
-        workout.totalFavoriteWorkotus
+        workout.favoriteWorkouts
         &&
         <div className={`workout-type ${user.user && user.user.is_premium ? '' : 'show-pricing-link'}`} onClick={() => user.user.is_premium && navigate(`/workouts/favorite`)}>
-            <div className='workout-target-title'> <span className="tag is-info is-large">{workout.totalFavoriteWorkotus}</span> Favorite Workouts</div>
+            <div className='workout-target-title'> <span className="tag is-info is-large">{workout.totalFavoriteWorkouts}</span> Favorite Workouts</div>
         </div>
       }
       {

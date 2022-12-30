@@ -32,7 +32,7 @@ export const workoutReducer = (state, action) => {
       return {
         ...state,
         favoriteWorkouts: action.payload.favoriteWorkouts,
-        totalFavoriteWorkotus: action.payload.totalFavoriteWorkotus,
+        totalFavoriteWorkouts: action.payload.totalFavoriteWorkouts,
         loading: false
       }
     default:
