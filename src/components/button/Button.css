@@ -65,7 +65,8 @@
   }
 
   .button-container .checkout-and-portal {
-    background-color: rgb(166, 232, 166);
+    background-color: #2bc185;
+    color: #fff;
   }
 
   .button-container .finish {

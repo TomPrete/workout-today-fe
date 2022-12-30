@@ -2,7 +2,6 @@ const development = false
 const WORKOUT_URL = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
 const stripeCheckout = async (checkoutObj) => {
-  console.log(checkoutObj)
   try {
   let response = await fetch(`${WORKOUT_URL}accounts/create-checkout-session/`, {
     'method': 'POST',
@@ -21,7 +20,6 @@ const stripeCheckout = async (checkoutObj) => {
 }
 
 const createCustomerPortal = async (userObj) => {
-  console.log(userObj)
   try {
   let response = await fetch(`${WORKOUT_URL}accounts/api/v1/create-portal-session/`, {
     'method': 'POST',

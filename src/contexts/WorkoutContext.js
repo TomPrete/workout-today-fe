@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect } from 'react'
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { workoutReducer } from '../reducers/WorkoutReducer'
 import { getTodaysWorkout } from '../api/WorkoutAPI'
 
@@ -12,6 +12,7 @@ const WorkoutContextProvider = (props) => {
   })
 
   const fetchTodaysWorkout = async () => {
+    // console.log('targetMuscle: ', location)
     dispatch({type: 'GET_EXERCISES_LOADING'})
     let workout = await getTodaysWorkout()
     console.log("HERE")

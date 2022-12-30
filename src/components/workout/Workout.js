@@ -50,7 +50,6 @@ const Workout = () => {
   let navigate = useNavigate();
   let location = useLocation();
 
-  console.log("TIME: ", time)
   useEffect(() => {
     mixpanel.track('working_out');
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
@@ -161,7 +160,6 @@ const Workout = () => {
     navigate('/login')
   }
 
-  console.log("USER: ", user)
   if (workout['loading']) {
     return (
       <Loading />

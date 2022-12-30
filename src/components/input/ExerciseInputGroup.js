@@ -23,7 +23,6 @@ const ExerciseInputGroup = (props) => {
         setResistance(data.resistance)
       }
     }
-    console.log("USER: ", user)
     if (user.user && user.user.is_premium) {
       getExerciseInfo()
     }

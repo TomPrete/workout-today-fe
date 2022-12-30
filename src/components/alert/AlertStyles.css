@@ -1,6 +1,5 @@
 .alert-container {
   align-items: center;
-  background-color: rgb(166, 232, 166);
   border-radius: 5px;
   display: flex;
   font-size: 12px;
@@ -8,6 +7,15 @@
   height: 40px;
   margin: 8px;
   padding: 5px 5px;
+}
+
+.alert-success {
+  background-color: rgb(166, 232, 166);
+}
+
+.alert-error {
+  background-color: #feecf0;
+  color: #cc0f35;
 }
 
 .alert-icon {

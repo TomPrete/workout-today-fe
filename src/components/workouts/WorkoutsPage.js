@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import MobileHeader from '../mobile-header/MobileHeader';
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { WorkoutContext } from '../../contexts/WorkoutContext';
-import { getWorkouts, getMoreWorkouts } from '../../api/WorkoutAPI';
+import { getWorkouts, getMoreWorkouts, getAllUseresFavoriteWorkouts } from '../../api/WorkoutAPI';
 import BottomNavBar from '../navbar/BottomNavBar'
 import WorkoutOne from '../../assets/workout-1.jpg'
 import WorkoutTwo from '../../assets/workout-2.jpg'
@@ -28,13 +28,25 @@ const WorkoutsPage = (props) => {
         dispatch({ type: 'GET_PAST_WORKOUTS_SUCCESS', pastWorkouts })
       }
     }
-    getWorkoutsPremium()
-  }, [])
+    const getUsersFavoriteWorkouts = async (userObj) => {
+      dispatch({ type: 'GET_EXERCISES_LOADING' })
+      let payload = await getAllUseresFavoriteWorkouts(userObj)
+      let pastWorkouts = payload.favoriteWorkouts
+      dispatch({ type: 'GET_PAST_WORKOUTS_SUCCESS', pastWorkouts })
+    }
+    if (user.user) {
+      if (targetMuscle === 'favorite') {
+        getUsersFavoriteWorkouts({ userId: user.user.id })
+      } else {
+        getWorkoutsPremium()
+      }
+    }
+  }, [user])
 
   const getOneWorkout = async (date) => {
     let workout = await getMoreWorkouts(date)
     if (workout) {
-      dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
+      dispatch({ type: 'GET_EXERCISES_SUCCESS', workout })
     }
     if (date === formatCurrentDate()) {
       navigate(`/today`)
@@ -43,9 +55,9 @@ const WorkoutsPage = (props) => {
     }
   }
 
-  console.log("TARGET: ", targetMuscle)
-  const displayWorkouts = () => {
+  const displayWorkouts = (target = null) => {
     return workout.pastWorkouts.map((pastWorkout, id) => {
+      console.log("PAST WORKOUT: ", pastWorkout)
       return (
         <div key={id} className="column is-one-quarter workout-card">
           <div className="card" onClick={() => getOneWorkout(pastWorkout.workout_date)}>
@@ -57,9 +69,9 @@ const WorkoutsPage = (props) => {
                   </figure>
                 </div>
                 <div className="media-content">
-                  <p className="title is-4">{ capitalizeWorkoutTarget(pastWorkout.workout_target) }</p>
-                  <p className="subtitle is-5">{ `${pastWorkout.total_rounds} round${pastWorkout.total_rounds > 1 ? 's' : ''}`}</p>
-                  <p className="subtitle is-5">{ dayjs(pastWorkout.workout_date).format('MMM DD, YYYY') }</p>
+                  <p className="title is-4">{capitalizeWorkoutTarget(pastWorkout.workout_target)}</p>
+                  <p className="subtitle is-5">{`${pastWorkout.total_rounds} round${pastWorkout.total_rounds > 1 ? 's' : ''}`}</p>
+                  <p className="subtitle is-5">{dayjs(pastWorkout.workout_date).format('MMM DD, YYYY')}</p>
                 </div>
               </div>
             </div>
@@ -74,7 +86,9 @@ const WorkoutsPage = (props) => {
       <div>
         <MobileHeader title={capitalizeWorkoutTarget(targetMuscle)} />
         <div className="columns is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd is-multiline">
-        { displayWorkouts() }
+          {
+            displayWorkouts(targetMuscle)
+          }
         </div>
         <BottomNavBar />
       </div>

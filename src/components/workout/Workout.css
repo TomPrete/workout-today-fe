@@ -37,6 +37,7 @@
 .workout-bottom {
   display: grid;
   grid-template-columns: 33% auto 33%;
+  margin-top: 20px;
 }
 
 .ab-button {
@@ -100,5 +101,9 @@
     grid-column-start: 1;
     grid-column-end: 4;
     margin: 0 5px;
+  }
+
+  .workout-bottom {
+    margin: 0;
   }
 }

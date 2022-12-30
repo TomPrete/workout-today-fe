@@ -24,6 +24,8 @@ import AccountHome from './components/account/AccountHome';
 import PasswordUpdate from './components/password-update/PasswordUpdate';
 import { userAuthReducer } from './reducers/UserAuthReducer';
 import BottomNavBar from './components/navbar/BottomNavBar';
+import PasswordReset from './components/password-reset/PasswordReset';
+import PasswordResetSuccess from './components/password-reset/PasswordResetSuccess';
 
 
 function App() {
@@ -47,6 +49,8 @@ function App() {
                     <Route path='/pricing' element={<PricingPage />} />
                     <Route path='/account' element={<AccountHome />} />
                     <Route path='/account/update-password' element={<PasswordUpdate />} />
+                    <Route path='/account/reset-password' element={<PasswordReset />} />
+                    <Route path='/reset-password/:id/:uuid' element={<PasswordResetSuccess />} />
                   </Routes>
                 </BrowserRouter>
               </ModalContextProvider>

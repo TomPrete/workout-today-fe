@@ -55,9 +55,9 @@ const Login = () => {
       {
         successMessage
         &&
-        <Alert message={successMessage} />
+        <Alert message={successMessage} type='success' />
       }
-      <div className="box m-6">
+      <div className="box mx-4 my-6">
         <img src={NavLogo} />
         <h1 className="title">Login</h1>
         {
@@ -87,6 +87,7 @@ const Login = () => {
                 <i className="fas fa-lock"></i>
               </span>
             </p>
+            <Link to='/account/reset-password'>Forgot your password?</Link>
           </div>
           <button className="button is-primary" type='submit'>Login</button>
         </form>

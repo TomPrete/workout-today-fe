@@ -15,9 +15,9 @@ const UserAuthContextProvider = (props) => {
     if (localStorage.getItem('access_token')) {
       let token = localStorage.getItem('access_token')
       let user = await getCurrentUser(token)
-      console.log("getCurrentUser: ", user)
+      // console.log("getCurrentUser: ", user)
       if (user['message'] === 'User not found') {
-        console.log("getCurrentUser: ", user)
+        // console.log("getCurrentUser: ", user)
         // dispatch({type: 'LOGOUT_USER_SUCCESS'})
       } else if (user['code'] === 'token_not_valid') {
         dispatch({type: 'GET_CURRENT_OR_REFRESH_USER_FAILURE', user})
@@ -50,7 +50,7 @@ const UserAuthContextProvider = (props) => {
         dispatch({type: 'GET_CURRENT_OR_REFRESH_USER_FAILURE', user})
       }
     } else {
-      console.log("useRefreshToken: ", user)
+      // console.log("useRefreshToken: ", user)
       dispatch({type: 'GET_CURRENT_OR_REFRESH_USER_FAILURE', user})
     }
   }

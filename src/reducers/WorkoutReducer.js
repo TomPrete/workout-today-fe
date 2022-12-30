@@ -1,4 +1,5 @@
 export const workoutReducer = (state, action) => {
+  // console.log("ACTION: ", action)
   switch(action.type) {
     case 'GET_EXERCISES_SUCCESS':
       return {
@@ -26,6 +27,13 @@ export const workoutReducer = (state, action) => {
     case 'GET_EXERCISES_LOADING':
       return {
         'loading': true
+      }
+    case 'GET_FAVORITE_WORKOUTS_SUCCESSS':
+      return {
+        ...state,
+        favoriteWorkouts: action.payload.favoriteWorkouts,
+        totalFavoriteWorkotus: action.payload.totalFavoriteWorkotus,
+        loading: false
       }
     default:
       return state

@@ -7,6 +7,14 @@ const CURRENT_USER_URL = development ? 'http://127.0.0.1:8000/accounts/v1/curren
 
 const LOGOUT_URL = development ? 'http://localhost:8000/api/v1/accounts/logout/' : 'https://api.workouttoday.co/api/v1/accounts/logout/'
 
+// const RESET_PASSWORD = development ? 'http://localhost:8000/api/v1/accounts/password/reset/' : 'https://api.workouttoday.co/api/v1/accounts/password/reset/'
+
+const CHANGE_PASSWORD = development ? 'http://localhost:8000/accounts/v1/change-password/' : 'https://api.workouttoday.co/accounts/v1/change-password/'
+
+const RESET_PASSWORD = development ? 'http://localhost:8000/accounts/v1/reset-password/' : 'https://api.workouttoday.co/accounts/v1/reset-password/'
+
+const RESET_PASSWORD_CONFIRM = development ? 'http://localhost:8000/accounts/v1/reset-password/' : 'https://api.workouttoday.co/accounts/v1/reset-password/'
+
 const signUp = async (userObj) => {
   try {
     let response = await fetch(SINGUP_URL, {
@@ -85,7 +93,6 @@ const getCurrentUser = async (token) => {
         'status': 404
       }
     }
-    console.log("getCurrentUser: ", data)
     return data
   }
   catch(err) {
@@ -126,10 +133,128 @@ const logoutUser = async () => {
       }
     })
     let data = await response.json()
-    console.log('RESPONSE: ', data)
     return {
       'message': 'success',
       'status': 200
+    }
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
+const updatePassword = async (payloadObj) => {
+  try {
+    let response = await fetch(CHANGE_PASSWORD, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      },
+      'body': JSON.stringify(payloadObj)
+    })
+    let data = await response.json()
+    if (data.status === 500) {
+      return {
+        'message': "Password must contain letters (not be entirely numeric) and be at least 8 character long.",
+        'error': true
+      }
+    }
+    else if (data.status === 400) {
+      return {
+        'message': data.message,
+        'error': true
+      }
+    } else {
+      return data
+    }
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
+const checkResetPasswordAbility = async (payload = null) => {
+  try {
+    let response = await fetch(`${RESET_PASSWORD_CONFIRM}${payload['id']}/${payload['uuid']}/`, {
+      'method': 'GET',
+      'headers': {
+        'Content-Type': 'application/json'
+      }
+    })
+    let data = await response.json()
+    if (data.message === 'expired') {
+      return {
+        'message': "Password reset link is expired",
+        'error': true
+      }
+    } else {
+      return {
+        'message': data.message,
+      }
+    }
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
+const resetPasswordConfirm = async (payload = null) => {
+  try {
+    let response = await fetch(`${RESET_PASSWORD_CONFIRM}${payload['id']}/${payload['uuid']}/`, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify({password: payload.password, passwordTwo: payload.passwordTwo})
+    })
+    let data = await response.json()
+    if (data.status === 500) {
+      return {
+        'message': "Password must contain letters (not be entirely numeric) and be at least 8 character long.",
+        'error': true
+      }
+    } else
+    if (data.status === 400) {
+      return {
+        'message': "There was an issue updating your password.",
+        'error': true
+      }
+    } else {
+      return {
+        'message': data.message,
+      }
+    }
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
+const resetPassword = async (payloadObj) => {
+  try {
+    let response = await fetch(RESET_PASSWORD, {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify(payloadObj)
+    })
+    let data = await response.json()
+    if (data.status === 404) {
+      return {
+        'message': "An account associated with that email does not exist.",
+        'error': true
+      }
+    } else if (data.status === 400) {
+      return {
+        'message': data.message,
+        'error': true
+      }
+    } else {
+      return {
+        'message': 'Please check your email for reset instructions.'
+      }
     }
   }
   catch(err) {
@@ -142,5 +267,9 @@ export {
   login,
   logoutUser,
   getCurrentUser,
-  getCurrentUserRefreshToken
+  getCurrentUserRefreshToken,
+  updatePassword,
+  resetPassword,
+  checkResetPasswordAbility,
+  resetPasswordConfirm
 }

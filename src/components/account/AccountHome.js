@@ -48,11 +48,6 @@ const AccountHome = () => {
         <MobileHeader title="Account" />
         <div className='account-container'>
           <img src={UserAvatarWhite} alt='user-avatar' className='user-avatar-icon' />
-            <div>
-              <span className={`tag ${ user.user.is_premium ? 'is-success' : '' }`}>
-                { user.user.is_premium ? 'Premium' : 'Free' }
-              </span>
-            </div>
         </div>
         {
           !user.user.is_premium
@@ -77,7 +72,11 @@ const AccountHome = () => {
             </tr>
             <tr>
               <th>Subscription</th>
-              <td>{ user.user.is_premium ? 'Premium' : 'Free' }</td>
+              <td>
+                <span className={`tag ${ user.user.is_premium ? 'is-success' : 'is-light' } is-medium`}>
+                { user.user.is_premium ? 'Premium' : 'Free' }
+              </span>
+              </td>
             </tr>
             <tr>
               <th>Password</th>

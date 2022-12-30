@@ -143,6 +143,29 @@ const getFavoriteWorkout = async (workoutInfo) => {
   }
 }
 
+const getAllUseresFavoriteWorkouts = async (userObj) => {
+  try {
+    let response = await fetch(`${WORKOUT_URL}/user/${userObj.userId}/favorite-workouts/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    let data = await response.json()
+    if (data.favorite_workouts) {
+      return {
+        favoriteWorkouts: data.favorite_workouts,
+        totalFavoriteWorkotus: data.total_favorite_workouts
+      }
+    }
+    return data
+  }
+  catch(err) {
+    console.error(err)
+  }
+}
+
 export {
   getTodaysWorkout,
   submitWorkoutStatus,
@@ -151,5 +174,7 @@ export {
   getUserExerciseInfo,
   getWorkouts,
   favoriteWorkout,
-  getFavoriteWorkout
+  getFavoriteWorkout,
+  getAllUseresFavoriteWorkouts,
+
 }
