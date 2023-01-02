@@ -8,6 +8,7 @@ import { capitalizeWorkoutTarget } from '../../helpers/stringHelpers';
 import BottomNavBar from '../navbar/BottomNavBar';
 import { getAllUseresFavoriteWorkouts } from '../../api/WorkoutAPI';
 import Loading from '../loading/Loading';
+import NavBar from '../navbar/NavBar';
 
 const WorkoutTypePage = () => {
   const navigate = useNavigate();
@@ -45,33 +46,35 @@ const WorkoutTypePage = () => {
     )
   }
 
-  console.log(workout)
   return (
     <div className='workout-type-container'>
+      <NavBar />
       <MobileHeader title='Workouts Types' />
-      {
-        workout
-        &&
-        workout.favoriteWorkouts
-        &&
-        <div className={`workout-type ${user.user && user.user.is_premium ? '' : 'show-pricing-link'}`} onClick={() => user.user.is_premium && navigate(`/workouts/favorite`)}>
-            <div className='workout-target-title'> <span className="tag is-info is-large">{workout.totalFavoriteWorkouts}</span> Favorite Workouts</div>
-        </div>
-      }
-      {
-        user.user
-        &&
-        displayWorkoutTarget()
-      }
-      {
-        user.user && !user.user.is_premium
-        &&
-        <div className="pricing-link m-2">
-          <a href='/pricing' alt='upgrade'>
-            <button className="button is-large is-fullwidth upgrade-button">Upgrade for All Workouts</button>
-          </a>
-        </div>
-      }
+      <div className='workout-type-list'>
+        {
+          workout
+          &&
+          workout.favoriteWorkouts
+          &&
+          <div className={`workout-type ${user.user && user.user.is_premium ? '' : 'show-pricing-link'}`} onClick={() => user.user.is_premium && navigate(`/workouts/favorite`)}>
+              <div className='workout-target-title'> <span className="tag is-info is-large">{workout.totalFavoriteWorkouts}</span> Favorite Workouts</div>
+          </div>
+        }
+        {
+          user.user
+          &&
+          displayWorkoutTarget()
+        }
+        {
+          user.user && !user.user.is_premium
+          &&
+          <div className="pricing-link m-2">
+            <a href='/pricing' alt='upgrade'>
+              <button className="button is-large is-fullwidth upgrade-button">Upgrade for All Workouts</button>
+            </a>
+          </div>
+        }
+      </div>
       <BottomNavBar />
     </div>
   );

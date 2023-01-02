@@ -11,6 +11,7 @@ import { capitalizeWorkoutTarget } from '../../helpers/stringHelpers';
 import { formatCurrentDate } from '../../helpers/dateHelpers';
 import * as dayjs from 'dayjs'
 import './WorkoutPageStyles.css'
+import NavBar from '../navbar/NavBar';
 
 const WorkoutsPage = (props) => {
   const { user } = useContext(UserAuthContext)
@@ -43,8 +44,8 @@ const WorkoutsPage = (props) => {
     }
   }, [user])
 
-  const getOneWorkout = async (date) => {
-    let workout = await getMoreWorkouts(date)
+  const getOneWorkout = async (date, target=null) => {
+    let workout = await getMoreWorkouts(date, target)
     if (workout) {
       dispatch({ type: 'GET_EXERCISES_SUCCESS', workout })
     }
@@ -56,11 +57,17 @@ const WorkoutsPage = (props) => {
   }
 
   const displayWorkouts = (target = null) => {
-    return workout.pastWorkouts.map((pastWorkout, id) => {
-      console.log("PAST WORKOUT: ", pastWorkout)
+    if (target === "favorite" && workout.pastWorkouts.length == 0) {
       return (
-        <div key={id} className="column is-one-quarter workout-card">
-          <div className="card" onClick={() => getOneWorkout(pastWorkout.workout_date)}>
+        <h1>
+        No workouts
+        </h1>
+      )
+    }
+    return workout.pastWorkouts.map((pastWorkout, id) => {
+      return (
+        <div key={id} className="column workout-card">
+          <div className="card" onClick={() => getOneWorkout(pastWorkout.workout_date, pastWorkout.workout_target)}>
             <div className="card-content">
               <div className="media">
                 <div className="media-left">
@@ -84,8 +91,9 @@ const WorkoutsPage = (props) => {
   if (user.user && user.user.is_premium && workout.pastWorkouts) {
     return (
       <div>
+        <NavBar />
         <MobileHeader title={capitalizeWorkoutTarget(targetMuscle)} />
-        <div className="columns is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd is-multiline">
+        <div className="is-1-mobile is-0-tablet is-3-desktop is-8-widescreen is-2-fullhd is-multiline all-workouts">
           {
             displayWorkouts(targetMuscle)
           }

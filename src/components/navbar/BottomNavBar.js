@@ -10,7 +10,7 @@ const BottomNavBar = (props) => {
 
   return (
     <div className='navbar-bottom'>
-      <a href='/today' className='navbar-button-link'>
+      <a href='/' className='navbar-button-link'>
         <div className='navbar-button'>
           <img src={Home} alt='Home' className='nav-icon'/>
           <div className='nav-text'>Home</div>
@@ -20,12 +20,10 @@ const BottomNavBar = (props) => {
         <img src={Dumbbell} alt='Home' className='nav-icon'/>
         <div className='nav-text'>Workouts</div>
       </div>
-      <a href='/account' className='navbar-button-link'>
-        <div className='navbar-button' >
-          <img src={User} alt='user-account' className='nav-icon'/>
-          <div className='nav-text'>Account</div>
-        </div>
-      </a>
+      <div className='navbar-button' onClick={() => navigate('/account')}>
+        <img src={User} alt='user-account' className='nav-icon'/>
+        <div className='nav-text'>Account</div>
+      </div>
     </div>
   );
 };

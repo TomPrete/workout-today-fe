@@ -31,12 +31,12 @@ import PasswordResetSuccess from './components/password-reset/PasswordResetSucce
 function App() {
   return (
     <div className="App">
-      <UserAuthContextProvider>
-        <TimerContextProvider>
-          <ExerciseContextProvider>
-            <WorkoutContextProvider>
-              <ModalContextProvider>
-                <BrowserRouter>
+      <BrowserRouter>
+        <UserAuthContextProvider>
+          <TimerContextProvider>
+            <ExerciseContextProvider>
+              <WorkoutContextProvider>
+                <ModalContextProvider>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path='/today' element={<Workout />} />
@@ -52,12 +52,12 @@ function App() {
                     <Route path='/account/reset-password' element={<PasswordReset />} />
                     <Route path='/reset-password/:uuid' element={<PasswordResetSuccess />} />
                   </Routes>
-                </BrowserRouter>
-              </ModalContextProvider>
-            </WorkoutContextProvider>
-          </ExerciseContextProvider>
-        </TimerContextProvider>
-      </UserAuthContextProvider>
+                </ModalContextProvider>
+              </WorkoutContextProvider>
+            </ExerciseContextProvider>
+          </TimerContextProvider>
+        </UserAuthContextProvider>
+      </BrowserRouter>
     </div>
   );
 }

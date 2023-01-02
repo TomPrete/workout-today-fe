@@ -13,6 +13,7 @@ import Alert from '../alert/Alert';
 const Login = () => {
   const { user, dispatch } = useContext(UserAuthContext);
   const [ successMessage, setSuccessMessage ] = useState(null)
+  const [ isLoading, setIsLoading ] = useState(false)
   let navigate = useNavigate();
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -28,6 +29,7 @@ const Login = () => {
       'username': evt.target.username.value.toLowerCase(),
       'password': evt.target.password.value
     }
+    setIsLoading(true)
     let response = await login(userObj)
     if (response['message'] === 'success') {
       if (response['access']) {
@@ -46,6 +48,7 @@ const Login = () => {
       }
       navigate('/today')
     } else {
+      let user = response
       dispatch({ type: 'GET_USER_FAILURE', user })
     }
   }
@@ -89,7 +92,7 @@ const Login = () => {
             </p>
             <Link to='/account/reset-password'>Forgot your password?</Link>
           </div>
-          <button className="button is-primary" type='submit'>Login</button>
+          <button className={`button is-primary ${isLoading ? 'is-loading' : ''}`} type='submit'>Login</button>
         </form>
         <p>Don't have an account, <Link to='/signup'>Sign Up</Link> here.</p>
       </div>

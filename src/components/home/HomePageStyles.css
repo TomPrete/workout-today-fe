@@ -1,0 +1,41 @@
+.home-page {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.home-page-card {
+  border: 2px solid #4c579e;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px #4c579e;
+  color: #4c579e;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 15px;
+  padding: 10px;
+  width: 100%;
+}
+
+@media only screen and (max-width: 450px) {
+  .home-page {
+    margin-top: 55px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .home-page-card {
+    border-radius: 10px;
+    border: 2px solid #4c579e;
+    box-shadow: 4px 4px 8px #4c579e;
+    color: #4c579e;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 10px 15px;
+    padding: 10px;
+    text-decoration: none;
+    width: 100%;
+  }
+}

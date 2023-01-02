@@ -2,6 +2,11 @@
   width: 400px;
 }
 
+.navbar-item > a {
+  text-decoration: none;
+  color: #4f4f4f
+}
+
 @media only screen and (max-width: 450px) {
   .navbar {
     display: none;

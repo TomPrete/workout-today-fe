@@ -23,7 +23,7 @@ const NavBar = () => {
   return (
     <nav className='navbar is-fixed-top'>
       <div className='navbar-brand'>
-        <a className='navbar-item' href="/today">
+        <a className='navbar-item' href="/">
           <img src={NavLogo} className='logo-img' />
         </a>
         <a role="button" className={`navbar-burger ${isActive ? 'is-active' : ''}`} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={toggleNavbar}>
@@ -38,7 +38,7 @@ const NavBar = () => {
         ?
         <div className="navbar-end">
           <div className="navbar-item">
-            <a href="/today">Home</a>
+            <a href="/">Home</a>
             </div>
           <div className="navbar-item">
             <a href="/workouts">Workouts</a>

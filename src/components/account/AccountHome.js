@@ -1,9 +1,10 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useReducer, useEffect } from 'react';
 import { userAuthReducer } from '../../reducers/UserAuthReducer';
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { UserAuthContext } from '../../contexts/UserAuthContext';
 import BottomNavBar from '../navbar/BottomNavBar';
 import MobileHeader from '../mobile-header/MobileHeader';
+import Loading from '../loading/Loading';
 import { logoutUser } from '../../api/UserAuthAPI';
 import { createCustomerPortal } from '../../api/CheckoutAPI';
 import UserAvatarWhite from '../../assets/user-white.svg';
@@ -39,6 +40,13 @@ const AccountHome = () => {
     if (portalResponse.stripe_url) {
       window.location.href = portalResponse.stripe_url
     }
+  }
+
+  console.log(user)
+  if (user.loading) {
+    return (
+      <Loading />
+    )
   }
 
   if (user.user) {
@@ -102,6 +110,7 @@ const AccountHome = () => {
       </div>
     );
   }
+
 };
 
 export default AccountHome;

@@ -3,8 +3,10 @@
   width: 150px;
 }
 
-.workout-card:first-child {
+.all-workouts {
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 .workout-card:last-child {

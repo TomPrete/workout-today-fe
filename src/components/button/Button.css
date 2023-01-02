@@ -35,6 +35,11 @@
   height: 100%;
 }
 
+.button-container .checkout-and-portal {
+  background-color: #2bc185;
+  color: #fff;
+}
+
 .button-container .finish {
   background-color: #F05966;
   border: none;
@@ -62,11 +67,6 @@
 @media only screen and (max-width: 450px) {
   .button-container .ab-button {
     font-size: 14px;
-  }
-
-  .button-container .checkout-and-portal {
-    background-color: #2bc185;
-    color: #fff;
   }
 
   .button-container .finish {

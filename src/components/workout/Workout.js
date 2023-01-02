@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import './Workout.css'
 import RightArrow from '../../assets/ui-icons-chevron-right.svg'
@@ -46,7 +46,6 @@ const Workout = () => {
   const { user } = useContext(UserAuthContext);
   const { exercise } = useContext(ExerciseContext);
   const { time, startPauseTimer, resetTimer } = useContext(TimerContext);
-  let [searchParams, setSearchParams] = useSearchParams();
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -54,12 +53,6 @@ const Workout = () => {
     mixpanel.track('working_out');
     if (localStorage.getItem('workoutStatus') && localStorage.getItem('workoutDate') === getDate()) {
       setWorkoutStatus(localStorage.getItem('workoutStatus'))
-    }
-    if (searchParams.get('date') >= formatCurrentDate()) {
-      navigate(`/today`)
-    }
-    if (searchParams.get('date') && searchParams.get('date') < formatCurrentDate()) {
-      getWorkout(searchParams.get('date'))
     }
   }, [])
 
@@ -70,21 +63,8 @@ const Workout = () => {
     if (user.user && user.user.is_premium && !workout.loading) {
       userFavoriteWorkout()
     }
-    if (searchParams.get('date') >= formatCurrentDate()) {
-      navigate(`/today`)
-    }
     setPathNameKey(location.key)
   }, [workout])
-
-  const getWorkout = async (date) => {
-    let workout = await getMoreWorkouts(date)
-    if (workout.message) {
-      dispatch({type: 'GET_EXERCISES_FAILURE'})
-      navigate(`/today`)
-    } else {
-      dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
-    }
-  }
 
   const userFavoriteWorkout = async () => {
     let workoutInfo = {

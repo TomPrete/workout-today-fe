@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 import { userAuthReducer } from '../reducers/UserAuthReducer'
 import { getCurrentUser, getCurrentUserRefreshToken } from '../api/UserAuthAPI'
 import jwt_decode from "jwt-decode";
@@ -9,6 +10,7 @@ const UserAuthContextProvider = (props) => {
   const [user, dispatch] = useReducer(userAuthReducer, {
     'user': null
   })
+  let navigate = useNavigate();
 
   const getUser = async () => {
     dispatch({type: 'GET_USER_LOADING'})

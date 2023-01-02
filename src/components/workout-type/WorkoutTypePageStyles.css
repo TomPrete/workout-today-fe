@@ -1,16 +1,15 @@
+.workout-type-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .workout-type {
   border: 2px solid #4c579e;
   border-radius: 10px;
   box-shadow: 4px 4px 8px #4c579e;
-  margin: 55px 15px;
-}
-
-.workout-type:first-child {
-  margin-top: 70px !important;
-}
-
-.workout-type:first-of-type {
-  margin: 55px;
+  margin: 15px;
+  width: 20%
 }
 
 .workout-target-title {
@@ -40,4 +39,18 @@
 
 .upgrade-button {
   background-color: #ffdd57 !important;
+}
+
+@media only screen and (max-width: 450px) {
+  .workout-type-list {
+    margin: 55px 0;
+  }
+
+  .workout-type {
+    border: 2px solid #4c579e;
+    border-radius: 10px;
+    box-shadow: 4px 4px 8px #4c579e;
+    margin: 10px 15px;
+    width: 100%;
+  }
 }

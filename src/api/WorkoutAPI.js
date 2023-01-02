@@ -12,9 +12,9 @@ const getTodaysWorkout = async () => {
   }
 }
 
-const getMoreWorkouts = async (date = null) => {
+const getMoreWorkouts = async (date = null, workoutType = null) => {
   try {
-    let response = await fetch(`${WORKOUT_URL}/more-workouts${date ? `?date=${date}` : ''}`, {
+    let response = await fetch(`${WORKOUT_URL}/more-workouts${date ? `?date=${date}` : ''}${workoutType ? `&workoutType=${workoutType}` : ''}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ const getAllUseresFavoriteWorkouts = async (userObj) => {
       }
     })
     let data = await response.json()
-    console.log("DATA: ", data)
+    // console.log("DATA: ", data)
     if (data.favorite_workouts) {
       return {
         favoriteWorkouts: data.favorite_workouts,

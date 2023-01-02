@@ -23,12 +23,11 @@ const SignUp = () => {
     }
     dispatch({ type: 'SIGNUP_USER_LOADING' })
     let user = await signUp(userObj)
-    console.log("USER: ", user)
     if (user['error']) {
       dispatch({ type: 'SIGNUP_USER_FAILURE', user })
     } else {
       dispatch({ type: 'SIGNUP_USER_SUCCESS', user })
-      console.log("USER: ", user)
+
       if (routeToPurchase()) {
         let checkoutObj = {
           subscriptionType: routeToPurchase(),

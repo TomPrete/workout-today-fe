@@ -64,7 +64,13 @@ const getDate = () => {
 
 const formatCurrentDate = () => {
   const newDate = new Date()
-  return `${newDate.getFullYear()}-${newDate.getMonth()+1}-${newDate.getDate()}`
+  let dayDate;
+  if (newDate.getDate() < 10) {
+    dayDate = `0${newDate.getDate()}`
+  } else {
+    dayDate = newDate.getDate()
+  }
+  return `${newDate.getFullYear()}-${newDate.getMonth()+1}-${dayDate}`
 }
 
 const formateDateInput = (date) => {

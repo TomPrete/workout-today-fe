@@ -60,10 +60,9 @@ const login = async (userObj) => {
       'body': JSON.stringify(userObj)
     })
     let data = await response.json()
-
     if (data['detail']) {
       return {
-        'message': 'Username or password is incorrect.'
+        'message': 'Username or password is incorrect. Try again.'
       }
     }
     else {
@@ -156,7 +155,7 @@ const updatePassword = async (payloadObj) => {
     let data = await response.json()
     if (data.status === 500) {
       return {
-        'message': "Password must contain letters (not be entirely numeric) and be at least 8 character long.",
+        'message': "Password must contain letters, be at least 8 characters long, and must not be similar to username.",
         'error': true
       }
     }

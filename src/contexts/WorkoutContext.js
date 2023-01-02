@@ -1,7 +1,8 @@
 import React, { createContext, useReducer, useEffect } from 'react'
-import { useLocation, useParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { workoutReducer } from '../reducers/WorkoutReducer'
-import { getTodaysWorkout } from '../api/WorkoutAPI'
+import { getTodaysWorkout, getMoreWorkouts } from '../api/WorkoutAPI'
+import { formatCurrentDate } from '../helpers/dateHelpers';
 
 export const WorkoutContext = createContext()
 
@@ -10,21 +11,39 @@ const WorkoutContextProvider = (props) => {
     'exercises': [],
     'error': false
   })
+  let [searchParams, setSearchParams] = useSearchParams();
+  let navigate = useNavigate();
 
   const fetchTodaysWorkout = async () => {
-    // console.log('targetMuscle: ', location)
     dispatch({type: 'GET_EXERCISES_LOADING'})
     let workout = await getTodaysWorkout()
-    console.log("HERE")
-    if (workout['error']) {
+    if (workout.error) {
       dispatch({type: 'GET_EXERCISES_FAILURE', workout})
     } else {
       dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
     }
   }
 
+  const getWorkout = async (date) => {
+    dispatch({type: 'GET_EXERCISES_LOADING'})
+    let workout = await getMoreWorkouts(date)
+    if (workout.message) {
+      dispatch({type: 'GET_EXERCISES_FAILURE'})
+      navigate(`/today`)
+    } else {
+      dispatch({type: 'GET_EXERCISES_SUCCESS', workout})
+    }
+  }
+
   useEffect(() => {
-    fetchTodaysWorkout()
+    if (new Date(searchParams.get('date')) > new Date(formatCurrentDate())) {
+      navigate(`/today`)
+      fetchTodaysWorkout()
+    } else if (searchParams.get('date') && searchParams.get('date') < formatCurrentDate()) {
+      getWorkout(searchParams.get('date'))
+    } else {
+      fetchTodaysWorkout()
+    }
   }, [])
 
   return (
