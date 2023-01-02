@@ -104,6 +104,7 @@ const AccountHome = () => {
           onClick={handleLogout}
           title="Log out"
           />
+        <div >If you have any questions please contact me at <a href="mailto:tom@workouttoday.co">tom@workouttoday.co</a>.</div>
         {
           user.user
           &&
