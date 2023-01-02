@@ -51,6 +51,7 @@ const Login = () => {
       let user = response
       dispatch({ type: 'GET_USER_FAILURE', user })
     }
+    setIsLoading(false)
   }
 
   return (
