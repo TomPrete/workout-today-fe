@@ -19,7 +19,11 @@ const HomePage = () => {
             Today's Workout
         </Link>
       </div>
-      <BottomNavBar />
+      {
+        user.user
+        &&
+        <BottomNavBar />
+      }
     </div>
   );
 };
