@@ -23,7 +23,6 @@ const AccountHome = () => {
 
   const handleLogout = async () => {
     let response = await logoutUser()
-    console.log("account RESPONSE: ", response)
     dispatch({type: 'LOGOUT_USER_SUCCESS'})
     if (response['message'] == 'success') {
       window.location.href = '/login'
@@ -42,7 +41,6 @@ const AccountHome = () => {
     }
   }
 
-  console.log(user)
   if (user.loading) {
     return (
       <Loading />
