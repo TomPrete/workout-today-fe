@@ -12,7 +12,7 @@ import './AccountHome.css';
 import Button from '../button/Button';
 import NavBar from '../navbar/NavBar';
 
-const development = false
+const development = true
 
 const backendUrl = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
@@ -104,7 +104,11 @@ const AccountHome = () => {
           onClick={handleLogout}
           title="Log out"
           />
-        <BottomNavBar />
+        {
+          user.user
+          &&
+          <BottomNavBar />
+        }
       </div>
     );
   }
