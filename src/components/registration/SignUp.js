@@ -22,12 +22,13 @@ const SignUp = () => {
       'password2': evt.target.passwordTwo.value
     }
     dispatch({ type: 'SIGNUP_USER_LOADING' })
+    setIsLoading(true)
     let user = await signUp(userObj)
     if (user['error']) {
       dispatch({ type: 'SIGNUP_USER_FAILURE', user })
     } else {
       dispatch({ type: 'SIGNUP_USER_SUCCESS', user })
-
+      setIsLoading(false)
       if (routeToPurchase()) {
         let checkoutObj = {
           subscriptionType: routeToPurchase(),
@@ -48,10 +49,10 @@ const SignUp = () => {
     }
     return false
   }
-  console.log(searchParams.get('subscription'))
+
   return (
     <div className="box m-6">
-      <img src={NavLogo} />
+      <img src={NavLogo} alt='nav-logo' />
       <h1 className="title">Sign Up</h1>
       {
         user.user &&
@@ -93,7 +94,7 @@ const SignUp = () => {
         </div>
         <div className="field">
           <p className="control">
-            <button className={`button is-success ${user.isLoading && 'is-loading'}`} type='submit'>
+            <button className={`button is-success ${isLoading && 'is-loading'}`} type='submit'>
               Sign Up
             </button>
           </p>

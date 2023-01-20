@@ -6,15 +6,7 @@ import './NavBarStyles.css';
 
 const NavBar = () => {
   const [isActive, setIsActive] = useState(false)
-  const { user, dispatch } = useContext(UserAuthContext)
-
-
-  const logout = async () => {
-    let response = await logoutUser()
-    if (response['status'] === 200) {
-      dispatch({type: 'LOGOUT_USER_SUCCESS'})
-    }
-  }
+  const { user } = useContext(UserAuthContext)
 
   const toggleNavbar = () => {
     setIsActive(!isActive)

@@ -8,7 +8,7 @@ import BottomNavBar from '../navbar/BottomNavBar';
 import Alert from '../alert/Alert';
 
 const PasswordUpdate = () => {
-  const { user, dispatch } = useContext(UserAuthContext);
+  const { user } = useContext(UserAuthContext);
   const [ error, setError ] = useState(false);
   const [ success, setSuccess ] = useState(false);
   const [ message, setMessage ] = useState(undefined);

@@ -12,6 +12,21 @@ const Exercise = (props) => {
   const [resistance, setResistance] = useState('')
   const { user } = useContext(UserAuthContext)
 
+  const videoGif = (source) => {
+    if (source.includes('.gif')) {
+      return (
+        <img id="exercise-img" src={source} alt='workout' />
+      )
+    }
+    if (source.includes('.mp4')) {
+      return (
+        <video width="auto" height="auto" controls autoPlay muted loop >
+            <source src={source} type="video/mp4"/>
+        </video>
+      )
+    }
+  }
+
   const handleSubmit = async (evt) => {
     evt.preventDefault()
     if (user.user && user.user.is_premium) {

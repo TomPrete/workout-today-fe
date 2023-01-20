@@ -8,17 +8,8 @@ const development = false
 const backendUrl = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
 const ProductDisplay = () => {
-  const { user, dispatch } = useContext(UserAuthContext)
+  const { user } = useContext(UserAuthContext)
 
-  const onSubmit = (evt) => {
-    let checkoutObj = {
-      lookupKey: evt.target.lookup_key.value,
-      email: user['user']['email'],
-    }
-    let checkoutResponse = stripeCheckout(checkoutObj)
-  }
-
-  console.log("USER: ", user)
   return (
     <section>
       <div className="product">
