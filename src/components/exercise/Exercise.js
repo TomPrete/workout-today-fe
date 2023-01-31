@@ -20,7 +20,7 @@ const Exercise = (props) => {
     }
     if (source.includes('.mp4')) {
       return (
-        <video width="auto" height="auto" controls autoPlay muted loop >
+        <video width="auto" height="auto" autoPlay muted loop id="exercise-img">
             <source src={source} type="video/mp4"/>
         </video>
       )
@@ -66,7 +66,9 @@ const Exercise = (props) => {
         <p id="exercise-quantity">{ exercise.quantity }</p>
         <p id="exercise-active">{ exercise.order } / { totalExercises }</p>
         <p id="exercise-name">{ exercise.name }</p>
-        <img id="exercise-img" src={exercise.image_url} alt='workout' />
+        {
+          videoGif(exercise.image_url)
+        }
         {
           user.user
           &&

@@ -3,17 +3,17 @@
   "name": "A Daily Workout",
   "icons": [
     {
-      "src": "fitness.ico",
+      "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "fitness.png",
+      "src": "favicon-16x16.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "fitness.png",
+      "src": "favicon-32x32.png",
       "type": "image/png",
       "sizes": "512x512"
     }
