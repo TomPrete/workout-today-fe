@@ -20,7 +20,7 @@ const Exercise = (props) => {
     }
     if (source.includes('.mp4')) {
       return (
-        <video width="auto" height="auto" autoPlay muted loop playsinline id="exercise-img">
+        <video width="auto" height="auto" autoPlay muted loop playsInline id="exercise-img">
             <source src={source} type="video/mp4"/>
         </video>
       )
