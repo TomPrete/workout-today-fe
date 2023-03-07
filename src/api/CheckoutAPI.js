@@ -1,4 +1,4 @@
-const development = true
+const development = false
 const WORKOUT_URL = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
 const stripeCheckout = async (checkoutObj) => {
