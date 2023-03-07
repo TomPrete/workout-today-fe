@@ -47,3 +47,34 @@ const TimerContextProvider = (props) => {
 }
 
 export default TimerContextProvider
+
+// Chat GTP Generated Code
+// export function CountdownProvider({ children }) {
+//   const [state, dispatch] = useReducer(reducer, initialState);
+
+//   useEffect(() => {
+//     let intervalId;
+
+//     if (state.isRunning && state.seconds > 0) {
+//       intervalId = setInterval(() => {
+//         dispatch({ type: "TICK" });
+//       }, 1000);
+//     }
+
+//     if (state.seconds === 0) {
+//       clearInterval(intervalId);
+//       dispatch({ type: "STOP" });
+//     }
+
+//     return () => clearInterval(intervalId);
+//   }, [state.isRunning, state.seconds]);
+
+//   const start = (seconds) => dispatch({ type: "START", payload: seconds });
+//   const stop = () => dispatch({ type: "STOP" });
+
+//   return (
+//     <CountdownContext.Provider value={{ state, start, stop }}>
+//       {children}
+//     </CountdownContext.Provider>
+//   );
+// }

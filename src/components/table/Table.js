@@ -4,6 +4,21 @@ import './Table.css'
 const Table = (props) => {
   const { data } = props
 
+  const videoGif = (source) => {
+    if (source.includes('.gif')) {
+      return (
+        <img id="exercise-img" src={source} alt='workout' />
+      )
+    }
+    if (source.includes('.mp4')) {
+      return (
+        <video width="auto" height="auto" autoPlay muted loop playsInline id="exercise-img">
+            <source src={source} type="video/mp4"/>
+        </video>
+      )
+    }
+  }
+
   const displayData = () => {
     if (data.showAbWorkout) {
       return data.workout.ab_exercises.map(exercise => {
@@ -11,7 +26,7 @@ const Table = (props) => {
           <tr key={exercise.order}>
             <td>{ exercise.order }</td>
             <td>{ exercise.name }</td>
-            <td><img src={ exercise.image_url } alt={ exercise.name }/></td>
+            <td>{ videoGif(exercise.image_url) }</td>
           </tr>
         )
       })
@@ -22,7 +37,7 @@ const Table = (props) => {
           <tr key={exercise.order}>
             <td>{ exercise.order }</td>
             <td>{ exercise.name }</td>
-            <td><img src={ exercise.image_url } alt={ exercise.name } /></td>
+            <td>{ videoGif(exercise.image_url) }</td>
           </tr>
         )
       })

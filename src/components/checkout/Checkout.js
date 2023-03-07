@@ -3,7 +3,7 @@ import { UserAuthContext } from '../../contexts/UserAuthContext';
 import { stripeCheckout } from '../../api/CheckoutAPI'
 const PRICE_LOOKUP_KEY = "price_1LTWBQCxk3VOyNJUhOm3q6eW"
 
-const development = false
+const development = true
 
 const backendUrl = development ? 'http://localhost:8000/' : 'https://api.workouttoday.co/'
 
