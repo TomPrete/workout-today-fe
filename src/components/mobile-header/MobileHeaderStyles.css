@@ -3,6 +3,16 @@
   width: 100%;
 }
 
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  padding: 10px;
+  background-color: #4c579e;
+  color: #fff;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 450px) {
   .mobile-header-container {
     margin-top: 0;
